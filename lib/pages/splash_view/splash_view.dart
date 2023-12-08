@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:ar_cademy/pages/home_view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../home_view/home_view.dart';
 
 class SplashView extends StatefulWidget {
   static const String routeName = "/";
@@ -28,23 +29,36 @@ class _SplashViewState extends State<SplashView> {
     var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        body: SizedBox(
-      width: width,
-      height: height,
-      child: Column(
-        children: [
-          Expanded(
+      body: SizedBox(
+        width: width,
+        height: height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // logo
+            Expanded(
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SvgPicture.asset("assets/images/logo.svg"),
-            ],
-          )),
-          SvgPicture.asset("assets/images/branding.svg"),
-          const SizedBox(height: 20),
-        ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SvgPicture.asset("assets/images/logo.svg"),
+                ],
+              ),
+            ),
+            // branding
+            Padding(
+              padding: const EdgeInsets.only(bottom: 32),
+              child: Text(
+                "ARcademy",
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 24,
+                    ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

@@ -1,9 +1,9 @@
-import 'package:ar_cademy/pages/solar_system_view/ar_view.dart';
 import 'package:flutter/material.dart';
 
 import 'core/theme/app_theme.dart';
 import 'pages/home_view/home_view.dart';
 import 'pages/human_anatomy_view/human_anatomy_view.dart';
+import 'pages/solar_system_view/ar_view.dart';
 import 'pages/solar_system_view/solar_system_view.dart';
 import 'pages/splash_view/splash_view.dart';
 

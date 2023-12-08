@@ -81,6 +81,7 @@ class _HomeViewState extends State<HomeView> {
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Visibility(
                           visible: selectedViewIndex == 1,
@@ -90,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
                           visible: selectedViewIndex == 0,
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(
-                              maxWidth: 66,
+                              maxWidth: 70,
                             ),
                             child: Text(
                               "Solar System",
@@ -101,15 +102,15 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         Visibility(
                           visible: selectedViewIndex == 1,
-                          replacement: const SizedBox(width: 16),
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(
-                              maxWidth: 66,
+                              maxWidth: 80,
                             ),
                             child: Text(
                               "Human Anatomy",
                               maxLines: 2,
-                              style: theme.textTheme.titleMedium,
+                              style: theme.textTheme.titleMedium!
+                                  .copyWith(fontSize: 15),
                             ),
                           ),
                         ),
@@ -119,39 +120,6 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ],
                     ),
-                    /* (selectedViewIndex == 0)
-                        ? Row(
-                            children: [
-                              ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  maxWidth: 66,
-                                ),
-                                child: Text(
-                                  "Solar System",
-                                  maxLines: 2,
-                                  style: theme.textTheme.titleMedium,
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              const Icon(Icons.arrow_forward_ios),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              const Icon(Icons.arrow_back_ios),
-
-                              ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  maxWidth: 75,
-                                ),
-                                child: Text(
-                                  "Human Anatomy",
-                                  maxLines: 2,
-                                  style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
-                                ),
-                              ),
-                            ],
-                          ),*/
                   ),
                 ),
               ),

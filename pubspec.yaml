@@ -16,6 +16,7 @@ dependencies:
   flutter_svg: ^2.0.9
   arcore_flutter_plugin: ^0.1.0
   vector_math: ^2.1.4
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -45,3 +46,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins-Bold.ttf
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"

@@ -15,7 +15,6 @@ class AppTheme {
         color: Color(0XFF112331),
         fontFamily: 'PoppinsMedium',
         fontSize: 20,
-        //fontWeight: FontWeight.w500,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -38,39 +37,33 @@ class AppTheme {
         color: Color(0xFF112331),
         fontFamily: 'PoppinsBold',
         fontSize: 36,
-        //fontWeight: FontWeight.w700,
       ),
       titleMedium: TextStyle(
         color: Color(0xFF112331),
         fontFamily: 'PoppinsMedium',
         fontSize: 16,
-        //fontWeight: FontWeight.w500,
       ),
       titleSmall: TextStyle(
         color: Color(0xFF26296E),
         fontFamily: 'PoppinsRegular',
         fontSize: 14,
-        //fontWeight: FontWeight.w400,
       ),
       bodyLarge: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'PoppinsBold',
         fontSize: 36,
-        //fontWeight: FontWeight.w700,
         height: 1.0,
       ),
       bodyMedium: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'PoppinsRegular',
         fontSize: 12,
-        //fontWeight: FontWeight.w400,
         height: 1.4,
       ),
       bodySmall: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'PoppinsRegular',
         fontSize: 10,
-        //fontWeight: FontWeight.w400,
       ),
     ),
   );
@@ -86,7 +79,6 @@ class AppTheme {
         color: Colors.white,
         fontFamily: 'PoppinsMedium',
         fontSize: 20,
-        //fontWeight: FontWeight.w500,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -109,39 +101,33 @@ class AppTheme {
         color: Colors.white,
         fontFamily: 'PoppinsBold',
         fontSize: 36,
-        //fontWeight: FontWeight.w700,
       ),
       titleMedium: TextStyle(
         color: Color(0xFF112331),
         fontFamily: 'PoppinsMedium',
         fontSize: 16,
-        //fontWeight: FontWeight.w500,
       ),
       titleSmall: TextStyle(
         color: Color(0xFF26296E),
         fontFamily: 'PoppinsRegular',
         fontSize: 14,
-        //fontWeight: FontWeight.w700,
       ),
       bodyLarge: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'PoppinsBold',
         fontSize: 36,
-        //fontWeight: FontWeight.w700,
         height: 1.0,
       ),
       bodyMedium: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'PoppinsRegular',
         fontSize: 12,
-        //fontWeight: FontWeight.w400,
         height: 1.4,
       ),
       bodySmall: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'PoppinsRegular',
         fontSize: 10,
-        //fontWeight: FontWeight.w400,
       ),
     ),
   );

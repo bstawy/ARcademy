@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart' as vector64;
 
 class ArView extends StatefulWidget {
+  static const String routeName = "/ar-view";
+
   const ArView({super.key});
 
   @override
@@ -11,13 +13,13 @@ class ArView extends StatefulWidget {
 }
 
 class _ArViewState extends State<ArView> {
+  String texturePath = "";
   ArCoreController? arCoreController;
 
   void arViewCreated(ArCoreController controller) {
     arCoreController = controller;
     arCoreController?.onNodeTap = (name) => onTapHandler(name);
     arCoreController?.onPlaneTap = _handleOnPlaneTap;
-    //displayModel(arCoreController!);
   }
 
   onTapHandler(String name) {
@@ -32,21 +34,7 @@ class _ArViewState extends State<ArView> {
   Future<void> _handleOnPlaneTap(List<ArCoreHitTestResult> hits) async {
     final hit = hits.first;
 
-    final moonMaterial = ArCoreMaterial(color: Colors.grey);
-
-    final moonShape = ArCoreSphere(
-      materials: [moonMaterial],
-      radius: 0.03,
-    );
-
-    final moon = ArCoreNode(
-      shape: moonShape,
-      position: vector64.Vector3(0.2, 0, 0),
-      rotation: vector64.Vector4(0, 0, 0, 0),
-    );
-
-    final ByteData textureBytes =
-        await rootBundle.load('assets/textures/earth_texture.jpg');
+    final ByteData textureBytes = await rootBundle.load(texturePath);
 
     final earthMaterial = ArCoreMaterial(
         color: const Color.fromARGB(120, 66, 134, 244),
@@ -58,44 +46,20 @@ class _ArViewState extends State<ArView> {
     );
 
     final earth = ArCoreNode(
-        shape: earthShape,
-        children: [moon],
-        position: hit.pose.translation + vector64.Vector3(0.0, 0.5, 0.0),
-        //plane.pose.translation + vector64.Vector3(0.0, 1.0, 0.0),
-        rotation: hit.pose.rotation);
-    //plane.pose.rotation);
+      shape: earthShape,
+      children: [],
+      position: hit.pose.translation + vector64.Vector3(0.0, 0.5, 0.0),
+      rotation: hit.pose.rotation,
+    );
 
     arCoreController?.addArCoreNodeWithAnchor(earth);
   }
 
-/*
-  void displayModel(ArCoreController controller) async {
-    final ByteData textureBytes =
-        await rootBundle.load('assets/images/earth_map_texture.jpg');
-
-    final material = ArCoreMaterial(
-      color: Colors.blue,
-      textureBytes: textureBytes.buffer.asUint8List(),
-    );
-
-    final sphere = ArCoreSphere(
-      materials: [material],
-      //radius: 0.1,
-    );
-
-    final node = ArCoreNode(
-      shape: sphere,
-      position: vector64.Vector3(0, 0, -1.5),
-    );
-    controller.addArCoreNode(node);
-  }
-*/
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)!.settings.arguments as String;
+    texturePath = args;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Earth Planet'),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

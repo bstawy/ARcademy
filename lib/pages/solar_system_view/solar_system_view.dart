@@ -34,15 +34,20 @@ class SolarSystemView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Solar System"),
+        centerTitle: true,
       ),
-      body: Expanded(
-        child: ListView.builder(
-          padding: EdgeInsets.zero,
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return items[index];
-          },
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return items[index];
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

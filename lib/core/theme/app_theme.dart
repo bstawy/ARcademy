@@ -9,7 +9,7 @@ class AppTheme {
       color: Colors.white,
       elevation: 0,
       centerTitle: false,
-      toolbarHeight: 122,
+      toolbarHeight: 100,
       titleTextStyle: TextStyle(
         color: Color(0XFF112331),
         fontFamily: 'Poppins',
@@ -18,8 +18,8 @@ class AppTheme {
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(25),
+          bottomLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
         ),
         side: BorderSide.none,
       ),
@@ -56,12 +56,14 @@ class AppTheme {
         fontFamily: 'Poppins',
         fontSize: 36,
         fontWeight: FontWeight.w700,
+        height: 1.0,
       ),
       bodyMedium: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'Poppins',
         fontSize: 12,
         fontWeight: FontWeight.w400,
+        height: 1.4,
       ),
       bodySmall: TextStyle(
         color: Color(0xFFF3F3F3),
@@ -75,10 +77,10 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xFF112331),
     appBarTheme: const AppBarTheme(
-      color: const Color(0xFF112331),
+      color: Color(0xFF112331),
       elevation: 0,
       centerTitle: false,
-      toolbarHeight: 122,
+      toolbarHeight: 100,
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontFamily: 'Poppins',
@@ -87,8 +89,8 @@ class AppTheme {
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(25),
+          bottomLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
         ),
         side: BorderSide.none,
       ),
@@ -118,19 +120,21 @@ class AppTheme {
         color: Color(0xFF26296E),
         fontFamily: 'Poppins',
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w700,
       ),
       bodyLarge: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'Poppins',
         fontSize: 36,
         fontWeight: FontWeight.w700,
+        height: 1.0,
       ),
       bodyMedium: TextStyle(
         color: Color(0xFFF3F3F3),
         fontFamily: 'Poppins',
         fontSize: 12,
         fontWeight: FontWeight.w400,
+        height: 1.4,
       ),
       bodySmall: TextStyle(
         color: Color(0xFFF3F3F3),

@@ -6,15 +6,16 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
-      color: Colors.white,
       elevation: 0,
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
       centerTitle: false,
       toolbarHeight: 100,
       titleTextStyle: TextStyle(
         color: Color(0XFF112331),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsMedium',
         fontSize: 20,
-        fontWeight: FontWeight.w500,
+        //fontWeight: FontWeight.w500,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -35,41 +36,41 @@ class AppTheme {
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         color: Color(0xFF112331),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsBold',
         fontSize: 36,
-        fontWeight: FontWeight.w700,
+        //fontWeight: FontWeight.w700,
       ),
       titleMedium: TextStyle(
         color: Color(0xFF112331),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsMedium',
         fontSize: 16,
-        fontWeight: FontWeight.w500,
+        //fontWeight: FontWeight.w500,
       ),
       titleSmall: TextStyle(
         color: Color(0xFF26296E),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsRegular',
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        //fontWeight: FontWeight.w400,
       ),
       bodyLarge: TextStyle(
         color: Color(0xFFF3F3F3),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsBold',
         fontSize: 36,
-        fontWeight: FontWeight.w700,
+        //fontWeight: FontWeight.w700,
         height: 1.0,
       ),
       bodyMedium: TextStyle(
         color: Color(0xFFF3F3F3),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsRegular',
         fontSize: 12,
-        fontWeight: FontWeight.w400,
+        //fontWeight: FontWeight.w400,
         height: 1.4,
       ),
       bodySmall: TextStyle(
         color: Color(0xFFF3F3F3),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsRegular',
         fontSize: 10,
-        fontWeight: FontWeight.w400,
+        //fontWeight: FontWeight.w400,
       ),
     ),
   );
@@ -83,9 +84,9 @@ class AppTheme {
       toolbarHeight: 100,
       titleTextStyle: TextStyle(
         color: Colors.white,
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsMedium',
         fontSize: 20,
-        fontWeight: FontWeight.w500,
+        //fontWeight: FontWeight.w500,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -106,41 +107,41 @@ class AppTheme {
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         color: Colors.white,
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsBold',
         fontSize: 36,
-        fontWeight: FontWeight.w700,
+        //fontWeight: FontWeight.w700,
       ),
       titleMedium: TextStyle(
         color: Color(0xFF112331),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsMedium',
         fontSize: 16,
-        fontWeight: FontWeight.w500,
+        //fontWeight: FontWeight.w500,
       ),
       titleSmall: TextStyle(
         color: Color(0xFF26296E),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsRegular',
         fontSize: 14,
-        fontWeight: FontWeight.w700,
+        //fontWeight: FontWeight.w700,
       ),
       bodyLarge: TextStyle(
         color: Color(0xFFF3F3F3),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsBold',
         fontSize: 36,
-        fontWeight: FontWeight.w700,
+        //fontWeight: FontWeight.w700,
         height: 1.0,
       ),
       bodyMedium: TextStyle(
         color: Color(0xFFF3F3F3),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsRegular',
         fontSize: 12,
-        fontWeight: FontWeight.w400,
+        //fontWeight: FontWeight.w400,
         height: 1.4,
       ),
       bodySmall: TextStyle(
         color: Color(0xFFF3F3F3),
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsRegular',
         fontSize: 10,
-        fontWeight: FontWeight.w400,
+        //fontWeight: FontWeight.w400,
       ),
     ),
   );

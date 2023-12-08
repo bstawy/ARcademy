@@ -5,11 +5,13 @@ import 'package:flutter_svg/svg.dart';
 class ItemCard extends StatelessWidget {
   final String title;
   final String imagePath;
+  final String texturePath;
 
   const ItemCard({
     super.key,
     required this.title,
     required this.imagePath,
+    required this.texturePath,
   });
 
   @override
@@ -69,12 +71,8 @@ class ItemCard extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ArView(),
-                    ),
-                  );
+                  Navigator.pushNamed(context, ArView.routeName,
+                      arguments: texturePath);
                 },
                 borderRadius: BorderRadius.circular(35),
                 child: CircleAvatar(

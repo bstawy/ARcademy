@@ -7,6 +7,20 @@ class HumanAnatomyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    var theme = Theme.of(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Human Anatomy"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Text("Coming Soon!",
+            style: theme.textTheme.titleLarge!.copyWith(
+              color: theme.primaryColor,
+              fontSize: 28,
+            )),
+      ),
+    );
   }
 }

@@ -46,6 +46,12 @@ class CustomTextFormField extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: theme.colorScheme.onBackground,
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            constraints: BoxConstraints(
+              minHeight: 56.h,
+              maxHeight: 56.h,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
               borderSide: BorderSide.none,

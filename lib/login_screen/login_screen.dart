@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../core/widgets/custom_auth_button.dart';
 import '../core/widgets/custom_back_button.dart';
+import '../core/widgets/custom_material_button.dart';
 import '../core/widgets/custom_text_form_field.dart';
 import '../core/widgets/social_media_auth_button.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const String routeName = '/';
+  static const String routeName = '/login';
 
   const LoginScreen({super.key});
 
@@ -33,7 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBackButton(onClicked: () {}),
+                CustomBackButton(onClicked: () {
+                  Navigator.pop(context);
+                }),
                 SizedBox(height: 32.h),
                 Text(
                   "Welcome Back",
@@ -87,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: 16.h),
-                      CustomAuthButton(
+                      CustomMaterialButton(
                         title: "Login",
                         onClicked: () {},
                       ),

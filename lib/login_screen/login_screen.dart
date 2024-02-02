@@ -76,7 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               : const Icon(Icons.visibility_outlined),
                         ),
                       ),
-                      SizedBox(height: 16.h),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -87,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 24.h),
+                      SizedBox(height: 16.h),
                       CustomAuthButton(
                         title: "Login",
                         onClicked: () {},

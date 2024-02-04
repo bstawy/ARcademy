@@ -17,6 +17,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.9
   smooth_page_indicator: ^1.1.0
+  firebase_core: ^2.25.3
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,7 @@ import '../core/widgets/custom_back_button.dart';
 import '../core/widgets/custom_material_button.dart';
 import '../core/widgets/custom_text_form_field.dart';
 import '../core/widgets/social_media_auth_button.dart';
+import '../sign_up_screen/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -34,7 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomBackButton(onClicked: () {
-                  Navigator.pop(context);
+                  // pop all screens until get onboarding screens
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
                 }),
                 SizedBox(height: 32.h),
                 Text(
@@ -121,7 +123,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, SignUpScreen.routeName);
+                            },
                             child: Text(
                               "Sign Up for free",
                               style: theme.textTheme.labelLarge,

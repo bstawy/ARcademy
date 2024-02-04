@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/application_theme.dart';
 import 'login_screen/login_screen.dart';
 import 'onboarding_screens/onboarding_screens.dart';
+import 'sign_up_screen/sign_up_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
           routes: {
             OnboardingScreens.routeName: (context) => const OnboardingScreens(),
             LoginScreen.routeName: (context) => const LoginScreen(),
+            SignUpScreen.routeName: (context) => const SignUpScreen(),
           },
         );
       },

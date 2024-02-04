@@ -1,3 +1,4 @@
+import 'package:ar_cademy/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -5,21 +6,22 @@ import '../core/widgets/custom_back_button.dart';
 import '../core/widgets/custom_material_button.dart';
 import '../core/widgets/custom_text_form_field.dart';
 import '../core/widgets/social_media_auth_button.dart';
-import '../sign_up_screen/sign_up_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String routeName = '/login';
+class SignUpScreen extends StatefulWidget {
+  static const String routeName = '/sign-up';
 
-  const LoginScreen({super.key});
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final loginFormKey = GlobalKey<FormState>();
+class _SignUpScreenState extends State<SignUpScreen> {
+  final signUpFormKey = GlobalKey<FormState>();
+  TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   bool isVisible = false;
 
   @override
@@ -35,17 +37,16 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomBackButton(onClicked: () {
-                  // pop all screens until get onboarding screens
-                  Navigator.popUntil(context, ModalRoute.withName('/'));
+                  Navigator.pop(context);
                 }),
                 SizedBox(height: 32.h),
                 Text(
-                  "Welcome Back",
+                  "Create Account",
                   style: theme.textTheme.displaySmall,
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  "Welcome Back! Please Enter Your Details.",
+                  "Lets create account together",
                   style: TextStyle(
                     color: const Color(0xff828a89),
                     fontSize: 16.sp,
@@ -54,10 +55,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 32.h),
                 Form(
-                  key: loginFormKey,
+                  key: signUpFormKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      CustomTextFormField(
+                        textEditingController: fullNameController,
+                        labelText: "Full Name",
+                        title: "Enter Your Name",
+                        obscureText: false,
+                      ),
+                      SizedBox(height: 16.h),
                       CustomTextFormField(
                         textEditingController: emailController,
                         labelText: "Email",
@@ -81,19 +89,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               : const Icon(Icons.visibility_outlined),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Forgot Password?",
-                            style: theme.textTheme.labelMedium,
-                          ),
+                      SizedBox(height: 16.h),
+                      CustomTextFormField(
+                        textEditingController: confirmPasswordController,
+                        labelText: "Confirm Password",
+                        title: "Enter password",
+                        obscureText: !isVisible,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            isVisible = !isVisible;
+                            setState(() {});
+                          },
+                          borderRadius: BorderRadius.circular(15.r),
+                          child: (isVisible)
+                              ? const Icon(Icons.visibility_off_outlined)
+                              : const Icon(Icons.visibility_outlined),
                         ),
                       ),
-                      SizedBox(height: 16.h),
+                      SizedBox(height: 24.h),
                       CustomMaterialButton(
-                        title: "Login",
+                        title: "Sign Up",
                         onClicked: () {},
                       ),
                       SizedBox(height: 24.h),
@@ -116,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't have an account?",
+                            "Already have an account?",
                             style: theme.textTheme.labelLarge!.copyWith(
                               color: theme.colorScheme.secondary,
                               fontWeight: FontWeight.w400,
@@ -125,10 +140,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamed(
-                                  context, SignUpScreen.routeName);
+                                  context, LoginScreen.routeName);
                             },
                             child: Text(
-                              "Sign Up for free",
+                              "Login",
                               style: theme.textTheme.labelLarge,
                             ),
                           ),

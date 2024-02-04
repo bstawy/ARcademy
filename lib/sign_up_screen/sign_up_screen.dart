@@ -62,14 +62,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         textEditingController: fullNameController,
                         labelText: "Full Name",
                         title: "Enter Your Name",
-                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return ("You must enter your name");
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(height: 16.h),
                       CustomTextFormField(
                         textEditingController: emailController,
                         labelText: "Email",
                         title: "Enter Your Email",
-                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return ("You must enter your email");
+                          }
+
+                          var regex = RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+                          if (!regex.hasMatch(value)) {
+                            return 'Invalid email address';
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(height: 16.h),
                       CustomTextFormField(
@@ -87,6 +104,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? const Icon(Icons.visibility_off_outlined)
                               : const Icon(Icons.visibility_outlined),
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'You must enter your password';
+                          }
+
+                          var regex = RegExp(
+                            r"(?=^.{8,}$)(?=.*[!@#$%^&*]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
+                          );
+
+                          if (!regex.hasMatch(value)) {
+                            return 'Must contains A-Z, a-z, @-#-&.. , 1-9';
+                          }
+
+                          return null;
+                        },
                       ),
                       SizedBox(height: 16.h),
                       CustomTextFormField(
@@ -104,6 +136,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? const Icon(Icons.visibility_off_outlined)
                               : const Icon(Icons.visibility_outlined),
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'You must enter your password';
+                          }
+
+                          if (value != passwordController.text) {
+                            return "Passwords doesn't match";
+                          }
+
+                          return null;
+                        },
                       ),
                       SizedBox(height: 24.h),
                       CustomMaterialButton(

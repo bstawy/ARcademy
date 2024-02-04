@@ -12,7 +12,7 @@ class CustomBackButton extends StatelessWidget {
 
     return MaterialButton(
         onPressed: () {
-          onClicked;
+          onClicked();
         },
         height: 48.w,
         minWidth: 48.w,

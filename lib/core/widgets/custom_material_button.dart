@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomAuthButton extends StatelessWidget {
+class CustomMaterialButton extends StatelessWidget {
   final String title;
   final Function onClicked;
 
-  const CustomAuthButton(
+  const CustomMaterialButton(
       {super.key, required this.title, required this.onClicked});
 
   @override
@@ -14,7 +14,7 @@ class CustomAuthButton extends StatelessWidget {
 
     return MaterialButton(
       onPressed: () {
-        onClicked;
+        onClicked();
       },
       height: 56.h,
       shape: OutlineInputBorder(
@@ -25,7 +25,7 @@ class CustomAuthButton extends StatelessWidget {
       padding: EdgeInsets.all(16.h),
       color: theme.colorScheme.primary,
       child: Text(
-        "Login",
+        title,
         style: theme.textTheme.titleMedium!.copyWith(
           color: theme.colorScheme.onBackground,
           fontWeight: FontWeight.w600,

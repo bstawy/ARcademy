@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseUtils {
   static Future<Either<String?, UserCredential>> signUpWithEmailAndPassword({
@@ -30,5 +31,32 @@ class FirebaseUtils {
 
   static verifyEmail() async {
     await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+  }
+
+  static Future<Either<String, UserCredential>> signUpWithGoogle() async {
+    late UserCredential user;
+
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      user = await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(e.toString());
+    }
+    debugPrint("Email signed in using google : ${user.user!.email}");
+    return right(user);
   }
 }

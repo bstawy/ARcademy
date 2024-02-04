@@ -1,3 +1,4 @@
+import 'package:ar_cademy/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -219,12 +220,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       var response = await FirebaseUtils.signUpWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       response.fold(
-        (l) {
+            (l) {
           EasyLoading.dismiss();
 
           SnackBarService.showErrorMessage(context, l!);
         },
-        (r) {
+            (r) {
           EasyLoading.dismiss();
 
           SnackBarService.showSuccessMessage(
@@ -238,6 +239,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   signUpWithGoogle() async {
+    configureEasyLoading(context);
+    EasyLoading.show();
+
     var response = await FirebaseUtils.signUpWithGoogle();
     response.fold((l) {
       EasyLoading.dismiss();
@@ -249,7 +253,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       SnackBarService.showSuccessMessage(
           context, 'Signed up successfully with Google');
       if (context.mounted) {
-        // TODO: Navigate to Home Screen
+        Navigator.pushNamedAndRemoveUntil(
+            context, HomeScreen.routeName, (route) => false);
       }
     });
   }

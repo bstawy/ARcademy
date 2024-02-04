@@ -29,7 +29,7 @@ class SocialMediaAuthButton extends StatelessWidget {
       alignment: Alignment.center,
       child: InkWell(
         onTap: () {
-          onClicked;
+          onClicked();
         },
         enableFeedback: true,
         child: SvgPicture.asset(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ApplicationTheme {
+  static Color primaryColor = const Color(0xff151D31);
+
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xffF3F3F3),
     appBarTheme: AppBarTheme(

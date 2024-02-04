@@ -73,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             isVisible = !isVisible;
                             setState(() {});
                           },
+                          borderRadius: BorderRadius.circular(15.r),
                           child: (isVisible)
                               ? const Icon(Icons.visibility_off_outlined)
                               : const Icon(Icons.visibility_outlined),

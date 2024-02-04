@@ -1,5 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/theme/application_theme.dart';
@@ -37,6 +39,9 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (context) => const LoginScreen(),
             SignUpScreen.routeName: (context) => const SignUpScreen(),
           },
+          builder: EasyLoading.init(
+            builder: BotToastInit(),
+          ),
         );
       },
     );

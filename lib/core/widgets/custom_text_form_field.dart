@@ -38,6 +38,7 @@ class CustomTextFormField extends StatelessWidget {
           cursorColor: theme.colorScheme.primary,
           controller: textEditingController,
           validator: validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: obscureText,
           maxLines: maxLines,
           onTapOutside: (event) {
@@ -50,7 +51,7 @@ class CustomTextFormField extends StatelessWidget {
                 EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
             constraints: BoxConstraints(
               minHeight: 56.h,
-              maxHeight: 56.h,
+              maxHeight: 70.h, // add more space for error hint msg
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),

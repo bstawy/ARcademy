@@ -1,4 +1,3 @@
-import 'package:ar_cademy/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -139,8 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(
-                                  context, LoginScreen.routeName);
+                              Navigator.pop(context);
                             },
                             child: Text(
                               "Login",

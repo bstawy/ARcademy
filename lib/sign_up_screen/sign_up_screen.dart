@@ -166,7 +166,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SocialMediaAuthButton(
                               label: "Google",
                               iconPath: "assets/icons/google_icon.svg",
-                              onClicked: () {}),
+                              onClicked: () {
+                                debugPrint("Google button pressed");
+                                signUpWithGoogle();
+                              }),
                           SizedBox(width: 8.w),
                           SocialMediaAuthButton(
                               label: "Apple",
@@ -232,5 +235,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
         },
       );
     }
+  }
+
+  signUpWithGoogle() async {
+    var response = await FirebaseUtils.signUpWithGoogle();
+    response.fold((l) {
+      EasyLoading.dismiss();
+
+      SnackBarService.showErrorMessage(context, l);
+    }, (r) {
+      EasyLoading.dismiss();
+
+      SnackBarService.showSuccessMessage(
+          context, 'Signed up successfully with Google');
+      if (context.mounted) {
+        // TODO: Navigate to Home Screen
+      }
+    });
   }
 }

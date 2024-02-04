@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../core/services/loading_service.dart';
+import '../core/services/snackbar_service.dart';
+import '../core/web_services/firebase_utils.dart';
 import '../core/widgets/custom_back_button.dart';
 import '../core/widgets/custom_material_button.dart';
 import '../core/widgets/custom_text_form_field.dart';
@@ -151,7 +155,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(height: 24.h),
                       CustomMaterialButton(
                         title: "Sign Up",
-                        onClicked: () {},
+                        onClicked: () {
+                          signUpWithEmailAndPassword();
+                        },
                       ),
                       SizedBox(height: 24.h),
                       Row(
@@ -199,5 +205,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  signUpWithEmailAndPassword() async {
+    if (signUpFormKey.currentState!.validate()) {
+      configureEasyLoading(context);
+      EasyLoading.show();
+
+      // call api to register
+      var response = await FirebaseUtils.signUpWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      response.fold(
+        (l) {
+          EasyLoading.dismiss();
+
+          SnackBarService.showErrorMessage(context, l!);
+        },
+        (r) {
+          EasyLoading.dismiss();
+
+          SnackBarService.showSuccessMessage(
+              context, 'Success, Please verify your account from your inbox');
+          if (context.mounted) {
+            Navigator.pop(context);
+          }
+        },
+      );
+    }
   }
 }

@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class SearchButton extends StatelessWidget {
+  const SearchButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      width: 110.w,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: MaterialButton(
+        onPressed: () {
+          // TODO: Navigate to search screen
+        },
+        height: 40.h,
+        shape: OutlineInputBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(18.r),
+            bottomLeft: Radius.circular(18.r),
+          ),
+          borderSide: BorderSide.none,
+        ),
+        elevation: 0,
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),
+        color: theme.colorScheme.onBackground,
+        child: Row(
+          children: [
+            SvgPicture.asset("assets/icons/search_icon.svg"),
+            SizedBox(width: 8.w),
+            Text(
+              "Search",
+              style: theme.textTheme.labelMedium!.copyWith(
+                color: theme.colorScheme.secondary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    /*Container(
+      width: 100.w,
+      height: 40.h,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18.r),
+        color: theme.colorScheme.background,
+      ),
+      child: ,
+    );*/
+  }
+}

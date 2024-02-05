@@ -13,6 +13,7 @@ void configureEasyLoading(BuildContext context) {
     ..loadingStyle = EasyLoadingStyle.custom
     ..backgroundColor = theme.colorScheme.onBackground
     ..indicatorColor = ApplicationTheme.primaryColor
+    ..textColor = Colors.white
     ..maskType = EasyLoadingMaskType.custom
     ..maskColor = theme.colorScheme.primary.withOpacity(0.5)
     ..userInteractions = false

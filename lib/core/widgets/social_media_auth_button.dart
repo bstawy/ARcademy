@@ -18,24 +18,25 @@ class SocialMediaAuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    return Container(
-      width: 56.w,
-      height: 56.h,
+    return MaterialButton(
+      onPressed: () {
+        onClicked();
+      },
+      height: 56.w,
+      minWidth: 56.w,
       padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
+      elevation: 0,
+      highlightElevation: 0,
+      highlightColor: theme.colorScheme.secondary,
+      color: theme.colorScheme.onBackground,
+      enableFeedback: true,
+      animationDuration: const Duration(milliseconds: 50),
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.r),
-        color: theme.colorScheme.onBackground,
       ),
-      alignment: Alignment.center,
-      child: InkWell(
-        onTap: () {
-          onClicked();
-        },
-        enableFeedback: true,
-        child: SvgPicture.asset(
-          iconPath,
-          semanticsLabel: label,
-        ),
+      child: SvgPicture.asset(
+        iconPath,
+        semanticsLabel: label,
       ),
     );
   }

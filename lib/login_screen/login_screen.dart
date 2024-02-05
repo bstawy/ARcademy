@@ -100,6 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text(
                     "Welcome Back! Please Enter Your Details",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: const Color(0xff828a89),
                       fontSize: 16.sp,

@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavoriteButton extends StatefulWidget {
-  bool isFavorite;
+  final bool isFavorite;
   final Function onClicked;
 
-  FavoriteButton(
+  const FavoriteButton(
       {super.key, required this.isFavorite, required this.onClicked});
 
   @override

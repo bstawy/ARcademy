@@ -7,9 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
 import 'screens/home_screen/home_screen.dart';
-import 'screens/login_screen/login_screen.dart';
 import 'screens/onboarding_screens/onboarding_screens.dart';
-import 'screens/sign_up_screen/sign_up_screen.dart';
+import 'screens/registration_screens/login_screen/login_screen.dart';
+import 'screens/registration_screens/sign_up_screen/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

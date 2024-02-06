@@ -1,4 +1,4 @@
-import 'package:ar_cademy/layout/home_layout.dart';
+import 'package:ar_cademy/layout/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

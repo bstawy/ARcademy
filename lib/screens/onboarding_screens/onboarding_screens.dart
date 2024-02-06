@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../core/widgets/custom_material_button.dart';
+import '../../models/onboarding_model.dart';
 import '../registration_screens/login_screen/login_screen.dart';
-import 'onboarding_model.dart';
 import 'widgets/onboarding_widget.dart';
 import 'widgets/skip_button.dart';
 
@@ -69,7 +69,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       body: SafeArea(

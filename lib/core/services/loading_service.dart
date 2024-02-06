@@ -3,7 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void configureEasyLoading(BuildContext context) {
-  var theme = Theme.of(context);
+  final theme = Theme.of(context);
 
   EasyLoading.instance
     ..indicatorType = EasyLoadingIndicatorType.ring

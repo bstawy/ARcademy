@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../core/widgets/custom_material_button.dart';
-import '../login_screen/login_screen.dart';
+import '../../core/widgets/custom_material_button.dart';
+import '../registration_screens/login_screen/login_screen.dart';
 import 'onboarding_model.dart';
 import 'widgets/onboarding_widget.dart';
 import 'widgets/skip_button.dart';
@@ -18,7 +18,7 @@ class OnboardingScreens extends StatefulWidget {
 }
 
 class _OnboardingScreensState extends State<OnboardingScreens> {
-  List<OnboardingModel> onboardingScreens = [
+  final List<OnboardingModel> _onboardingScreens = [
     OnboardingModel(
       title: "Immersive\nLearning Experience",
       description:
@@ -42,28 +42,28 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
     ),
   ];
 
-  late PageController onboardingController;
-  int currentIndex = 0;
+  late PageController _onboardingController;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    onboardingController = PageController();
+    _onboardingController = PageController();
   }
 
   @override
   void dispose() {
     super.dispose();
-    onboardingController.dispose();
+    _onboardingController.dispose();
   }
 
   nextOnboardingScreen() {
-    onboardingController.nextPage(
+    _onboardingController.nextPage(
         duration: const Duration(milliseconds: 800), curve: Curves.ease);
   }
 
   changeCurrentIndex(int index) {
-    currentIndex = index;
+    _currentIndex = index;
     setState(() {});
   }
 
@@ -74,11 +74,11 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24.0.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              (currentIndex < 2)
+              (_currentIndex < 2)
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -91,20 +91,20 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
               SizedBox(height: 24.h),
               Expanded(
                 child: PageView(
-                  controller: onboardingController,
+                  controller: _onboardingController,
                   physics: const ClampingScrollPhysics(),
                   onPageChanged: changeCurrentIndex,
                   children: [
-                    OnboardingWidget(model: onboardingScreens[0]),
-                    OnboardingWidget(model: onboardingScreens[1]),
-                    OnboardingWidget(model: onboardingScreens[2]),
+                    OnboardingWidget(model: _onboardingScreens[0]),
+                    OnboardingWidget(model: _onboardingScreens[1]),
+                    OnboardingWidget(model: _onboardingScreens[2]),
                   ],
                 ),
               ),
               Center(
                 child: SmoothPageIndicator(
-                  controller: onboardingController,
-                  count: onboardingScreens.length,
+                  controller: _onboardingController,
+                  count: _onboardingScreens.length,
                   axisDirection: Axis.horizontal,
                   effect: ExpandingDotsEffect(
                     activeDotColor: theme.colorScheme.primary,
@@ -118,13 +118,14 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 height: 24.h,
               ),
               CustomMaterialButton(
-                title: (currentIndex < 2) ? "Next" : "Get Started",
+                title: (_currentIndex < 2) ? "Next" : "Get Started",
                 onClicked: () {
-                  if (currentIndex < 2) {
-                    currentIndex++;
+                  if (_currentIndex < 2) {
+                    _currentIndex++;
                     nextOnboardingScreen();
                   } else {
                     Navigator.pushNamed(context, LoginScreen.routeName);
+                    _currentIndex = 0;
                   }
                 },
               ),

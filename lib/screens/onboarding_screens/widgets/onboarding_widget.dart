@@ -26,12 +26,11 @@ class OnboardingWidget extends StatelessWidget {
           model.title,
           textAlign: TextAlign.center,
           style: theme.textTheme.displaySmall!
-              .copyWith(fontSize: 30, fontWeight: FontWeight.w700),
+              .copyWith(fontSize: 30.sp, fontWeight: FontWeight.w700),
         ),
         SizedBox(height: 16.h),
         ConstrainedBox(
           constraints: BoxConstraints(
-            minWidth: 300.w,
             maxWidth: 300.w,
           ),
           child: Text(

@@ -16,7 +16,7 @@ class SkipButton extends StatelessWidget {
       },
       height: 48.h,
       minWidth: 83.w,
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(12.r),
       elevation: 0,
       highlightElevation: 0,
       highlightColor: theme.colorScheme.secondary,

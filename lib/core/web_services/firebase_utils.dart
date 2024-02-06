@@ -9,10 +9,11 @@ class FirebaseUtils {
     required String password,
   }) async {
     late UserCredential user;
+
     try {
       user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      await verifyEmail();
+      await _verifyEmail();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         debugPrint('The password provided is too weak.');
@@ -27,10 +28,6 @@ class FirebaseUtils {
       return left(e.toString());
     }
     return right(user);
-  }
-
-  static verifyEmail() async {
-    await FirebaseAuth.instance.currentUser!.sendEmailVerification();
   }
 
   static Future<Either<String, UserCredential>> signUpWithGoogle() async {
@@ -56,7 +53,10 @@ class FirebaseUtils {
       debugPrint(e.toString());
       return left(e.toString());
     }
-    debugPrint("Email signed in using google : ${user.user!.email}");
     return right(user);
+  }
+
+  static _verifyEmail() async {
+    await FirebaseAuth.instance.currentUser!.sendEmailVerification();
   }
 }

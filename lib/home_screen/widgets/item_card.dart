@@ -33,6 +33,13 @@ class _ItemCardState extends State<ItemCard> {
         decoration: BoxDecoration(
           color: theme.colorScheme.onBackground,
           borderRadius: BorderRadius.circular(25.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.02),
+              blurRadius: 15,
+              offset: const Offset(0, 0),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,9 +47,9 @@ class _ItemCardState extends State<ItemCard> {
             Center(
               child: Image.asset(
                 "assets/images/nervous_system/brain 1.png",
-                width: 187.w,
-                height: 187.h,
-                fit: BoxFit.fitHeight,
+                width: 200.w,
+                height: 200.h,
+                fit: BoxFit.fill,
               ),
             ),
             Text(

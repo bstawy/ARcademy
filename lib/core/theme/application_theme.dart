@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ApplicationTheme {
-  static Color primaryColor = const Color(0xff151D31);
-
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xffF3F3F3),
-    primaryColor: const Color(0xff151D31),
+
+    // Configure colors for light mode
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xff151D31),
       primary: const Color(0xff151D31),
@@ -15,12 +14,8 @@ class ApplicationTheme {
       secondary: const Color(0xff828A89),
       error: const Color(0xffEF233C),
     ),
-    iconTheme: const IconThemeData(
-      color: Color(0xff151D31),
-    ),
-    progressIndicatorTheme: const ProgressIndicatorThemeData(
-      color: Color(0xff151D31),
-    ),
+
+    // Configure text styles
     fontFamily: 'Jakarta',
     textTheme: TextTheme(
       displayLarge: TextStyle(
@@ -108,13 +103,12 @@ class ApplicationTheme {
         fontFamily: 'Jakarta',
       ),
     ),
-    cardColor: const Color(0xffffffff),
-    dialogBackgroundColor: Colors.white,
   );
 
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xff333C4B),
-    primaryColor: const Color(0xffFFFFFF),
+
+    // Configure colors for dark mode
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xffFFFFFF),
       primary: const Color(0xffFFFFFF),
@@ -123,12 +117,8 @@ class ApplicationTheme {
       secondary: const Color(0xff828A89),
       error: const Color(0xffEF233C),
     ),
-    iconTheme: const IconThemeData(
-      color: Color(0xffFFFFFF),
-    ),
-    progressIndicatorTheme: const ProgressIndicatorThemeData(
-      color: Color(0xffFFFFFF),
-    ),
+
+    // Configure text styles
     fontFamily: 'Jakarta',
     textTheme: TextTheme(
       displayLarge: TextStyle(
@@ -216,7 +206,5 @@ class ApplicationTheme {
         fontFamily: 'Jakarta',
       ),
     ),
-    cardColor: const Color(0xff4A4C5B),
-    dialogBackgroundColor: Colors.white,
   );
 }

@@ -6,13 +6,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
-import 'home_screen/home_screen.dart';
-import 'login_screen/login_screen.dart';
-import 'onboarding_screens/onboarding_screens.dart';
-import 'sign_up_screen/sign_up_screen.dart';
+import 'screens/home_screen/home_screen.dart';
+import 'screens/login_screen/login_screen.dart';
+import 'screens/onboarding_screens/onboarding_screens.dart';
+import 'screens/sign_up_screen/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -34,7 +35,9 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'ARcademy',
+          themeMode: ThemeMode.light,
           theme: ApplicationTheme.lightTheme,
+          darkTheme: ApplicationTheme.darkTheme,
           initialRoute: OnboardingScreens.routeName,
           routes: {
             OnboardingScreens.routeName: (context) => const OnboardingScreens(),

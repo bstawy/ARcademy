@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
-import 'screens/home_screen/home_screen.dart';
+import 'layout/layout.dart';
 import 'screens/onboarding_screens/onboarding_screens.dart';
 import 'screens/registration_screens/login_screen/login_screen.dart';
 import 'screens/registration_screens/sign_up_screen/sign_up_screen.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             OnboardingScreens.routeName: (context) => const OnboardingScreens(),
             LoginScreen.routeName: (context) => const LoginScreen(),
             SignUpScreen.routeName: (context) => const SignUpScreen(),
-            HomeScreen.routeName: (context) => const HomeScreen(),
+            Layout.routeName: (context) => const Layout(),
           },
           builder: EasyLoading.init(
             builder: BotToastInit(),

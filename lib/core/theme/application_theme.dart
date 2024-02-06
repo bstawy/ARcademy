@@ -6,18 +6,6 @@ class ApplicationTheme {
 
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xffF3F3F3),
-    /*appBarTheme: AppBarTheme(
-      backgroundColor: const Color(0xffF3F3F3),
-      elevation: 0,
-      toolbarHeight: 115.h,
-      centerTitle: true,
-      titleTextStyle: const TextStyle(
-        color: Color(0xff151D31),
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        fontFamily: 'Jakarta',
-      ),
-    ),*/
     primaryColor: const Color(0xff151D31),
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xff151D31),
@@ -55,7 +43,7 @@ class ApplicationTheme {
       ),
       headlineLarge: TextStyle(
         color: const Color(0xff151D31),
-        fontSize: 28.66.sp,
+        fontSize: 26.sp,
         fontWeight: FontWeight.w800,
         fontFamily: 'Jakarta',
       ),
@@ -126,18 +114,6 @@ class ApplicationTheme {
 
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xff333C4B),
-    /*appBarTheme: AppBarTheme(
-      backgroundColor: const Color(0xff333C4B),
-      elevation: 0,
-      toolbarHeight: 115.h,
-      centerTitle: true,
-      titleTextStyle: const TextStyle(
-        color: Color(0xffFFFFFF),
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        fontFamily: 'Jakarta',
-      ),
-    ),*/
     primaryColor: const Color(0xffFFFFFF),
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xffFFFFFF),

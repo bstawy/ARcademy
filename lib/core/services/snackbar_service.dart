@@ -5,101 +5,77 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SnackBarService {
   static void showSuccessMessage(BuildContext context, String msg) {
-    var theme = Theme.of(context);
-
     BotToast.showCustomNotification(
-      toastBuilder: (void Function() cancelFunc) {
-        return Scaffold(
-          backgroundColor: theme.colorScheme.primary.withOpacity(0.5),
-          body: Container(
-            width: double.maxFinite,
-            height: 80.h,
-            margin: EdgeInsets.only(top: 52.h, left: 24.w, right: 24.w),
-            padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 16.h),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.onBackground,
-              borderRadius: BorderRadius.circular(25.r),
-            ),
-            alignment: Alignment.center,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset("assets/icons/notifications_icon.svg",
-                    colorFilter: ColorFilter.mode(
-                        theme.colorScheme.primary, BlendMode.srcIn)),
-                SizedBox(width: 16.w),
-                Expanded(
-                  child: Text(
-                    msg,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleSmall!.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+      useSafeArea: false,
+      crossPage: true,
+      dismissDirections: [DismissDirection.endToStart],
       duration: const Duration(
         seconds: 2,
       ),
-      dismissDirections: [DismissDirection.endToStart],
-      useSafeArea: false,
-      crossPage: true,
+      toastBuilder: (void Function() cancelFunc) {
+        return _buildNotificationWidget(context, "success", msg);
+      },
     );
   }
 
   static void showErrorMessage(BuildContext context, String msg) {
-    var theme = Theme.of(context);
-
     BotToast.showCustomNotification(
-      toastBuilder: (void Function() cancelFunc) {
-        return Scaffold(
-          backgroundColor: theme.colorScheme.primary.withOpacity(0.5),
-          body: Container(
-            width: double.maxFinite,
-            height: 80.h,
-            margin: EdgeInsets.only(top: 52.h, left: 24.w, right: 24.w),
-            padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 16.h),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.onBackground,
-              borderRadius: BorderRadius.circular(25.r),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset("assets/icons/notifications_icon.svg",
-                    colorFilter: ColorFilter.mode(
-                        theme.colorScheme.error, BlendMode.srcIn)),
-                SizedBox(width: 16.w),
-                Expanded(
-                  child: Text(
-                    msg,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleSmall!.copyWith(
-                      color: theme.colorScheme.error,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+      useSafeArea: false,
+      crossPage: true,
+      dismissDirections: [DismissDirection.endToStart],
       duration: const Duration(
         seconds: 2,
       ),
-      dismissDirections: [DismissDirection.endToStart],
-      useSafeArea: false,
-      crossPage: true,
+      toastBuilder: (void Function() cancelFunc) {
+        return _buildNotificationWidget(context, "error", msg);
+      },
+    );
+  }
+
+  static Widget _buildNotificationWidget(
+    BuildContext context,
+    String state,
+    String msg,
+  ) {
+    final theme = Theme.of(context);
+
+    Color stateColor = (state == "success")
+        ? theme.colorScheme.primary
+        : theme.colorScheme.error;
+
+    return Scaffold(
+      backgroundColor: theme.colorScheme.primary.withOpacity(0.5),
+      body: Container(
+        width: double.maxFinite,
+        height: 80.h,
+        margin: EdgeInsets.only(top: 52.h, left: 24.w, right: 24.w),
+        padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 16.h),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.onBackground,
+          borderRadius: BorderRadius.circular(25.r),
+        ),
+        alignment: Alignment.center,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset("assets/icons/notifications_icon.svg",
+                colorFilter: ColorFilter.mode(stateColor, BlendMode.srcIn)),
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Text(
+                msg,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleSmall!.copyWith(
+                  color: stateColor,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

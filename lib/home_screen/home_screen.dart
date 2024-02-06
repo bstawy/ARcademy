@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 CarouselSlider(
                   items: items,
                   options: CarouselOptions(
-                    height: 361.h,
+                    height: 378.h,
                     initialPage: 0,
                     scrollDirection: Axis.horizontal,
                     scrollPhysics: const BouncingScrollPhysics(),
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 16.h),
                 Container(
                   height: 66.h,
                   margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8),

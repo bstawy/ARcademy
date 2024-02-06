@@ -47,15 +47,21 @@ class _ItemCardState extends State<ItemCard> {
             Center(
               child: Image.asset(
                 "assets/images/nervous_system/brain 1.png",
-                width: 200.w,
-                height: 200.h,
+                width: 187.w,
+                height: 187.h,
                 fit: BoxFit.fill,
               ),
             ),
-            Text(
-              widget.model.title,
-              style: theme.textTheme.headlineLarge!.copyWith(
-                height: 1.h,
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 205.w,
+              ),
+              child: Text(
+                widget.model.title,
+                maxLines: 2,
+                style: theme.textTheme.headlineLarge!.copyWith(
+                  height: 1.h,
+                ),
               ),
             ),
             SizedBox(height: 8.h),

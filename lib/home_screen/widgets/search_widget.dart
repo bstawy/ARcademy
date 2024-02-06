@@ -26,6 +26,13 @@ class SearchButton extends StatelessWidget {
           // TODO: Navigate to search screen
         },
         height: 40.h,
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),
+        elevation: 0,
+        highlightElevation: 0,
+        highlightColor: theme.colorScheme.secondary,
+        color: theme.colorScheme.onBackground,
+        enableFeedback: true,
+        animationDuration: const Duration(milliseconds: 50),
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(18.r),
@@ -33,9 +40,6 @@ class SearchButton extends StatelessWidget {
           ),
           borderSide: BorderSide.none,
         ),
-        elevation: 0,
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),
-        color: theme.colorScheme.onBackground,
         child: Row(
           children: [
             SvgPicture.asset("assets/icons/search_icon.svg"),
@@ -50,15 +54,5 @@ class SearchButton extends StatelessWidget {
         ),
       ),
     );
-    /*Container(
-      width: 100.w,
-      height: 40.h,
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18.r),
-        color: theme.colorScheme.background,
-      ),
-      child: ,
-    );*/
   }
 }

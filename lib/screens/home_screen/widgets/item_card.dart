@@ -1,9 +1,9 @@
-import 'package:ar_cademy/core/widgets/ar_view_button.dart';
-import 'package:ar_cademy/core/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../models/item_model.dart';
+import '../../../core/widgets/ar_view_button.dart';
+import '../../../core/widgets/favorite_button.dart';
+import '../../../models/item_model.dart';
 
 class ItemCard extends StatefulWidget {
   final ItemModel model;
@@ -24,9 +24,9 @@ class _ItemCardState extends State<ItemCard> {
         // TODO: Navigate to details screen
       },
       borderRadius: BorderRadius.circular(25.r),
-      enableFeedback: true,
       splashColor: theme.colorScheme.secondary,
       splashFactory: InkSparkle.splashFactory,
+      enableFeedback: true,
       child: Container(
         width: 248.w,
         padding: EdgeInsets.all(16.r),

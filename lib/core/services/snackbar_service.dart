@@ -39,7 +39,7 @@ class SnackBarService {
   ) {
     final theme = Theme.of(context);
 
-    Color stateColor = (state == "success")
+    Color filterColor = (state == "success")
         ? theme.colorScheme.primary
         : theme.colorScheme.error;
 
@@ -59,7 +59,7 @@ class SnackBarService {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SvgPicture.asset("assets/icons/notifications_icon.svg",
-                colorFilter: ColorFilter.mode(stateColor, BlendMode.srcIn)),
+                colorFilter: ColorFilter.mode(filterColor, BlendMode.srcIn)),
             SizedBox(width: 16.w),
             Expanded(
               child: Text(
@@ -68,7 +68,7 @@ class SnackBarService {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.titleSmall!.copyWith(
-                  color: stateColor,
+                  color: filterColor,
                   fontWeight: FontWeight.w400,
                 ),
               ),

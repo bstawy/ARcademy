@@ -34,32 +34,34 @@ class CustomTextFormField extends StatelessWidget {
         ),
         SizedBox(height: 8.h),
         TextFormField(
-          textAlign: TextAlign.start,
-          cursorColor: theme.colorScheme.primary,
-          controller: textEditingController,
-          validator: validator,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          obscureText: obscureText,
-          maxLines: maxLines,
           onTapOutside: (event) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
+          controller: textEditingController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: validator,
+          obscureText: obscureText,
+          maxLines: maxLines,
+          textAlign: TextAlign.start,
+          cursorColor: theme.colorScheme.primary,
           decoration: InputDecoration(
             filled: true,
             fillColor: theme.colorScheme.onBackground,
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
             constraints: BoxConstraints(
               minHeight: 56.h,
-              maxHeight: 70.h, // add more space for error hint msg
+              maxHeight: 70.h,
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 12.h,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
               borderSide: BorderSide.none,
             ),
+            hintText: title,
             suffixIcon: suffixIcon,
             suffixIconColor: theme.colorScheme.secondary,
-            hintText: title,
             hintStyle: theme.textTheme.labelLarge!.copyWith(
               color: theme.colorScheme.secondary,
               fontWeight: FontWeight.w400,

@@ -9,6 +9,7 @@ import 'firebase_options.dart';
 import 'layout/layout.dart';
 import 'screens/onboarding_screens/onboarding_screens.dart';
 import 'screens/registration_screens/login_screen/login_screen.dart';
+import 'screens/registration_screens/login_screen/reset_password_screen.dart';
 import 'screens/registration_screens/sign_up_screen/sign_up_screen.dart';
 
 void main() async {
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
             OnboardingScreens.routeName: (context) => const OnboardingScreens(),
             LoginScreen.routeName: (context) => const LoginScreen(),
             SignUpScreen.routeName: (context) => const SignUpScreen(),
+            ResetPasswordScreen.routeName: (context) =>
+                const ResetPasswordScreen(),
             Layout.routeName: (context) => const Layout(),
           },
           builder: EasyLoading.init(

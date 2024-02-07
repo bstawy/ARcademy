@@ -43,7 +43,11 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/images/
+    - assets/images/cardiovascular_system/
+    - assets/images/digestive_system/
     - assets/images/nervous_system/
+    - assets/images/respiratory_system/
+    - assets/images/skeleton_system/
 
   # To add custom fonts to your application, add a fonts section here
   fonts:

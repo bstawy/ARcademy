@@ -56,7 +56,57 @@ class FirebaseUtils {
     return right(user);
   }
 
+  static Future<Either<String?, UserCredential>> loginWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    late UserCredential user;
+
+    try {
+      user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-credential') {
+        debugPrint('Invalid login credentials');
+        return left('Invalid login credentials');
+      } else {
+        debugPrint('${e.message}');
+        return Left(e.code);
+      }
+    } catch (e) {
+      return Left(e.toString());
+    }
+
+    if (_isVerified(user)) {
+      return Right(user);
+    } else {
+      return const Left(
+          "Email is not verified, check your inbox for verification email");
+    }
+  }
+
+  static Future<String> resetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      return e.code;
+    } catch (e) {
+      return e.toString();
+    }
+    return "success";
+  }
+
   static _verifyEmail() async {
     await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+  }
+
+  static bool _isVerified(UserCredential user) {
+    if (user.user!.emailVerified) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

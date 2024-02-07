@@ -1,8 +1,11 @@
+import 'package:ar_cademy/core/manager/app_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
@@ -15,12 +18,18 @@ import 'screens/registration_screens/sign_up_screen/sign_up_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await ScreenUtil.ensureScreenSize();
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AppProvider(prefs),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,29 +37,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appProvider = Provider.of<AppProvider>(context);
+
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'ARcademy',
-          themeMode: ThemeMode.light,
-          theme: ApplicationTheme.lightTheme,
-          darkTheme: ApplicationTheme.darkTheme,
-          initialRoute: OnboardingScreens.routeName,
-          routes: {
-            OnboardingScreens.routeName: (context) => const OnboardingScreens(),
-            LoginScreen.routeName: (context) => const LoginScreen(),
-            SignUpScreen.routeName: (context) => const SignUpScreen(),
-            ResetPasswordScreen.routeName: (context) =>
-                const ResetPasswordScreen(),
-            Layout.routeName: (context) => const Layout(),
+        return Consumer<AppProvider>(
+          builder: (context, provider, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'ARcademy',
+              themeMode: provider.currentTheme,
+              theme: ApplicationTheme.lightTheme,
+              darkTheme: ApplicationTheme.darkTheme,
+              initialRoute: provider.isLoggedIn(),
+              routes: {
+                OnboardingScreens.routeName: (context) =>
+                    const OnboardingScreens(),
+                LoginScreen.routeName: (context) => const LoginScreen(),
+                SignUpScreen.routeName: (context) => const SignUpScreen(),
+                ResetPasswordScreen.routeName: (context) =>
+                    const ResetPasswordScreen(),
+                Layout.routeName: (context) => const Layout(),
+              },
+              builder: EasyLoading.init(
+                builder: BotToastInit(),
+              ),
+            );
           },
-          builder: EasyLoading.init(
-            builder: BotToastInit(),
-          ),
         );
       },
     );

@@ -98,6 +98,10 @@ class FirebaseUtils {
     return "success";
   }
 
+  static logOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   static _verifyEmail() async {
     await FirebaseAuth.instance.currentUser!.sendEmailVerification();
   }

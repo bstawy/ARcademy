@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollPhysics: const BouncingScrollPhysics(),
                       enableInfiniteScroll: false,
                       enlargeCenterPage: true,
-                      viewportFraction: 0.72.w,
+                      viewportFraction: 0.71.w,
                       enlargeStrategy: CenterPageEnlargeStrategy.zoom,
                       onPageChanged: (index, reason) {
                         _currentItemIndex = index;

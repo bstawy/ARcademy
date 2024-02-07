@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/services/loading_service.dart';
-import '../../registration_screens/login_screen/login_screen.dart';
+import '../../../core/manager/app_provider.dart';
 
 class ChangeThemeButton extends StatelessWidget {
   const ChangeThemeButton({super.key});
@@ -13,19 +11,14 @@ class ChangeThemeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var provider = Provider.of<AppProvider>(context);
 
     return MaterialButton(
       onPressed: () async {
-        configureEasyLoading(context);
-        EasyLoading.show();
-
-        await FirebaseAuth.instance.signOut();
-
-        EasyLoading.dismiss();
-
-        if (context.mounted) {
-          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-        }
+        var newTheme = provider.currentTheme == ThemeMode.light
+            ? ThemeMode.dark
+            : ThemeMode.light;
+        provider.changeTheme(newTheme);
       },
       height: 48.w,
       minWidth: 48.w,

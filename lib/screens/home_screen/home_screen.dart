@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../models/item_model.dart';
+import '../../data/data.dart';
 import 'widgets/app_bar_title_widget.dart';
 import 'widgets/item_card.dart';
 import 'widgets/search_button.dart';
@@ -18,65 +18,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<ItemCard> _items = [
-    ItemCard(
-      model: ItemModel(
-        title: "Brain Anatomy",
-        system: "The Nervous System",
-        isFavorite: false,
-        imagePath: "assets/images/nervous_system/brain.svg",
-      ),
-    ),
-    ItemCard(
-      model: ItemModel(
-        title: "Brain Anatomy",
-        system: "The Nervous System",
-        isFavorite: false,
-        imagePath: "assets/images/nervous_system/brain.svg",
-      ),
-    ),
-    ItemCard(
-      model: ItemModel(
-        title: "Brain Anatomy",
-        system: "The Nervous System",
-        isFavorite: false,
-        imagePath: "assets/images/nervous_system/brain.svg",
-      ),
-    ),
-    ItemCard(
-      model: ItemModel(
-        title: "Brain Anatomy",
-        system: "The Nervous System",
-        isFavorite: false,
-        imagePath: "assets/images/nervous_system/brain.svg",
-      ),
-    ),
-    ItemCard(
-      model: ItemModel(
-        title: "Brain Anatomy",
-        system: "The Nervous System",
-        isFavorite: false,
-        imagePath: "assets/images/nervous_system/brain.svg",
-      ),
-    ),
-    ItemCard(
-      model: ItemModel(
-        title: "Brain Anatomy",
-        system: "The Nervous System",
-        isFavorite: false,
-        imagePath: "assets/images/nervous_system/brain.svg",
-      ),
-    ),
-    ItemCard(
-      model: ItemModel(
-        title: "Brain Anatomy",
-        system: "The Nervous System",
-        isFavorite: false,
-        imagePath: "assets/images/nervous_system/brain.svg",
-      ),
-    ),
+  final List<List<Widget>> _items = [
+    SystemsData.systemsOrgans["Cardiovascular System"]!
+        .map((organ) => ItemCard(organ: organ))
+        .toList(),
+    SystemsData.systemsOrgans["Digestive System"]!
+        .map((organ) => ItemCard(organ: organ))
+        .toList(),
+    SystemsData.systemsOrgans["Nervous System"]!
+        .map((organ) => ItemCard(organ: organ))
+        .toList(),
+    SystemsData.systemsOrgans["Respiratory System"]!
+        .map((organ) => ItemCard(organ: organ))
+        .toList(),
+    SystemsData.systemsOrgans["Skeleton System"]!
+        .map((organ) => ItemCard(organ: organ))
+        .toList(),
   ];
-
+  int _selectedSystemIndex = 0;
   int _currentItemIndex = 0;
 
   @override
@@ -110,19 +69,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         SizedBox(height: 24.h),
-                        Text(
-                          "Recently viewed",
-                          style: theme.textTheme.headlineSmall,
+                        InkWell(
+                          onTap: () {
+                            (_selectedSystemIndex < 4)
+                                ? _selectedSystemIndex++
+                                : _selectedSystemIndex = 0;
+                            _currentItemIndex = 0;
+                            setState(() {});
+                          },
+                          child: Text(
+                            "Recently viewed",
+                            style: theme.textTheme.headlineSmall,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(height: 16.h),
                   CarouselSlider(
-                    items: _items,
+                    items: _items[_selectedSystemIndex],
                     options: CarouselOptions(
                       height: 378.h,
-                      initialPage: 0,
+                      initialPage: _currentItemIndex,
                       scrollDirection: Axis.horizontal,
                       scrollPhysics: const BouncingScrollPhysics(),
                       enableInfiniteScroll: false,
@@ -139,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Center(
                     child: AnimatedSmoothIndicator(
                       activeIndex: _currentItemIndex,
-                      count: _items.length,
+                      count: _items[_selectedSystemIndex].length,
                       axisDirection: Axis.horizontal,
                       effect: ScrollingDotsEffect(
                         activeDotColor: theme.colorScheme.primary,

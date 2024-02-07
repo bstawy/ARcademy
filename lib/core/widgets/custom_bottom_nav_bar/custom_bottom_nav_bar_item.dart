@@ -37,7 +37,7 @@ class CustomBottomNavBarItem extends StatelessWidget {
                     offset: const Offset(0, 10),
                     blurRadius: 20.r,
                     spreadRadius: 0,
-                    color: theme.colorScheme.primary.withOpacity(0.2),
+                    color: theme.colorScheme.shadow.withOpacity(0.2),
                   ),
                 ]
               : [],

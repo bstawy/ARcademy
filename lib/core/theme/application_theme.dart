@@ -9,6 +9,7 @@ class ApplicationTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xff151D31),
       primary: const Color(0xff151D31),
+      shadow: const Color(0xff151D31),
       background: const Color(0xffF3F3F3),
       onBackground: const Color(0xffffffff),
       secondary: const Color(0xff828A89),
@@ -112,6 +113,7 @@ class ApplicationTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xffFFFFFF),
       primary: const Color(0xffFFFFFF),
+      shadow: const Color(0xff151D31),
       background: const Color(0xff333C4B),
       onBackground: const Color(0xff4A4C5B),
       secondary: const Color(0xff828A89),
@@ -141,7 +143,7 @@ class ApplicationTheme {
       ),
       headlineLarge: TextStyle(
         color: const Color(0xffFFFFFF),
-        fontSize: 28.66.sp,
+        fontSize: 26.sp,
         fontWeight: FontWeight.w800,
         fontFamily: 'Jakarta',
       ),

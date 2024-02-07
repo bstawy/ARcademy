@@ -46,7 +46,7 @@ class _ItemCardState extends State<ItemCard> {
           children: [
             Center(
               child: Image.asset(
-                "assets/images/nervous_system/brain 1.png",
+                "assets/images/nervous_system/brain.png",
                 width: 187.w,
                 height: 187.h,
                 fit: BoxFit.fill,

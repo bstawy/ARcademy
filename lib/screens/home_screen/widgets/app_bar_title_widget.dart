@@ -30,17 +30,21 @@ class AppBarTitleWidget extends StatelessWidget {
                   padding: EdgeInsets.all(10.r),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.r),
-                    color: theme.colorScheme.background,
+                    color: Colors.transparent,
                     boxShadow: [
                       BoxShadow(
                         offset: const Offset(0, 10),
                         blurRadius: 20,
                         spreadRadius: 0,
-                        color: theme.colorScheme.primary.withOpacity(0.05),
+                        color: theme.colorScheme.shadow.withOpacity(0.05),
                       ),
                     ],
                   ),
-                  child: SvgPicture.asset("assets/icons/nav_profile_icon.svg"),
+                  child: SvgPicture.asset(
+                    "assets/icons/nav_profile_icon.svg",
+                    colorFilter: ColorFilter.mode(
+                        theme.colorScheme.primary, BlendMode.srcIn),
+                  ),
                 ),
                 SizedBox(width: 16.w),
                 Column(

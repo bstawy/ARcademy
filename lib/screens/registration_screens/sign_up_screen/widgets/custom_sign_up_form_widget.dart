@@ -2,7 +2,9 @@ import 'package:ar_cademy/layout/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../core/manager/app_provider.dart';
 import '../../../../core/services/loading_service.dart';
 import '../../../../core/services/snackbar_service.dart';
 import '../../../../core/web_services/firebase_utils.dart';
@@ -46,6 +48,7 @@ class _CustomSignUpFormWidgetState extends State<CustomSignUpFormWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    var provider = Provider.of<AppProvider>(context);
 
     return Form(
       key: _signUpFormKey,
@@ -157,7 +160,7 @@ class _CustomSignUpFormWidgetState extends State<CustomSignUpFormWidget> {
                   label: "Google",
                   iconPath: "assets/icons/google_icon.svg",
                   onClicked: () {
-                    signUpWithGoogle();
+                    signUpWithGoogle(provider);
                   }),
               SizedBox(width: 8.w),
               SocialMediaAuthButton(
@@ -224,7 +227,7 @@ class _CustomSignUpFormWidgetState extends State<CustomSignUpFormWidget> {
     }
   }
 
-  signUpWithGoogle() async {
+  signUpWithGoogle(AppProvider provider) async {
     configureEasyLoading(context);
     EasyLoading.show();
 
@@ -238,6 +241,7 @@ class _CustomSignUpFormWidgetState extends State<CustomSignUpFormWidget> {
 
       SnackBarService.showSuccessMessage(
           context, 'Signed up successfully with Google');
+      provider.login(r);
       if (context.mounted) {
         Navigator.pushNamedAndRemoveUntil(
             context, Layout.routeName, (route) => false);

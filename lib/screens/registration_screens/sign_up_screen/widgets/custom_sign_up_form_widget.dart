@@ -157,14 +157,16 @@ class _CustomSignUpFormWidgetState extends State<CustomSignUpFormWidget> {
                   label: "Google",
                   iconPath: "assets/icons/google_icon.svg",
                   onClicked: () {
-                    debugPrint("Google button pressed");
                     signUpWithGoogle();
                   }),
               SizedBox(width: 8.w),
               SocialMediaAuthButton(
                   label: "Apple",
                   iconPath: "assets/icons/apple_icon.svg",
-                  onClicked: () {}),
+                  onClicked: () {
+                    SnackBarService.showSuccessMessage(
+                        context, "Coming Soon...");
+                  }),
             ],
           ),
           SizedBox(height: 16.h),

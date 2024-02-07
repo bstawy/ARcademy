@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/widgets/ar_view_button.dart';
 import '../../../core/widgets/favorite_button.dart';
-import '../../../models/item_model.dart';
+import '../../../models/organ_model.dart';
 
 class ItemCard extends StatefulWidget {
-  final ItemModel model;
+  final OrganModel organ;
 
-  const ItemCard({super.key, required this.model});
+  const ItemCard({super.key, required this.organ});
 
   @override
   State<ItemCard> createState() => _ItemCardState();
@@ -46,10 +46,10 @@ class _ItemCardState extends State<ItemCard> {
           children: [
             Center(
               child: Image.asset(
-                "assets/images/nervous_system/brain.png",
+                widget.organ.imagePath,
                 width: 187.w,
                 height: 187.h,
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
               ),
             ),
             ConstrainedBox(
@@ -57,7 +57,7 @@ class _ItemCardState extends State<ItemCard> {
                 maxWidth: 205.w,
               ),
               child: Text(
-                widget.model.title,
+                widget.organ.title,
                 maxLines: 2,
                 style: theme.textTheme.headlineLarge!.copyWith(
                   height: 1.h,
@@ -73,7 +73,7 @@ class _ItemCardState extends State<ItemCard> {
               ),
             ),
             Text(
-              widget.model.system,
+              widget.organ.system,
               style: theme.textTheme.labelSmall!.copyWith(
                 color: const Color(0xffC5C5C5),
               ),
@@ -82,9 +82,9 @@ class _ItemCardState extends State<ItemCard> {
             Row(
               children: [
                 FavoriteButton(
-                    isFavorite: widget.model.isFavorite,
+                    isFavorite: widget.organ.isFavorite,
                     onClicked: () {
-                      widget.model.isFavorite = !widget.model.isFavorite;
+                      widget.organ.isFavorite = !widget.organ.isFavorite;
                       setState(() {});
                     }),
                 SizedBox(width: 8.w),

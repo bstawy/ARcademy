@@ -12,7 +12,20 @@
           "package_name": "com.arcademy.ar_cademy"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1058209441220-l0hrq4tube7o4eped2tsasc75dpd0c7u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arcademy.ar_cademy",
+            "certificate_hash": "d5c00b028392d6dfedc4df1663f13a90976e7897"
+          }
+        },
+        {
+          "client_id": "1058209441220-chi71oa6igkg840ji8jto6p3185j6h4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA7Eyoel6dlp65KceAWyAs0dzv0W38YcIs"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058209441220-chi71oa6igkg840ji8jto6p3185j6h4h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1058209441220-1i52hi7u7s9jq71bao9k4kgh4sse3s4c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.arcademy.arCademy"
+              }
+            }
+          ]
         }
       }
     }

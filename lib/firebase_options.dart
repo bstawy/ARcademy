@@ -63,6 +63,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1058209441220',
     projectId: 'arcademy-2024',
     storageBucket: 'arcademy-2024.appspot.com',
+    androidClientId:
+        '1058209441220-l0hrq4tube7o4eped2tsasc75dpd0c7u.apps.googleusercontent.com',
+    iosClientId:
+        '1058209441220-1i52hi7u7s9jq71bao9k4kgh4sse3s4c.apps.googleusercontent.com',
     iosBundleId: 'com.arcademy.arCademy',
   );
 }

@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../manager/app_provider.dart';
 
 class FirebaseUtils {
   static Future<Either<String?, UserCredential>> signUpWithEmailAndPassword({
@@ -39,7 +42,7 @@ class FirebaseUtils {
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -57,9 +60,8 @@ class FirebaseUtils {
   }
 
   static Future<Either<String?, UserCredential>> loginWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+      String email,
+      String password,) async {
     late UserCredential user;
 
     try {
@@ -111,6 +113,78 @@ class FirebaseUtils {
       return true;
     } else {
       return false;
+    }
+  }
+
+  static DocumentReference getUserDocument() {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(AppProvider.userId);
+  }
+
+  static addToFavorites(int itemId) async {
+    final userRef = getUserDocument();
+    final docSnapshot = await userRef.get();
+
+    if (!docSnapshot.exists) {
+      final data = docSnapshot.data()! as Map<String, dynamic>;
+
+      if (!data.containsKey('favoriteItemIds')) {
+        await userRef.set({
+          'favoriteItemIds': [] // Create the field with an empty array
+        });
+      }
+    }
+    await userRef.update({
+      'favoriteItemIds': FieldValue.arrayUnion([itemId])
+    });
+  }
+
+  static addToRecentlyViewed(int itemId) async {
+    final userRef = getUserDocument();
+    final docSnapshot = await userRef.get();
+
+    if (!docSnapshot.exists) {
+      final data = docSnapshot.data()! as Map<String, dynamic>;
+
+      if (!data.containsKey('recentlyViewedItemIds')) {
+        await userRef.set({
+          'recentlyViewedItemIds': [] // Create the field with an empty array
+        });
+      }
+    }
+    await userRef.update({
+      'recentlyViewedItemIds': FieldValue.arrayUnion([itemId])
+    });
+  }
+
+  static deleteFromFavorites(int itemId) async {
+    final userRef = getUserDocument();
+    final docSnapshot = await userRef.get();
+
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data()! as Map<String, dynamic>;
+
+      if (data.containsKey('favoriteItemIds')) {
+        await userRef.update({
+          'favoriteItemIds': FieldValue.arrayRemove([itemId]),
+        });
+      }
+    }
+  }
+
+  static deleteFromRecentlyViewed(int itemId) async {
+    final userRef = getUserDocument();
+    final docSnapshot = await userRef.get();
+
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data()! as Map<String, dynamic>;
+
+      if (data.containsKey('recentlyViewedItemIds')) {
+        await userRef.update({
+          'recentlyViewedItemIds': FieldValue.arrayRemove([itemId]),
+        });
+      }
     }
   }
 }

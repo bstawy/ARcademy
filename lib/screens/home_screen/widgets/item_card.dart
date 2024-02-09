@@ -19,6 +19,11 @@ class _ItemCardState extends State<ItemCard> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    int indexOfSpace = widget.organ.title.indexOf(" ");
+    double maxWidth = (widget.organ.title.substring(0, indexOfSpace).length < 7)
+        ? 170.w
+        : 250.w;
+
     return InkWell(
       onTap: () {
         // TODO: Navigate to details screen
@@ -54,13 +59,13 @@ class _ItemCardState extends State<ItemCard> {
             ),
             ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth: 205.w,
+                maxWidth: maxWidth,
               ),
               child: Text(
                 widget.organ.title,
                 maxLines: 2,
                 style: theme.textTheme.headlineLarge!.copyWith(
-                  height: 1.h,
+                  height: 1.2.h,
                 ),
               ),
             ),

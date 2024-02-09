@@ -89,13 +89,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   CarouselSlider(
                     items: _items[_selectedSystemIndex],
                     options: CarouselOptions(
-                      height: 378.h,
+                      height: 390.h,
                       initialPage: _currentItemIndex,
                       scrollDirection: Axis.horizontal,
                       scrollPhysics: const BouncingScrollPhysics(),
                       enableInfiniteScroll: false,
                       enlargeCenterPage: true,
-                      viewportFraction: 0.71.w,
+                      viewportFraction: 0.71,
                       enlargeStrategy: CenterPageEnlargeStrategy.zoom,
                       onPageChanged: (index, reason) {
                         _currentItemIndex = index;
@@ -112,8 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       effect: ScrollingDotsEffect(
                         activeDotColor: theme.colorScheme.primary,
                         dotColor: theme.colorScheme.secondary,
-                        dotHeight: 7,
-                        dotWidth: 7,
+                        dotHeight: 7.h,
+                        dotWidth: 7.w,
                       ),
                     ),
                   ),

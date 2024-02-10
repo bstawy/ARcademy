@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/web_services/firebase_utils.dart';
 import '../../../core/widgets/ar_view_button.dart';
 import '../../../core/widgets/favorite_button.dart';
 import '../../../models/organ_model.dart';
@@ -89,6 +90,12 @@ class _ItemCardState extends State<ItemCard> {
                 FavoriteButton(
                     isFavorite: widget.organ.isFavorite,
                     onClicked: () {
+                      FirebaseUtils.addToFavorites(widget.organ.id);
+                      /*if (widget.organ.isFavorite) {
+                        FirebaseUtils.deleteFromFavorites(widget.organ.id);
+                      } else {
+                        FirebaseUtils.addToFavorites(widget.organ.id);
+                      }*/
                       widget.organ.isFavorite = !widget.organ.isFavorite;
                       setState(() {});
                     }),

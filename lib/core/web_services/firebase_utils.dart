@@ -101,6 +101,8 @@ class FirebaseUtils {
   }
 
   static logOut() async {
+    GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
     await FirebaseAuth.instance.signOut();
   }
 
@@ -186,5 +188,11 @@ class FirebaseUtils {
         });
       }
     }
+  }
+
+  static getData() {
+    final userRef = getUserDocument();
+    final favoritesStream = userRef.snapshots();
+    return favoritesStream;
   }
 }

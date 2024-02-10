@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/custom_sliver_app_bar_widget.dart';
+import '../../../core/widgets/custom_sliver_app_bar_widget.dart';
 import 'widgets/custom_sign_up_form_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -45,6 +45,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         slivers: [
           CustomSliverAppBarWidget(
             title: "Create Account",
+            leadingOnClicked: () {
+              Navigator.pop(context);
+            },
             isAppBarPinned: _isAppBarPinned,
           ),
           SliverToBoxAdapter(

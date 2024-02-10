@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/widgets/custom_back_button.dart';
+import 'custom_back_button.dart';
 
 class CustomSliverAppBarWidget extends StatelessWidget {
   final String title;
+  final Function leadingOnClicked;
   final bool _isAppBarPinned;
 
   const CustomSliverAppBarWidget({
     super.key,
     required this.title,
+    required this.leadingOnClicked,
     required bool isAppBarPinned,
   }) : _isAppBarPinned = isAppBarPinned;
 
@@ -29,9 +31,11 @@ class CustomSliverAppBarWidget extends StatelessWidget {
       leadingWidth: 72.w,
       leading: Padding(
         padding: EdgeInsets.only(top: 18.h, left: 24.w, bottom: 8.h),
-        child: CustomBackButton(onClicked: () {
-          Navigator.pop(context);
-        }),
+        child: CustomBackButton(
+          onClicked: () {
+            leadingOnClicked();
+          },
+        ),
       ),
       flexibleSpace: FlexibleSpaceBar(
         expandedTitleScale: 1,

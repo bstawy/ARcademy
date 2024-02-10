@@ -6,10 +6,10 @@ import '../../../core/services/loading_service.dart';
 import '../../../core/services/snackbar_service.dart';
 import '../../../core/web_services/firebase_utils.dart';
 import '../../../core/widgets/custom_material_button.dart';
+import '../../../core/widgets/custom_sliver_app_bar_widget.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 import '../../../layout/layout.dart';
 import '../sign_up_screen/sign_up_screen.dart';
-import '../widgets/custom_sliver_app_bar_widget.dart';
 import '../widgets/social_media_auth_button.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -56,6 +56,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         slivers: [
           CustomSliverAppBarWidget(
             title: "Reset Password",
+            leadingOnClicked: () {
+              Navigator.pop(context);
+            },
             isAppBarPinned: _isAppBarPinned,
           ),
           SliverToBoxAdapter(

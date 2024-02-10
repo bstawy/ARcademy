@@ -50,4 +50,15 @@ class AppProvider extends ChangeNotifier {
   addThemeValueToSF(bool isDark) async {
     isDark ? prefs.setBool('isDark', true) : prefs.setBool('isDark', false);
   }
+
+  int _selectedScreenIndex = 0;
+
+  int get selectedScreenIndex => _selectedScreenIndex;
+
+  void changeCurrentScreen(int index) {
+    if (_selectedScreenIndex != index) {
+      _selectedScreenIndex = index;
+      notifyListeners();
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/custom_sliver_app_bar_widget.dart';
+import '../../../core/widgets/custom_sliver_app_bar_widget.dart';
 import 'widgets/custom_login_form_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,6 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
         slivers: [
           CustomSliverAppBarWidget(
             title: "Welcome Back",
+            leadingOnClicked: () {
+              Navigator.pop(context);
+            },
             isAppBarPinned: _isAppBarPinned,
           ),
           SliverToBoxAdapter(

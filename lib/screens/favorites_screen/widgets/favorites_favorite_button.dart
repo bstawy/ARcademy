@@ -29,8 +29,10 @@ class FavoritesFavoriteButton extends StatelessWidget {
       color: theme.colorScheme.background,
       enableFeedback: true,
       animationDuration: const Duration(milliseconds: 50),
+      // remove margins around button
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.r),
+        borderRadius: BorderRadius.circular(10.r),
       ),
       child: (isFavorite)
           ? SvgPicture.asset(

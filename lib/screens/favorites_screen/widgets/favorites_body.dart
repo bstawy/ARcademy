@@ -48,7 +48,10 @@ class FavoritesBody extends StatelessWidget {
                       crossAxisCount: 2,
                       crossAxisSpacing: 16.w,
                       mainAxisSpacing: 16.h,
-                      childAspectRatio: 50.w / 88.h,
+                      childAspectRatio: ((MediaQuery.of(context).size.width -
+                                  (24.w + 24.w + 16.w)) /
+                              2) /
+                          220.h,
                     ),
                   )
                 : SliverToBoxAdapter(

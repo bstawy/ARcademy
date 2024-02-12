@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/web_services/firebase_utils.dart';
 import '../../../models/organ_model.dart';
-import 'favorites_ar_view_button.dart';
 import 'favorites_favorite_button.dart';
 
 class FavoritesItemCard extends StatelessWidget {
@@ -47,14 +46,15 @@ class FavoritesItemCard extends StatelessWidget {
             Center(
               child: Image.asset(
                 organ.imagePath,
-                width: 86.5.w,
-                height: 130.5.h,
+                width: 130.w,
+                height: 130.h,
                 fit: BoxFit.contain,
               ),
             ),
             ConstrainedBox(
               constraints: BoxConstraints(
                 maxWidth: maxWidth,
+                maxHeight: 40,
               ),
               child: Text(
                 organ.title,
@@ -66,28 +66,29 @@ class FavoritesItemCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 5.h),
-            Text(
-              "Category",
-              style: theme.textTheme.bodyMedium,
-            ),
-            Text(
-              organ.system,
-              style: theme.textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: 10.h),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Category",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    Text(
+                      organ.system,
+                      style: theme.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
                 FavoritesFavoriteButton(
                   isFavorite: organ.isFavorite,
                   onClicked: () {
                     FirebaseUtils.deleteFromFavorites(itemId: organ.id);
                   },
-                ),
-                //SizedBox(width: 5.w),
-                FavoritesArViewButton(
-                  onClicked: () {},
                 ),
               ],
             ),

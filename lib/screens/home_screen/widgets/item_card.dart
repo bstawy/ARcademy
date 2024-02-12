@@ -90,7 +90,7 @@ class _ItemCardState extends State<ItemCard> {
                 FavoriteButton(
                     isFavorite: widget.organ.isFavorite,
                     onClicked: () {
-                      FirebaseUtils.addToFavorites(widget.organ.id);
+                      FirebaseUtils.addToFavorites(itemId: widget.organ.id);
                       /*if (widget.organ.isFavorite) {
                         FirebaseUtils.deleteFromFavorites(widget.organ.id);
                       } else {

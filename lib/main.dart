@@ -1,4 +1,3 @@
-import 'package:ar_cademy/core/manager/app_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/manager/app_provider.dart';
 import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
 import 'layout/layout.dart';
 import 'screens/onboarding_screens/onboarding_screens.dart';
 import 'screens/registration_screens/login_screen/login_screen.dart';
-import 'screens/registration_screens/login_screen/reset_password_screen.dart';
+import 'screens/registration_screens/login_screen/login_view_model.dart';
+import 'screens/registration_screens/reset_password_screen/reset_password_screen.dart';
 import 'screens/registration_screens/sign_up_screen/sign_up_screen.dart';
+import 'screens/registration_screens/sign_up_screen/sign_up_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +39,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -55,11 +56,23 @@ class MyApp extends StatelessWidget {
               routes: {
                 OnboardingScreens.routeName: (context) =>
                     const OnboardingScreens(),
-                LoginScreen.routeName: (context) => const LoginScreen(),
-                SignUpScreen.routeName: (context) => const SignUpScreen(),
+                LoginScreen.routeName: (context) =>
+                    ChangeNotifierProvider<LoginViewModel>(
+                      create: (context) => LoginViewModel(),
+                      builder: (context, child) {
+                        return const LoginScreen();
+                      },
+                    ),
+                SignUpScreen.routeName: (context) =>
+                    ChangeNotifierProvider<SignUpViewModel>(
+                      create: (context) => SignUpViewModel(),
+                      builder: (context, child) {
+                        return const SignUpScreen();
+                      },
+                    ),
                 ResetPasswordScreen.routeName: (context) =>
                     const ResetPasswordScreen(),
-                Layout.routeName: (context) => const Layout(),
+                Layout.routeName: (context) => const Layout()
               },
               builder: EasyLoading.init(
                 builder: BotToastInit(),

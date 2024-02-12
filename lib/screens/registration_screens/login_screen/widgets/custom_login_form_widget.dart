@@ -3,215 +3,176 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/manager/app_provider.dart';
 import '../../../../core/services/loading_service.dart';
 import '../../../../core/services/snackbar_service.dart';
-import '../../../../core/web_services/firebase_utils.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
 import '../../../../layout/layout.dart';
+import '../../reset_password_screen/reset_password_screen.dart';
 import '../../sign_up_screen/sign_up_screen.dart';
+import '../../validation.dart';
 import '../../widgets/social_media_auth_button.dart';
-import '../reset_password_screen.dart';
+import '../login_view_model.dart';
 
-class CustomLoginFormWidget extends StatefulWidget {
+class CustomLoginFormWidget extends StatelessWidget {
   const CustomLoginFormWidget({super.key});
-
-  @override
-  State<CustomLoginFormWidget> createState() => _CustomLoginFormWidgetState();
-}
-
-class _CustomLoginFormWidgetState extends State<CustomLoginFormWidget> {
-  final _loginFormKey = GlobalKey<FormState>();
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-  bool _isVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    var provider = Provider.of<AppProvider>(context);
 
-    return Form(
-      key: _loginFormKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          CustomTextFormField(
-            textEditingController: _emailController,
-            labelText: "Email",
-            title: "Enter Your Email",
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return ("You must enter your email");
-              }
-
-              var regex = RegExp(
-                  r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
-              if (!regex.hasMatch(value)) {
-                return 'Invalid email address';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 16.h),
-          CustomTextFormField(
-            textEditingController: _passwordController,
-            labelText: "Password",
-            title: "Enter password",
-            obscureText: !_isVisible,
-            suffixIcon: InkWell(
-              onTap: () {
-                _isVisible = !_isVisible;
-                setState(() {});
-              },
-              borderRadius: BorderRadius.circular(15.r),
-              child: (_isVisible)
-                  ? const Icon(Icons.visibility_off_outlined)
-                  : const Icon(Icons.visibility_outlined),
-            ),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return 'You must enter your password';
-              }
-
-              var regex = RegExp(
-                r"(?=^.{8,}$)(?=.*[!@#$%^&*]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
-              );
-
-              if (!regex.hasMatch(value)) {
-                return 'Must contains A-Z, a-z, @-#-&.. , 1-9';
-              }
-
-              return null;
-            },
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, ResetPasswordScreen.routeName);
-              },
-              child: Text(
-                "Forgot Password?",
-                style: theme.textTheme.labelMedium,
-              ),
-            ),
-          ),
-          SizedBox(height: 16.h),
-          CustomMaterialButton(
-            title: "Login",
-            onClicked: () {
-              loginWithEmailAndPassword(provider);
-            },
-          ),
-          SizedBox(height: 24.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Consumer<LoginViewModel>(
+      builder: (context, viewModel, child) {
+        return Form(
+          key: viewModel.loginFormKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SocialMediaAuthButton(
-                  label: "Google",
-                  iconPath: "assets/icons/google_icon.svg",
-                  onClicked: () {
-                    loginWithGoogle(provider);
-                  }),
-              SizedBox(width: 8.w),
-              SocialMediaAuthButton(
-                  label: "Apple",
-                  iconPath: "assets/icons/apple_icon.svg",
-                  onClicked: () {
-                    SnackBarService.showSuccessMessage(
-                        context, "Coming Soon...");
-                  }),
-            ],
-          ),
-          SizedBox(height: 16.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Don't have an account?",
-                style: theme.textTheme.labelLarge!.copyWith(
-                  color: theme.colorScheme.secondary,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, SignUpScreen.routeName);
+              CustomTextFormField(
+                textEditingController: viewModel.emailController,
+                labelText: "Email",
+                title: "Enter Your Email",
+                validator: (value) {
+                  return validateEmail(value);
                 },
-                child: Text(
-                  "Sign Up for free",
-                  style: theme.textTheme.labelLarge,
+              ),
+              SizedBox(height: 16.h),
+              CustomTextFormField(
+                textEditingController: viewModel.passwordController,
+                labelText: "Password",
+                title: "Enter password",
+                obscureText: !viewModel.isPasswordVisible,
+                suffixIcon: InkWell(
+                  onTap: () {
+                    viewModel.showPassword();
+                  },
+                  borderRadius: BorderRadius.circular(15.r),
+                  child: (viewModel.isPasswordVisible)
+                      ? const Icon(Icons.visibility_off_outlined)
+                      : const Icon(Icons.visibility_outlined),
+                ),
+                validator: (value) {
+                  return validatePassword(value);
+                },
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, ResetPasswordScreen.routeName);
+                  },
+                  child: Text(
+                    "Forgot Password?",
+                    style: theme.textTheme.labelMedium,
+                  ),
                 ),
               ),
+              SizedBox(height: 16.h),
+              CustomMaterialButton(
+                title: "Login",
+                onClicked: () async {
+                  loginWithEmail(context, viewModel);
+                },
+              ),
+              SizedBox(height: 24.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SocialMediaAuthButton(
+                    label: "Google",
+                    iconPath: "assets/icons/google_icon.svg",
+                    onClicked: () {
+                      loginWithGoogle(context, viewModel);
+                    },
+                  ),
+                  SizedBox(width: 8.w),
+                  SocialMediaAuthButton(
+                      label: "Apple",
+                      iconPath: "assets/icons/apple_icon.svg",
+                      onClicked: () {
+                        SnackBarService.showSuccessMessage(
+                            context, "Coming Soon...");
+                      }),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: theme.textTheme.labelLarge!.copyWith(
+                      color: theme.colorScheme.secondary,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, SignUpScreen.routeName);
+                    },
+                    child: Text(
+                      "Sign Up for free",
+                      style: theme.textTheme.labelLarge,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30.h),
             ],
           ),
-          SizedBox(height: 30.h),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  loginWithEmailAndPassword(AppProvider provider) async {
-    if (_loginFormKey.currentState!.validate()) {
+  Future<void> loginWithEmail(
+    BuildContext context,
+    LoginViewModel viewModel,
+  ) async {
+    if (viewModel.loginFormKey!.currentState!.validate()) {
       configureEasyLoading(context);
       EasyLoading.show();
 
-      // call api to register
-      var response = await FirebaseUtils.loginWithEmailAndPassword(
-          _emailController.text, _passwordController.text);
+      await viewModel.loginWithEmailAndPassword();
+      String? msg = viewModel.loginStatus;
 
       EasyLoading.dismiss();
 
-      response.fold((l) {
-        SnackBarService.showErrorMessage(context, l!);
-      }, (r) {
-        SnackBarService.showSuccessMessage(context, "Welcome Back");
-        provider.login(r);
+      if (msg == "success") {
+        // Navigate to Home Layout
         if (context.mounted) {
+          SnackBarService.showSuccessMessage(context, "Welcome Back");
           Navigator.pushNamedAndRemoveUntil(
               context, Layout.routeName, (route) => false);
         }
-      });
+      } else {
+        if (context.mounted) SnackBarService.showErrorMessage(context, msg!);
+      }
     }
   }
 
-  loginWithGoogle(AppProvider provider) async {
+  loginWithGoogle(
+    BuildContext context,
+    LoginViewModel viewModel,
+  ) async {
     configureEasyLoading(context);
     EasyLoading.show();
 
-    var response = await FirebaseUtils.signUpWithGoogle();
+    await viewModel.loginWithGoogle();
+    String? msg = viewModel.loginStatus;
 
     EasyLoading.dismiss();
 
-    response.fold((l) {
-      SnackBarService.showErrorMessage(context, l);
-    }, (r) {
-      EasyLoading.dismiss();
-
-      SnackBarService.showSuccessMessage(
-          context, 'Logged in successfully with Google');
-      provider.login(r);
+    if (msg == "success") {
+      // Navigate to Home Layout
       if (context.mounted) {
+        SnackBarService.showSuccessMessage(
+            context, "Logged in successfully with Google Account");
         Navigator.pushNamedAndRemoveUntil(
             context, Layout.routeName, (route) => false);
       }
-    });
+    } else {
+      if (context.mounted) SnackBarService.showErrorMessage(context, msg!);
+    }
   }
 }

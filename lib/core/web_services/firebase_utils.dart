@@ -238,9 +238,9 @@ class FirebaseUtils {
     return favorites;
   }
 
-  static getData() {
+  static Stream<DocumentSnapshot<Object?>> getUserData() {
     final userRef = getUserDocument();
-    final favoritesStream = userRef.snapshots();
-    return favoritesStream;
+    final userData = userRef.snapshots();
+    return userData;
   }
 }

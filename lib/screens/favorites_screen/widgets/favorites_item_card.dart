@@ -6,24 +6,18 @@ import '../../../models/organ_model.dart';
 import 'favorites_ar_view_button.dart';
 import 'favorites_favorite_button.dart';
 
-class FavoritesItemCard extends StatefulWidget {
+class FavoritesItemCard extends StatelessWidget {
   final OrganModel organ;
 
   const FavoritesItemCard({super.key, required this.organ});
 
   @override
-  State<FavoritesItemCard> createState() => _FavoritesItemCardState();
-}
-
-class _FavoritesItemCardState extends State<FavoritesItemCard> {
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    int indexOfSpace = widget.organ.title.indexOf(" ");
-    double maxWidth = (widget.organ.title.substring(0, indexOfSpace).length < 7)
-        ? 120.w
-        : 150.w;
+    int indexOfSpace = organ.title.indexOf(" ");
+    double maxWidth =
+        (organ.title.substring(0, indexOfSpace).length < 7) ? 120.w : 150.w;
 
     return InkWell(
       onTap: () {
@@ -52,7 +46,7 @@ class _FavoritesItemCardState extends State<FavoritesItemCard> {
           children: [
             Center(
               child: Image.asset(
-                widget.organ.imagePath,
+                organ.imagePath,
                 width: 86.5.w,
                 height: 130.5.h,
                 fit: BoxFit.contain,
@@ -63,7 +57,7 @@ class _FavoritesItemCardState extends State<FavoritesItemCard> {
                 maxWidth: maxWidth,
               ),
               child: Text(
-                widget.organ.title,
+                organ.title,
                 maxLines: 2,
                 style: theme.textTheme.titleLarge!.copyWith(
                   fontSize: 16.sp,
@@ -77,7 +71,7 @@ class _FavoritesItemCardState extends State<FavoritesItemCard> {
               style: theme.textTheme.bodyMedium,
             ),
             Text(
-              widget.organ.system,
+              organ.system,
               style: theme.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w400,
               ),
@@ -86,16 +80,9 @@ class _FavoritesItemCardState extends State<FavoritesItemCard> {
             Row(
               children: [
                 FavoritesFavoriteButton(
-                  isFavorite: widget.organ.isFavorite,
+                  isFavorite: organ.isFavorite,
                   onClicked: () {
-                    if (widget.organ.isFavorite) {
-                      FirebaseUtils.deleteFromFavorites(
-                          itemId: widget.organ.id);
-                    } else {
-                      FirebaseUtils.addToFavorites(itemId: widget.organ.id);
-                    }
-                    widget.organ.isFavorite = !widget.organ.isFavorite;
-                    setState(() {});
+                    FirebaseUtils.deleteFromFavorites(itemId: organ.id);
                   },
                 ),
                 //SizedBox(width: 5.w),

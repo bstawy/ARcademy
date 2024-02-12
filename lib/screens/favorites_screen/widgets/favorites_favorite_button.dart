@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FavoritesFavoriteButton extends StatefulWidget {
+class FavoritesFavoriteButton extends StatelessWidget {
   final bool isFavorite;
   final Function onClicked;
 
@@ -13,18 +13,12 @@ class FavoritesFavoriteButton extends StatefulWidget {
   });
 
   @override
-  State<FavoritesFavoriteButton> createState() =>
-      _FavoritesFavoriteButtonState();
-}
-
-class _FavoritesFavoriteButtonState extends State<FavoritesFavoriteButton> {
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return MaterialButton(
       onPressed: () async {
-        widget.onClicked();
+        onClicked();
       },
       height: 25.h,
       minWidth: 25.w,
@@ -38,7 +32,7 @@ class _FavoritesFavoriteButtonState extends State<FavoritesFavoriteButton> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.r),
       ),
-      child: (widget.isFavorite)
+      child: (isFavorite)
           ? SvgPicture.asset(
               "assets/icons/favorite_filled_icon.svg",
               colorFilter:

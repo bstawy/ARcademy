@@ -10,6 +10,7 @@ import '../../../core/widgets/custom_sliver_app_bar_widget.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 import '../../../layout/layout.dart';
 import '../sign_up_screen/sign_up_screen.dart';
+import '../validation.dart';
 import '../widgets/social_media_auth_button.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -82,19 +83,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           textEditingController: _emailController,
                           labelText: "Email",
                           title: "Enter Your Email",
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return ("You must enter your email");
-                            }
-
-                            var regex = RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
-                            if (!regex.hasMatch(value)) {
-                              return 'Invalid email address';
-                            }
-                            return null;
-                          },
+                          validator: (value) => validateEmail(value),
                         ),
                         SizedBox(height: 24.h),
                         CustomMaterialButton(
@@ -163,7 +152,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       configureEasyLoading(context);
       EasyLoading.show();
 
-      var response = await FirebaseUtils.resetPassword(_emailController.text);
+      var response =
+          await FirebaseUtils.resetPassword(email: _emailController.text);
 
       EasyLoading.dismiss();
 

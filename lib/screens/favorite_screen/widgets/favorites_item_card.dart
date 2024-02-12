@@ -1,7 +1,7 @@
-import 'package:ar_cademy/core/web_services/firebase_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/web_services/firebase_utils.dart';
 import '../../../models/organ_model.dart';
 import 'favorites_ar_view_button.dart';
 import 'favorites_favorite_button.dart';
@@ -89,9 +89,10 @@ class _FavoritesItemCardState extends State<FavoritesItemCard> {
                   isFavorite: widget.organ.isFavorite,
                   onClicked: () {
                     if (widget.organ.isFavorite) {
-                      FirebaseUtils.deleteFromFavorites(widget.organ.id);
+                      FirebaseUtils.deleteFromFavorites(
+                          itemId: widget.organ.id);
                     } else {
-                      FirebaseUtils.addToFavorites(widget.organ.id);
+                      FirebaseUtils.addToFavorites(itemId: widget.organ.id);
                     }
                     widget.organ.isFavorite = !widget.organ.isFavorite;
                     setState(() {});

@@ -7,7 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../manager/app_provider.dart';
 
 class FirebaseUtils {
-  static Future<Either<String?, UserCredential>> signUpWithEmailAndPassword({
+  static Future<Either<String, UserCredential>> signUpWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -18,15 +18,23 @@ class FirebaseUtils {
           .createUserWithEmailAndPassword(email: email, password: password);
       await _verifyEmail();
     } on FirebaseAuthException catch (e) {
+      debugPrint(
+          'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
       if (e.code == 'weak-password') {
-        debugPrint('The password provided is too weak.');
-        return left('The password provided is too weak.');
+        debugPrint(
+            'The provided password is weak. Please choose a stronger one');
+        return left(
+            'The provided password is weak. Please choose a stronger one');
       } else if (e.code == 'email-already-in-use') {
-        debugPrint('The account already exists for that email.');
-        return left('Account already existed for that email.');
+        debugPrint(
+            'That email address is already associated with an existing account');
+        return left(
+            'That email address is already associated with an existing account');
       }
+      debugPrint(e.code.toString());
       return left(e.code);
     } catch (e) {
+      debugPrint('Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
       debugPrint(e.toString());
       return left(e.toString());
     }
@@ -42,7 +50,7 @@ class FirebaseUtils {
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+          await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -52,16 +60,30 @@ class FirebaseUtils {
 
       // Once signed in, return the UserCredential
       user = await FirebaseAuth.instance.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      debugPrint(
+          'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+      if (e.code == 'invalid-credential') {
+        debugPrint(
+            'The username or password you entered is incorrect. Please try again');
+        return left(
+            'The username or password you entered is incorrect. Please try again');
+      } else {
+        debugPrint(e.code);
+        return Left(e.code);
+      }
     } catch (e) {
+      debugPrint('Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
       debugPrint(e.toString());
-      return left(e.toString());
+      return Left(e.toString());
     }
     return right(user);
   }
 
-  static Future<Either<String?, UserCredential>> loginWithEmailAndPassword(
-      String email,
-      String password,) async {
+  static Future<Either<String?, UserCredential>> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     late UserCredential user;
 
     try {
@@ -70,14 +92,20 @@ class FirebaseUtils {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
+      debugPrint(
+          'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
       if (e.code == 'invalid-credential') {
-        debugPrint('Invalid login credentials');
-        return left('Invalid login credentials');
+        debugPrint(
+            'The username or password you entered is incorrect. Please try again');
+        return left(
+            'The username or password you entered is incorrect. Please try again');
       } else {
-        debugPrint('${e.message}');
+        debugPrint(e.code);
         return Left(e.code);
       }
     } catch (e) {
+      debugPrint('Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+      debugPrint(e.toString());
       return Left(e.toString());
     }
 
@@ -85,16 +113,21 @@ class FirebaseUtils {
       return Right(user);
     } else {
       return const Left(
-          "Email is not verified, check your inbox for verification email");
+          "Your email address hasn't been verified yet. Please check your inbox for a verification email");
     }
   }
 
-  static Future<String> resetPassword(String email) async {
+  static Future<String> resetPassword({required String email}) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
+      debugPrint(
+          'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+      debugPrint(e.code);
       return e.code;
     } catch (e) {
+      debugPrint('Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+      debugPrint(e.toString());
       return e.toString();
     }
     return "success";
@@ -124,7 +157,7 @@ class FirebaseUtils {
         .doc(AppProvider.userId);
   }
 
-  static addToFavorites(int itemId) async {
+  static addToFavorites({required int itemId}) async {
     final userRef = getUserDocument();
     final docSnapshot = await userRef.get();
 
@@ -142,7 +175,7 @@ class FirebaseUtils {
     });
   }
 
-  static addToRecentlyViewed(int itemId) async {
+  static addToRecentlyViewed({required int itemId}) async {
     final userRef = getUserDocument();
     final docSnapshot = await userRef.get();
 
@@ -160,7 +193,7 @@ class FirebaseUtils {
     });
   }
 
-  static deleteFromFavorites(int itemId) async {
+  static deleteFromFavorites({required int itemId}) async {
     final userRef = getUserDocument();
     final docSnapshot = await userRef.get();
 
@@ -175,7 +208,7 @@ class FirebaseUtils {
     }
   }
 
-  static deleteFromRecentlyViewed(int itemId) async {
+  static deleteFromRecentlyViewed({required int itemId}) async {
     final userRef = getUserDocument();
     final docSnapshot = await userRef.get();
 
@@ -188,6 +221,21 @@ class FirebaseUtils {
         });
       }
     }
+  }
+
+  static Future<List<int>> getFavoriteItemIds() async {
+    List<int> favorites = [];
+    final userRef = getUserDocument();
+    final docSnapshot = await userRef.get();
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data()! as Map<String, dynamic>;
+      if (data.containsKey('favoriteItemIds')) {
+        favorites =
+            (data['favoriteItemIds'] as List).map((e) => e as int).toList();
+        debugPrint("$favorites");
+      }
+    }
+    return favorites;
   }
 
   static getData() {

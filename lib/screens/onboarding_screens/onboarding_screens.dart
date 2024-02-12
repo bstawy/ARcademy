@@ -24,21 +24,18 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
       description:
           "Visualize anatomy in 3D with interactive models, Engage in quizzes and real-world simulations for comprehensive understanding.",
       imagePath: "assets/images/onboarding_image_01.svg",
-      //"assets/images/onboarding_image_01_dark.svg",
     ),
     OnboardingModel(
       title: "Flexible Learning\nAnytime, Anywhere",
       description:
           "Study at your own pace, on various devices, Break free from traditional constraints, accessing knowledge wherever you are.",
       imagePath: "assets/images/onboarding_image_02.svg",
-      //"assets/images/onboarding_image_02_dark.svg",
     ),
     OnboardingModel(
       title: "User-Friendly\nInterface",
       description:
           "Connect through shared AR experiences and virtual dissections, Intuitive design promotes a seamless learning experience, creating an environment that is both engaging and user-friendly.",
       imagePath: "assets/images/onboarding_image_03.svg",
-      //"assets/images/onboarding_image_03_dark.svg",
     ),
   ];
 

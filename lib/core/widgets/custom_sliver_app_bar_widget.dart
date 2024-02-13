@@ -51,6 +51,7 @@ class CustomSliverAppBarWidget extends StatelessWidget {
             style: theme.textTheme.displaySmall!,
             child: Text(
               title,
+              textAlign: TextAlign.center,
               style: (_isAppBarPinned)
                   ? theme.textTheme.titleMedium!.copyWith(
                       color: theme.colorScheme.primary,

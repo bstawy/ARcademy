@@ -8,9 +8,9 @@ import '../../../core/web_services/firebase_utils.dart';
 import '../../../core/widgets/custom_material_button.dart';
 import '../../../core/widgets/custom_sliver_app_bar_widget.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
+import '../../../core/widgets/validation.dart';
 import '../../../layout/layout.dart';
 import '../sign_up_screen/sign_up_screen.dart';
-import '../validation.dart';
 import '../widgets/social_media_auth_button.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -88,6 +88,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         SizedBox(height: 24.h),
                         CustomMaterialButton(
                           title: "Reset",
+                          backgroundColor: theme.colorScheme.primary,
                           onClicked: () {
                             resetPassword();
                           },

@@ -5,6 +5,7 @@ import '../../core/web_services/firebase_utils.dart';
 import '../../models/organ_model.dart';
 
 class FavoritesViewModel extends ChangeNotifier {
+  // ignore: prefer_final_fields
   List<OrganModel> _myFavorites = [];
   bool _isLoading = true;
   bool _hasError = false;
@@ -15,12 +16,12 @@ class FavoritesViewModel extends ChangeNotifier {
 
   bool get hasError => _hasError;
 
-  getFavorites() {
+  getFavorites() async {
     _isLoading = true;
     _hasError = false;
     notifyListeners();
 
-    final snapshot = FirebaseUtils.getUserData();
+    final snapshot = await FirebaseUtils.getUserData("favorites");
     snapshot.listen((querySnapshot) {
       try {
         Map<String, dynamic> data =

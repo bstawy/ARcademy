@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../core/widgets/custom_bottom_nav_bar/custom_bottom_nav_bar.dart';
 import '../core/widgets/custom_bottom_nav_bar/custom_bottom_nav_bar_item.dart';
+import '../screens/category_screen/categories_view_model.dart';
 import '../screens/favorites_screen/favorites_view_model.dart';
 import '../screens/home_screen/home_view_model.dart';
 import 'layout_view_model.dart';
@@ -23,17 +24,22 @@ class Layout extends StatelessWidget {
           create: (context) => HomeViewModel(),
         ),
         ChangeNotifierProvider(
+          create: (context) => CategoriesViewModel(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => FavoritesViewModel(),
         ),
       ],
       child: Consumer<LayoutViewModel>(
         builder: (context, viewModel, child) {
           return Scaffold(
-            body: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                viewModel.screen[viewModel.selectedScreenIndex],
-              ],
+            body: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  viewModel.screen[viewModel.selectedScreenIndex],
+                ],
+              ),
             ),
             bottomNavigationBar: CustomBottomNavBar(
               currentIndex: viewModel.selectedScreenIndex,

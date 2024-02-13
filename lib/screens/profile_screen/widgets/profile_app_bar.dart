@@ -6,7 +6,9 @@ import '../../../core/widgets/custom_back_button.dart';
 import '../../../layout/layout_view_model.dart';
 
 class ProfileAppBar extends StatelessWidget {
-  const ProfileAppBar({super.key});
+  final String title;
+
+  const ProfileAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ProfileAppBar extends StatelessWidget {
         }),
         SizedBox(width: 85.w),
         Text(
-          "Profile",
+          title,
           style: theme.textTheme.titleMedium!.copyWith(
             color: theme.colorScheme.primary,
             fontWeight: FontWeight.w600,

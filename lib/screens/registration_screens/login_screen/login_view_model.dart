@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/manager/app_provider.dart';
 import '../../../core/web_services/firebase_utils.dart';
@@ -31,7 +31,7 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  loginWithEmailAndPassword() async {
+  loginWithEmailAndPassword(BuildContext context) async {
     final response = await FirebaseUtils.loginWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
@@ -42,7 +42,8 @@ class LoginViewModel extends ChangeNotifier {
         _loginStatus = l;
       },
       (r) {
-        storeUserIdInSharedPrefs(r.user!.uid);
+        var appProvider = Provider.of<AppProvider>(context, listen: false);
+        appProvider.storeUserIdInSharedPrefs(r.user!);
         _loginStatus = "success";
       },
     );
@@ -50,7 +51,7 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  loginWithGoogle() async {
+  loginWithGoogle(BuildContext context) async {
     final response = await FirebaseUtils.signUpWithGoogle();
 
     response.fold(
@@ -58,17 +59,12 @@ class LoginViewModel extends ChangeNotifier {
         _loginStatus = l;
       },
       (r) {
-        storeUserIdInSharedPrefs(r.user!.uid);
+        var appProvider = Provider.of<AppProvider>(context, listen: false);
+        appProvider.storeUserIdInSharedPrefs(r.user!);
         _loginStatus = "success";
       },
     );
 
     notifyListeners();
-  }
-
-  storeUserIdInSharedPrefs(String uid) async {
-    AppProvider.userId = uid;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("UID", uid);
   }
 }

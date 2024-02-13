@@ -7,8 +7,8 @@ import '../../../../core/services/loading_service.dart';
 import '../../../../core/services/snackbar_service.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
+import '../../../../core/widgets/validation.dart';
 import '../../../../layout/layout.dart';
-import '../../validation.dart';
 import '../../widgets/social_media_auth_button.dart';
 import '../sign_up_view_model.dart';
 
@@ -102,7 +102,9 @@ class _CustomSignUpFormWidgetState extends State<CustomSignUpFormWidget> {
               SizedBox(height: 24.h),
               CustomMaterialButton(
                 title: "Sign Up",
+                backgroundColor: theme.colorScheme.primary,
                 onClicked: () {
+                  // TODO: pass display name while signup
                   signUpWithEmailAndPassword(context, viewModel);
                 },
               ),

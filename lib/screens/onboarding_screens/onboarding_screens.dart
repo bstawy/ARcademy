@@ -116,6 +116,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
               ),
               CustomMaterialButton(
                 title: (_currentIndex < 2) ? "Next" : "Get Started",
+                backgroundColor: theme.colorScheme.primary,
                 onClicked: () {
                   if (_currentIndex < 2) {
                     _currentIndex++;

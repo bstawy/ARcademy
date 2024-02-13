@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
-
-import '../../../core/manager/app_provider.dart';
-import '../../../core/services/loading_service.dart';
-import '../../registration_screens/login_screen/login_screen.dart';
 
 class SearchButton extends StatelessWidget {
   const SearchButton({super.key});
@@ -14,7 +8,6 @@ class SearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    var provider = Provider.of<AppProvider>(context);
 
     return Container(
       width: 110.w,
@@ -31,16 +24,6 @@ class SearchButton extends StatelessWidget {
       child: MaterialButton(
         onPressed: () {
           // TODO: Navigate to search screen
-          configureEasyLoading(context);
-          EasyLoading.show();
-
-          provider.logout();
-
-          EasyLoading.dismiss();
-
-          if (context.mounted) {
-            Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-          }
         },
         height: 40.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),

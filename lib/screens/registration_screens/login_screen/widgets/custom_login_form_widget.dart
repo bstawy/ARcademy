@@ -7,10 +7,10 @@ import '../../../../core/services/loading_service.dart';
 import '../../../../core/services/snackbar_service.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
+import '../../../../core/widgets/validation.dart';
 import '../../../../layout/layout.dart';
 import '../../reset_password_screen/reset_password_screen.dart';
 import '../../sign_up_screen/sign_up_screen.dart';
-import '../../validation.dart';
 import '../../widgets/social_media_auth_button.dart';
 import '../login_view_model.dart';
 
@@ -70,6 +70,7 @@ class CustomLoginFormWidget extends StatelessWidget {
               SizedBox(height: 16.h),
               CustomMaterialButton(
                 title: "Login",
+                backgroundColor: theme.colorScheme.primary,
                 onClicked: () async {
                   loginWithEmail(context, viewModel);
                 },
@@ -133,7 +134,7 @@ class CustomLoginFormWidget extends StatelessWidget {
       configureEasyLoading(context);
       EasyLoading.show();
 
-      await viewModel.loginWithEmailAndPassword();
+      await viewModel.loginWithEmailAndPassword(context);
       String? msg = viewModel.loginStatus;
 
       EasyLoading.dismiss();
@@ -158,7 +159,7 @@ class CustomLoginFormWidget extends StatelessWidget {
     configureEasyLoading(context);
     EasyLoading.show();
 
-    await viewModel.loginWithGoogle();
+    await viewModel.loginWithGoogle(context);
     String? msg = viewModel.loginStatus;
 
     EasyLoading.dismiss();

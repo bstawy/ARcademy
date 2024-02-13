@@ -11,6 +11,9 @@ import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
 import 'layout/layout.dart';
 import 'screens/onboarding_screens/onboarding_screens.dart';
+import 'screens/profile_screen/account_info_screen/account_info_screen.dart';
+import 'screens/profile_screen/change_password_screen/change_password_screen.dart';
+import 'screens/profile_screen/change_password_screen/forget_password_screen.dart';
 import 'screens/registration_screens/login_screen/login_screen.dart';
 import 'screens/registration_screens/login_screen/login_view_model.dart';
 import 'screens/registration_screens/reset_password_screen/reset_password_screen.dart';
@@ -52,7 +55,7 @@ class MyApp extends StatelessWidget {
               themeMode: provider.currentTheme,
               theme: ApplicationTheme.lightTheme,
               darkTheme: ApplicationTheme.darkTheme,
-              initialRoute: provider.isLoggedIn(),
+              initialRoute: AppProvider.isLoggedIn(),
               routes: {
                 OnboardingScreens.routeName: (context) =>
                     const OnboardingScreens(),
@@ -72,7 +75,13 @@ class MyApp extends StatelessWidget {
                     ),
                 ResetPasswordScreen.routeName: (context) =>
                     const ResetPasswordScreen(),
-                Layout.routeName: (context) => const Layout()
+                Layout.routeName: (context) => const Layout(),
+                AccountInfoScreen.routeName: (context) =>
+                    const AccountInfoScreen(),
+                ChangePasswordScreen.routeName: (context) =>
+                    const ChangePasswordScreen(),
+                ForgetPasswordScreen.routeName: (context) =>
+                    const ForgetPasswordScreen(),
               },
               builder: EasyLoading.init(
                 builder: BotToastInit(),

@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
-import '../../core/widgets/custom_sliver_app_bar_widget.dart';
-import '../../layout/layout_view_model.dart';
-import 'widgets/favorites_body.dart';
+import '../../../core/widgets/custom_sliver_app_bar_widget.dart';
+import 'account_info_form_widget.dart';
 
-class FavoritesScreen extends StatefulWidget {
-  const FavoritesScreen({super.key});
+class AccountInfoScreen extends StatefulWidget {
+  static const String routeName = '/account-info';
+
+  const AccountInfoScreen({super.key});
 
   @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
+  State<AccountInfoScreen> createState() => _AccountInfoScreen();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class _AccountInfoScreen extends State<AccountInfoScreen> {
   late ScrollController _scrollController;
   bool _isAppBarPinned = false;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -37,15 +37,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: CustomScrollView(
+    return Scaffold(
+      body: CustomScrollView(
         controller: _scrollController,
         slivers: [
           CustomSliverAppBarWidget(
-            title: "Favorites",
+            title: "Account\nInformation",
             leadingOnClicked: () {
-              Provider.of<LayoutViewModel>(context, listen: false)
-                  .changeCurrentScreen(context, 0);
+              Navigator.pop(context);
             },
             isAppBarPinned: _isAppBarPinned,
           ),
@@ -54,10 +53,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               height: 75.h,
             ),
           ),
-          const FavoritesBody(),
           SliverToBoxAdapter(
-            child: SizedBox(
-              height: 45.h,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const AccountInfoFormWidget(),
+                  SizedBox(height: 75.h),
+                ],
+              ),
             ),
           ),
         ],

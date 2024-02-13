@@ -9,6 +9,7 @@ class ApplicationTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xff151D31),
       primary: const Color(0xff151D31),
+      onPrimary: const Color(0xff151D31),
       shadow: const Color(0xff151D31),
       background: const Color(0xffF3F3F3),
       onBackground: const Color(0xffffffff),
@@ -113,6 +114,7 @@ class ApplicationTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xffFFFFFF),
       primary: const Color(0xffFFFFFF),
+      onPrimary: const Color(0xff4A4C5B),
       shadow: const Color(0xff151D31),
       background: const Color(0xff333C4B),
       onBackground: const Color(0xff4A4C5B),

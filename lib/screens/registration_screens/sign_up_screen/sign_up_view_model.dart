@@ -37,6 +37,7 @@ class SignUpViewModel extends ChangeNotifier {
 
   signUpWithEmailAndPassword() async {
     final response = await FirebaseUtils.signUpWithEmailAndPassword(
+      name: _fullNameController.text,
       email: _emailController.text,
       password: _passwordController.text,
     );

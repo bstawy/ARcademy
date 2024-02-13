@@ -9,20 +9,17 @@ import '../../../core/widgets/custom_material_button.dart';
 import '../../../core/widgets/custom_sliver_app_bar_widget.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 import '../../../core/widgets/validation.dart';
-import '../../../layout/layout.dart';
-import '../sign_up_screen/sign_up_screen.dart';
-import '../widgets/social_media_auth_button.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  static const String routeName = '/reset-password';
+class ForgetPasswordScreen extends StatefulWidget {
+  static const String routeName = '/forget-password';
 
-  const ResetPasswordScreen({super.key});
+  const ForgetPasswordScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _resetPasswordFormKey = GlobalKey<FormState>();
   late TextEditingController _emailController;
   late ScrollController _scrollController;
@@ -56,7 +53,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         controller: _scrollController,
         slivers: [
           CustomSliverAppBarWidget(
-            title: "Reset Password",
+            title: "Forgot Password",
             leadingOnClicked: () {
               Navigator.pop(context);
             },
@@ -93,49 +90,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             resetPassword();
                           },
                         ),
-                        SizedBox(height: 48.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SocialMediaAuthButton(
-                                label: "Google",
-                                iconPath: "assets/icons/google_icon.svg",
-                                onClicked: () {
-                                  loginWithGoogle();
-                                }),
-                            SizedBox(width: 8.w),
-                            SocialMediaAuthButton(
-                                label: "Apple",
-                                iconPath: "assets/icons/apple_icon.svg",
-                                onClicked: () {
-                                  SnackBarService.showSuccessMessage(
-                                      context, "Coming Soon...");
-                                }),
-                          ],
-                        ),
-                        SizedBox(height: 16.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Don't have an account?",
-                              style: theme.textTheme.labelLarge!.copyWith(
-                                color: theme.colorScheme.secondary,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, SignUpScreen.routeName);
-                              },
-                              child: Text(
-                                "Sign Up for free",
-                                style: theme.textTheme.labelLarge,
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -168,27 +122,5 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         }
       }
     }
-  }
-
-  loginWithGoogle() async {
-    configureEasyLoading(context);
-    EasyLoading.show();
-
-    var response = await FirebaseUtils.signUpWithGoogle();
-
-    EasyLoading.dismiss();
-
-    response.fold((l) {
-      SnackBarService.showErrorMessage(context, l);
-    }, (r) {
-      EasyLoading.dismiss();
-
-      SnackBarService.showSuccessMessage(
-          context, 'Logged in successfully with Google');
-      if (context.mounted) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, Layout.routeName, (route) => false);
-      }
-    });
   }
 }

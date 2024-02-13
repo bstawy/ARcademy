@@ -8,6 +8,7 @@ import '../manager/app_provider.dart';
 
 class FirebaseUtils {
   static Future<Either<String, UserCredential>> signUpWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -17,6 +18,7 @@ class FirebaseUtils {
       user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       await _verifyEmail();
+      await user.user!.updateDisplayName(name);
     } on FirebaseAuthException catch (e) {
       debugPrint(
           'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
@@ -133,10 +135,117 @@ class FirebaseUtils {
     return "success";
   }
 
+  static changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      String response = await reAuthenticate(user, oldPassword);
+      if (response == "success") {
+        try {
+          await user.updatePassword(newPassword);
+        } on FirebaseAuthException catch (e) {
+          debugPrint(
+              'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+          debugPrint(e.code);
+          return (e.code);
+        } catch (e) {
+          debugPrint(
+              'Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+          debugPrint(e.toString());
+          return (e.toString());
+        }
+        return ("success");
+      }
+      return response;
+    }
+  }
+
+  static Future<String> reAuthenticate(User user, String oldPassword) async {
+    try {
+      final credential = EmailAuthProvider.credential(
+          email: user.email!, password: oldPassword);
+      await user.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      debugPrint(
+          'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+      if (e.code == 'invalid-credential') {
+        debugPrint('Entered password doesn\'t match your current password');
+        return ('Entered password doesn\'t match your current password');
+      } else {
+        debugPrint(e.code);
+        return (e.code);
+      }
+    } catch (e) {
+      debugPrint('Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+      debugPrint(e.toString());
+      return (e.toString());
+    }
+    return "success";
+  }
+
+  static Either<String, User> getCurrentUserInfo() {
+    late User? user;
+    user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return const Left("No user logged in");
+    }
+    return Right(user);
+  }
+
   static logOut() async {
     GoogleSignIn googleSignIn = GoogleSignIn();
     await googleSignIn.signOut();
     await FirebaseAuth.instance.signOut();
+  }
+
+  static Future<String> deleteAccount() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        await deleteUserDataFromFirestore();
+
+        unlinkProvider();
+        GoogleSignIn googleSignIn = GoogleSignIn();
+        await googleSignIn.signOut();
+
+        user.delete();
+      } on FirebaseAuthException catch (e) {
+        debugPrint(
+            'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        if (e.code == "requires-recent-login") {
+          debugPrint(e.toString());
+        } else {
+          return e.code;
+        }
+      } catch (e) {
+        debugPrint(
+            'Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        debugPrint(e.toString());
+        return (e.toString());
+      }
+      return "success";
+    }
+    return ("No user signed in");
+  }
+
+  static unlinkProvider() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        await user.unlink("google.com");
+      } on FirebaseAuthException catch (e) {
+        if (e.code == "no-such-provider") {
+          debugPrint("Google provider not linked to this user");
+        } else {
+          debugPrint("Error unlinking Google provider: ${e.message}");
+        }
+      }
+    }
   }
 
   static _verifyEmail() async {
@@ -151,6 +260,43 @@ class FirebaseUtils {
     }
   }
 
+  static Future<String> updateAccountInfo(
+      {String? fullName, String? email}) async {
+    final user = FirebaseAuth.instance.currentUser!;
+
+    if (fullName != null) {
+      try {
+        await user.updateDisplayName(fullName);
+      } on FirebaseAuthException catch (e) {
+        debugPrint(
+            'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        debugPrint(e.code);
+        return e.code;
+      } catch (e) {
+        debugPrint(
+            'Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        debugPrint(e.toString());
+        return e.toString();
+      }
+    }
+    if (email != null) {
+      try {
+        await user.verifyBeforeUpdateEmail(email);
+      } on FirebaseAuthException catch (e) {
+        debugPrint(
+            'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        debugPrint(e.code);
+        return e.code;
+      } catch (e) {
+        debugPrint(
+            'Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        debugPrint(e.toString());
+        return e.toString();
+      }
+    }
+    return "success";
+  }
+
   static DocumentReference getUserDocument() {
     return FirebaseFirestore.instance
         .collection('users')
@@ -162,13 +308,9 @@ class FirebaseUtils {
     final docSnapshot = await userRef.get();
 
     if (!docSnapshot.exists) {
-      final data = docSnapshot.data()! as Map<String, dynamic>;
-
-      if (!data.containsKey('favoriteItemIds')) {
-        await userRef.set({
-          'favoriteItemIds': [] // Create the field with an empty array
-        });
-      }
+      await userRef.set({
+        'favoriteItemIds': [] // Create the field with an empty array
+      });
     }
     await userRef.update({
       'favoriteItemIds': FieldValue.arrayUnion([itemId])
@@ -223,24 +365,23 @@ class FirebaseUtils {
     }
   }
 
-  static Future<List<int>> getFavoriteItemIds() async {
-    List<int> favorites = [];
+  static Future<Stream<DocumentSnapshot<Object?>>> getUserData(
+      String type) async {
     final userRef = getUserDocument();
     final docSnapshot = await userRef.get();
-    if (docSnapshot.exists) {
-      final data = docSnapshot.data()! as Map<String, dynamic>;
-      if (data.containsKey('favoriteItemIds')) {
-        favorites =
-            (data['favoriteItemIds'] as List).map((e) => e as int).toList();
-        debugPrint("$favorites");
+    if (!docSnapshot.exists) {
+      if (type == "favorites") {
+        userRef.set({'favoriteItemIds': []});
+      } else {
+        userRef.set({'recentlyViewedItemIds': []});
       }
     }
-    return favorites;
-  }
-
-  static Stream<DocumentSnapshot<Object?>> getUserData() {
-    final userRef = getUserDocument();
     final userData = userRef.snapshots();
     return userData;
+  }
+
+  static Future<void> deleteUserDataFromFirestore() async {
+    final userRef = getUserDocument();
+    await userRef.delete();
   }
 }

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../core/widgets/custom_sliver_app_bar_widget.dart';
 import '../../layout/layout_view_model.dart';
-import 'favorites_view_model.dart';
 import 'widgets/favorites_body.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -38,52 +37,31 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-
-    return Consumer<FavoritesViewModel>(
-      builder: (context, viewModel, child) {
-        if (viewModel.isLoading) {
-          return Expanded(
-            child: Center(
-              child:
-                  CircularProgressIndicator(color: theme.colorScheme.primary),
+    return Expanded(
+      child: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          CustomSliverAppBarWidget(
+            title: "Favorites",
+            leadingOnClicked: () {
+              Provider.of<LayoutViewModel>(context, listen: false)
+                  .changeCurrentScreen(context, 0);
+            },
+            isAppBarPinned: _isAppBarPinned,
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 75.h,
             ),
-          );
-        } else if (viewModel.hasError) {
-          return const Expanded(
-            child: Center(
-              child: Text("Error fetching data"),
+          ),
+          const FavoritesBody(),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 45.h,
             ),
-          );
-        } else {
-          return Expanded(
-            child: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                CustomSliverAppBarWidget(
-                  title: "Favorites",
-                  leadingOnClicked: () {
-                    Provider.of<LayoutViewModel>(context, listen: false)
-                        .changeCurrentScreen(context, 0);
-                  },
-                  isAppBarPinned: _isAppBarPinned,
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 75.h,
-                  ),
-                ),
-                const FavoritesBody(),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 45.h,
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
-      },
+          ),
+        ],
+      ),
     );
   }
 }

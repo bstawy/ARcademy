@@ -12,7 +12,7 @@ class AppBarTitleWidget extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: EdgeInsets.only(top: 51.h, left: 24.w, bottom: 8.h, right: 24.w),
+      padding: EdgeInsets.only(top: 48, left: 24.w, bottom: 8.h, right: 24.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

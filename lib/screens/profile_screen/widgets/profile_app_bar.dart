@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 import '../../../core/widgets/custom_back_button.dart';
-import '../../../layout/layout_view_model.dart';
 
 class ProfileAppBar extends StatelessWidget {
   final String title;
+  final Function onClicked;
 
-  const ProfileAppBar({super.key, required this.title});
+  const ProfileAppBar({
+    super.key,
+    required this.title,
+    required this.onClicked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,8 @@ class ProfileAppBar extends StatelessWidget {
     return Row(
       children: [
         CustomBackButton(onClicked: () {
-          Provider.of<LayoutViewModel>(context, listen: false)
-              .changeCurrentScreen(context, 0);
+          onClicked();
         }),
-        SizedBox(width: 85.w),
         Text(
           title,
           style: theme.textTheme.titleMedium!.copyWith(

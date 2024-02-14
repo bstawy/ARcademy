@@ -16,7 +16,7 @@ class CustomBackButton extends StatelessWidget {
       },
       height: 48.w,
       minWidth: 48.w,
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(12.r),
       elevation: 0,
       highlightElevation: 0,
       highlightColor: theme.colorScheme.secondary,

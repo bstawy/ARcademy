@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/web_services/firebase_utils.dart';
 import '../../../models/organ_model.dart';
+import '../../details_screen/details_screen.dart';
 import 'favorites_favorite_button.dart';
 
 class FavoritesItemCard extends StatelessWidget {
@@ -20,7 +21,7 @@ class FavoritesItemCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        // TODO: Navigate to details screen
+        Navigator.pushNamed(context, DetailsScreen.routeName, arguments: organ);
       },
       borderRadius: BorderRadius.circular(25.r),
       splashColor: theme.colorScheme.secondary,

@@ -1,3 +1,4 @@
+import 'package:ar_cademy/screens/details_screen/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,7 +28,8 @@ class _ItemCardState extends State<ItemCard> {
 
     return InkWell(
       onTap: () {
-        // TODO: Navigate to details screen
+        Navigator.pushNamed(context, DetailsScreen.routeName,
+            arguments: widget.organ);
       },
       borderRadius: BorderRadius.circular(25.r),
       splashColor: theme.colorScheme.secondary,
@@ -88,19 +90,26 @@ class _ItemCardState extends State<ItemCard> {
             Row(
               children: [
                 FavoriteButton(
-                    isFavorite: widget.organ.isFavorite,
-                    onClicked: () {
-                      FirebaseUtils.addToFavorites(itemId: widget.organ.id);
-                      /*if (widget.organ.isFavorite) {
+                  iconWidth: 24.w,
+                  iconHeight: 24.h,
+                  isFavorite: widget.organ.isFavorite,
+                  onClicked: () {
+                    FirebaseUtils.addToFavorites(itemId: widget.organ.id);
+                    /*if (widget.organ.isFavorite) {
                         FirebaseUtils.deleteFromFavorites(widget.organ.id);
                       } else {
                         FirebaseUtils.addToFavorites(widget.organ.id);
                       }*/
-                      widget.organ.isFavorite = !widget.organ.isFavorite;
-                      setState(() {});
-                    }),
+                    widget.organ.isFavorite = !widget.organ.isFavorite;
+                    setState(() {});
+                  },
+                ),
                 SizedBox(width: 8.w),
-                ArViewButton(onClicked: () {}),
+                ArViewButton(
+                  iconWidth: 24.w,
+                  iconHeight: 24.h,
+                  onClicked: () {},
+                ),
               ],
             ),
           ],

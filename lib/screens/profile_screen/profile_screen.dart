@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
+import '../../layout/layout_view_model.dart';
 import 'widgets/profile_app_bar.dart';
 import 'widgets/profile_header.dart';
 import 'widgets/profile_options.dart';
@@ -15,7 +17,13 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const ProfileAppBar(title: "Profile"),
+          ProfileAppBar(
+            title: "Profile",
+            onClicked: () {
+              Provider.of<LayoutViewModel>(context, listen: false)
+                  .changeCurrentScreen(context, 0);
+            },
+          ),
           SizedBox(height: 16.h),
           const ProfileHeader(),
           SizedBox(height: 16.h),

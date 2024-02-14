@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../layout/layout_view_model.dart';
 import '../profile_screen/widgets/profile_app_bar.dart';
 import 'categories_view_model.dart';
 import 'widgets/tab_bar_body.dart';
@@ -27,7 +28,13 @@ class CategoryScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24.0.w),
-                    child: const ProfileAppBar(title: "Categories"),
+                    child: ProfileAppBar(
+                      title: "Categories",
+                      onClicked: () {
+                        Provider.of<LayoutViewModel>(context, listen: false)
+                            .changeCurrentScreen(context, 0);
+                      },
+                    ),
                   ),
                   SizedBox(height: 16.h),
                   Text(

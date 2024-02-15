@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../core/services/snackbar_service.dart';
+
 class ArViewButton extends StatelessWidget {
   final TextStyle? textStyle;
   final double? height;
@@ -36,7 +38,8 @@ class ArViewButton extends StatelessWidget {
 
     return MaterialButton(
       onPressed: () {
-        onClicked();
+        //onClicked();
+        SnackBarService.showSuccessMessage(context, "Coming Soon...");
       },
       height: height ?? 40.h,
       minWidth: minWidth ?? 161.w,

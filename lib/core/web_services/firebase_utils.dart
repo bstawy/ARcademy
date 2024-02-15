@@ -68,6 +68,7 @@ class FirebaseUtils {
       // Once signed in, return the UserCredential
       UserCredential user =
           await FirebaseAuth.instance.signInWithCredential(credential);
+
       return right(user);
     } on FirebaseAuthException catch (e) {
       debugPrint(
@@ -108,6 +109,13 @@ class FirebaseUtils {
         email: email,
         password: password,
       );
+
+      if (_isVerified(user)) {
+        return Right(user);
+      } else {
+        return const Left(
+            "Your email address hasn't been verified yet. Please check your inbox for a verification email");
+      }
     } on FirebaseAuthException catch (e) {
       debugPrint(
           "================== Firebase Auth Exceptions ==================");
@@ -136,18 +144,12 @@ class FirebaseUtils {
       debugPrint(e.toString());
       return left(e.toString());
     }
-
-    if (_isVerified(user)) {
-      return Right(user);
-    } else {
-      return const Left(
-          "Your email address hasn't been verified yet. Please check your inbox for a verification email");
-    }
   }
 
   static Future<String> resetPassword({required String email}) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return "success";
     } on FirebaseAuthException catch (e) {
       debugPrint(
           "================== Firebase Auth Exceptions ==================");
@@ -171,7 +173,6 @@ class FirebaseUtils {
       debugPrint(e.toString());
       return (e.toString());
     }
-    return "success";
   }
 
   static Future<String> changePassword({
@@ -307,46 +308,13 @@ class FirebaseUtils {
 
         if (user.providerData
             .any((provider) => provider.providerId == 'google.com')) {
-          unlinkProvider('google.com');
-          GoogleSignIn googleSignIn = GoogleSignIn();
-          await googleSignIn.signOut();
+          if (await unlinkProvider('google.com') == "success") {
+            GoogleSignIn googleSignIn = GoogleSignIn();
+            await googleSignIn.signOut();
+          }
         }
-
         user.delete();
         return "success";
-      } on FirebaseAuthException catch (e) {
-        debugPrint(
-            "================== Firebase Auth Exceptions ==================");
-        debugPrint("${e.code} ====== ${e.message}");
-
-        switch (e.code) {
-          case "network-request-failed":
-            return "There seems to be a network issue. Please check your internet connection and try again";
-
-          case "timeout":
-            return "The request took too long. Please try again later";
-
-          case "requires-recent-login":
-            return "This operation requires recent login. Please sign in again before trying again";
-
-          default:
-            return (e.code);
-        }
-      } catch (e) {
-        debugPrint("================== Catch e exception ==================");
-        debugPrint(e.toString());
-        return (e.toString());
-      }
-    }
-    return ("No user signed in");
-  }
-
-  static unlinkProvider(String providerId) async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      try {
-        await user.unlink(providerId);
       } on FirebaseAuthException catch (e) {
         debugPrint(
             "================== Firebase Auth Exceptions ==================");
@@ -374,10 +342,39 @@ class FirebaseUtils {
         return (e.toString());
       }
     }
+    return ("No user signed in");
   }
 
-  static _verifyEmail() async {
-    await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+  static Future<String> unlinkProvider(String providerId) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        await user.unlink(providerId);
+        return "success";
+      } on FirebaseAuthException catch (e) {
+        debugPrint(
+            "================== Firebase Auth Exceptions ==================");
+        debugPrint("${e.code} ====== ${e.message}");
+
+        rethrow;
+      } catch (e) {
+        debugPrint("================== Catch e exception ==================");
+        debugPrint(e.toString());
+        return (e.toString());
+      }
+    }
+    return ("No user signed in");
+  }
+
+  static Future<void> _verifyEmail() async {
+    try {
+      await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   static bool _isVerified(UserCredential user) {
@@ -388,8 +385,10 @@ class FirebaseUtils {
     }
   }
 
-  static Future<String> updateAccountInfo(
-      {String? fullName, String? email}) async {
+  static Future<String> updateAccountInfo({
+    String? fullName,
+    String? email,
+  }) async {
     final user = FirebaseAuth.instance.currentUser!;
 
     if (fullName != null) {
@@ -397,14 +396,13 @@ class FirebaseUtils {
         await user.updateDisplayName(fullName);
       } on FirebaseAuthException catch (e) {
         debugPrint(
-            'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
-        debugPrint(e.code);
+            "================== Firebase Auth Exceptions ==================");
+        debugPrint("${e.code} ====== ${e.message}");
         return e.code;
       } catch (e) {
-        debugPrint(
-            'Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        debugPrint("================== Catch e exception ==================");
         debugPrint(e.toString());
-        return e.toString();
+        return (e.toString());
       }
     }
     if (email != null) {
@@ -412,14 +410,13 @@ class FirebaseUtils {
         await user.verifyBeforeUpdateEmail(email);
       } on FirebaseAuthException catch (e) {
         debugPrint(
-            'Firebase Auth Exceptions:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
-        debugPrint(e.code);
+            "================== Firebase Auth Exceptions ==================");
+        debugPrint("${e.code} ====== ${e.message}");
         return e.code;
       } catch (e) {
-        debugPrint(
-            'Catch e exception:\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+        debugPrint("================== Catch e exception ==================");
         debugPrint(e.toString());
-        return e.toString();
+        return (e.toString());
       }
     }
     return "success";
@@ -427,7 +424,7 @@ class FirebaseUtils {
 
   static DocumentReference getUserDocument() {
     return FirebaseFirestore.instance
-        .collection('users')
+        .collection("users")
         .doc(AppProvider.userId);
   }
 
@@ -437,29 +434,11 @@ class FirebaseUtils {
 
     if (!docSnapshot.exists) {
       await userRef.set({
-        'favoriteItemIds': [] // Create the field with an empty array
+        "favoriteItemIds": [] // Create the field with an empty array
       });
     }
     await userRef.update({
-      'favoriteItemIds': FieldValue.arrayUnion([itemId])
-    });
-  }
-
-  static addToRecentlyViewed({required int itemId}) async {
-    final userRef = getUserDocument();
-    final docSnapshot = await userRef.get();
-
-    if (!docSnapshot.exists) {
-      final data = docSnapshot.data()! as Map<String, dynamic>;
-
-      if (!data.containsKey('recentlyViewedItemIds')) {
-        await userRef.set({
-          'recentlyViewedItemIds': [] // Create the field with an empty array
-        });
-      }
-    }
-    await userRef.update({
-      'recentlyViewedItemIds': FieldValue.arrayUnion([itemId])
+      "favoriteItemIds": FieldValue.arrayUnion([itemId])
     });
   }
 
@@ -470,39 +449,19 @@ class FirebaseUtils {
     if (docSnapshot.exists) {
       final data = docSnapshot.data()! as Map<String, dynamic>;
 
-      if (data.containsKey('favoriteItemIds')) {
+      if (data.containsKey("favoriteItemIds")) {
         await userRef.update({
-          'favoriteItemIds': FieldValue.arrayRemove([itemId]),
+          "favoriteItemIds": FieldValue.arrayRemove([itemId]),
         });
       }
     }
   }
 
-  static deleteFromRecentlyViewed({required int itemId}) async {
-    final userRef = getUserDocument();
-    final docSnapshot = await userRef.get();
-
-    if (docSnapshot.exists) {
-      final data = docSnapshot.data()! as Map<String, dynamic>;
-
-      if (data.containsKey('recentlyViewedItemIds')) {
-        await userRef.update({
-          'recentlyViewedItemIds': FieldValue.arrayRemove([itemId]),
-        });
-      }
-    }
-  }
-
-  static Future<Stream<DocumentSnapshot<Object?>>> getUserData(
-      String type) async {
+  static Future<Stream<DocumentSnapshot<Object?>>> getUserData() async {
     final userRef = getUserDocument();
     final docSnapshot = await userRef.get();
     if (!docSnapshot.exists) {
-      if (type == "favorites") {
-        userRef.set({'favoriteItemIds': []});
-      } else {
-        userRef.set({'recentlyViewedItemIds': []});
-      }
+      userRef.set({"favoriteItemIds": []});
     }
     final userData = userRef.snapshots();
     return userData;
@@ -517,10 +476,3 @@ class FirebaseUtils {
     }
   }
 }
-
-/*
-i am developing mobile application using flutter framework and i am using firebase authentication for login and sign up
-when calling firebase apis there are some exception which happened and i want to pop up a snack bar for user to know what is the issue
-so i want you to tell me all exception for FirebaseAuth.instance.currentUser!.delete
-          and the appropriate message to display for users for each exception
- */

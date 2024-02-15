@@ -20,7 +20,7 @@ class FavoritesViewModel extends ChangeNotifier {
     _hasError = false;
     notifyListeners();
 
-    final snapshot = await FirebaseUtils.getUserData("favorites");
+    final snapshot = await FirebaseUtils.getUserData();
     snapshot.listen((querySnapshot) {
       try {
         Map<String, dynamic> data =

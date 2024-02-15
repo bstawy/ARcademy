@@ -239,7 +239,7 @@ class SystemsData {
   static final List<OrganModel> _myFavorites = [];
 
   static Future<void> getData(BuildContext context) async {
-    final snapshot = await FirebaseUtils.getUserData("favorites");
+    final snapshot = await FirebaseUtils.getUserData();
 
     snapshot.listen((querySnapshot) {
       try {

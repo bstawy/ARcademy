@@ -13,6 +13,7 @@ class HomeViewModel extends ChangeNotifier {
               organ: organ!,
             ))
         .toList();
+    _items.shuffle();
   }
 
   final List<OrganModel?> _organs = [

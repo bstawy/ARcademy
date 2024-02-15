@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
-import 'change_theme_button.dart';
+import '../../../core/manager/app_provider.dart';
+import '../../../core/widgets/custom_action_button.dart';
 
 class AppBarTitleWidget extends StatelessWidget {
   const AppBarTitleWidget({super.key});
@@ -52,13 +54,13 @@ class AppBarTitleWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Mohamed Bastawy",
+                      AppProvider.user!.displayName!,
                       style: theme.textTheme.labelLarge!.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
-                      "bastawiie@gmail.com",
+                      AppProvider.user!.email!,
                       style: theme.textTheme.labelSmall,
                     ),
                   ],
@@ -66,9 +68,22 @@ class AppBarTitleWidget extends StatelessWidget {
               ],
             ),
           ),
-          const ChangeThemeButton(),
+          CustomActionButton(
+            iconPath: "assets/icons/theme_icon.svg",
+            onClicked: () {
+              changeTheme(context);
+            },
+          ),
         ],
       ),
     );
+  }
+
+  void changeTheme(BuildContext context) {
+    final appProvider = Provider.of<AppProvider>(context, listen: false);
+    var newTheme = appProvider.currentTheme == ThemeMode.light
+        ? ThemeMode.dark
+        : ThemeMode.light;
+    appProvider.changeTheme(newTheme);
   }
 }

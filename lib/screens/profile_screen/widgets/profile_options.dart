@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,42 +21,58 @@ class ProfileOptions extends StatelessWidget {
     final theme = Theme.of(context);
 
     final List<Widget> options = [
-      OptionWidget(
-        title: "Account Information",
-        iconPath: "assets/icons/profile_icon.svg",
-        onTap: () {
-          Navigator.pushNamed(context, AccountInfoScreen.routeName);
-        },
-      ),
-      OptionWidget(
-        title: "Change Password",
-        iconPath: "assets/icons/change_password_icon.svg",
-        onTap: () {
-          Navigator.pushNamed(context, ChangePasswordScreen.routeName);
-        },
-      ),
-      OptionWidget(
-        title: "Logout",
-        iconPath: "assets/icons/logout_icon.svg",
-        onTap: () {
-          logout(context, provider);
-        },
-      ),
-      OptionWidget(
-        title: "Delete Account",
-        iconPath: "assets/icons/delete_icon.svg",
-        titleStyle: theme.textTheme.labelLarge!.copyWith(
-          color: theme.colorScheme.error,
+      FadeInLeft(
+        animate: true,
+        delay: const Duration(milliseconds: 100),
+        child: OptionWidget(
+          title: "Account Information",
+          iconPath: "assets/icons/profile_icon.svg",
+          onTap: () {
+            Navigator.pushNamed(context, AccountInfoScreen.routeName);
+          },
         ),
-        selectedColor: const Color(0xffEF233C),
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return const DeleteAccountAlertDialog();
-            },
-          );
-        },
+      ),
+      FadeInRight(
+        animate: true,
+        delay: const Duration(milliseconds: 150),
+        child: OptionWidget(
+          title: "Change Password",
+          iconPath: "assets/icons/change_password_icon.svg",
+          onTap: () {
+            Navigator.pushNamed(context, ChangePasswordScreen.routeName);
+          },
+        ),
+      ),
+      FadeInLeft(
+        animate: true,
+        delay: const Duration(milliseconds: 200),
+        child: OptionWidget(
+          title: "Logout",
+          iconPath: "assets/icons/logout_icon.svg",
+          onTap: () {
+            logout(context, provider);
+          },
+        ),
+      ),
+      FadeInRight(
+        animate: true,
+        delay: const Duration(milliseconds: 250),
+        child: OptionWidget(
+          title: "Delete Account",
+          iconPath: "assets/icons/delete_icon.svg",
+          titleStyle: theme.textTheme.labelLarge!.copyWith(
+            color: theme.colorScheme.error,
+          ),
+          selectedColor: const Color(0xffEF233C),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const DeleteAccountAlertDialog();
+              },
+            );
+          },
+        ),
       ),
     ];
 

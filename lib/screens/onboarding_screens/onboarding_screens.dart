@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -22,13 +23,13 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
     OnboardingModel(
       title: "Immersive\nLearning Experience",
       description:
-          "Visualize anatomy in 3D with interactive models, Engage in quizzes and real-world simulations for comprehensive understanding.",
+      "Visualize anatomy in 3D with interactive models, Engage in quizzes and real-world simulations for comprehensive understanding.",
       imagePath: "assets/images/onboarding_image_01.svg",
     ),
     OnboardingModel(
       title: "Flexible Learning\nAnytime, Anywhere",
       description:
-          "Study at your own pace, on various devices, Break free from traditional constraints, accessing knowledge wherever you are.",
+      "Study at your own pace, on various devices, Break free from traditional constraints, accessing knowledge wherever you are.",
       imagePath: "assets/images/onboarding_image_02.svg",
     ),
     OnboardingModel(
@@ -40,11 +41,12 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
   ];
 
   late PageController _onboardingController;
-  int _currentIndex = 0;
+  late int _currentIndex;
 
   @override
   void initState() {
     super.initState();
+    _currentIndex = 0;
     _onboardingController = PageController();
   }
 
@@ -77,13 +79,16 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
             children: [
               (_currentIndex < 2)
                   ? Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SkipButton(onClicked: () {
-                          Navigator.pushNamed(context, LoginScreen.routeName);
-                        }),
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                        FadeInRight(
+                          animate: true,
+                          child: SkipButton(onClicked: () {
+                            Navigator.pushNamed(context, LoginScreen.routeName);
+                          }),
+                        ),
                       ],
-                    )
+              )
                   : SizedBox(height: 48.h),
               SizedBox(height: 24.h),
               Expanded(
@@ -99,33 +104,41 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 ),
               ),
               Center(
-                child: SmoothPageIndicator(
-                  controller: _onboardingController,
-                  count: _onboardingScreens.length,
-                  axisDirection: Axis.horizontal,
-                  effect: ExpandingDotsEffect(
-                    activeDotColor: theme.colorScheme.primary,
-                    dotColor: theme.colorScheme.secondary,
-                    dotHeight: 6.h,
-                    radius: 8.r,
+                child: FadeInUp(
+                  animate: true,
+                  delay: const Duration(milliseconds: 200),
+                  child: SmoothPageIndicator(
+                    controller: _onboardingController,
+                    count: _onboardingScreens.length,
+                    axisDirection: Axis.horizontal,
+                    effect: ExpandingDotsEffect(
+                      activeDotColor: theme.colorScheme.primary,
+                      dotColor: theme.colorScheme.secondary,
+                      dotHeight: 6.h,
+                      radius: 8.r,
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 24.h,
               ),
-              CustomMaterialButton(
-                title: (_currentIndex < 2) ? "Next" : "Get Started",
-                backgroundColor: theme.colorScheme.primary,
-                onClicked: () {
-                  if (_currentIndex < 2) {
-                    _currentIndex++;
-                    nextOnboardingScreen();
-                  } else {
-                    Navigator.pushNamed(context, LoginScreen.routeName);
-                    _currentIndex = 0;
-                  }
-                },
+              FadeInUp(
+                animate: true,
+                delay: const Duration(milliseconds: 250),
+                child: CustomMaterialButton(
+                  title: (_currentIndex < 2) ? "Next" : "Get Started",
+                  backgroundColor: theme.colorScheme.primary,
+                  onClicked: () {
+                    if (_currentIndex < 2) {
+                      _currentIndex++;
+                      nextOnboardingScreen();
+                    } else {
+                      Navigator.pushNamed(context, LoginScreen.routeName);
+                      _currentIndex = 0;
+                    }
+                  },
+                ),
               ),
             ],
           ),

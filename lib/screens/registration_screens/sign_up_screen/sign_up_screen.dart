@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -40,33 +41,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          CustomSliverAppBarWidget(
-            title: "Create Account",
-            leadingOnClicked: () {
-              Navigator.pop(context);
-            },
-            isAppBarPinned: _isAppBarPinned,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Lets create account together",
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  SizedBox(height: 32.h),
-                  const CustomSignUpFormWidget(),
-                ],
+      body: FadeInDown(
+        animate: true,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            CustomSliverAppBarWidget(
+              title: "Create Account",
+              leadingOnClicked: () {
+                Navigator.pop(context);
+              },
+              isAppBarPinned: _isAppBarPinned,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FadeInUp(
+                      animate: true,
+                      delay: const Duration(milliseconds: 50),
+                      child: Text(
+                        "Lets create account together",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                    SizedBox(height: 32.h),
+                    const CustomSignUpFormWidget(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

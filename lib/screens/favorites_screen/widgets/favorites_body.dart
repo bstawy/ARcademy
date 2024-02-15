@@ -1,8 +1,9 @@
-import 'package:ar_cademy/screens/favorites_screen/favorites_view_model.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../favorites_view_model.dart';
 import 'favorites_item_card.dart';
 
 class FavoritesBody extends StatelessWidget {
@@ -15,23 +16,9 @@ class FavoritesBody extends StatelessWidget {
     return Consumer<FavoritesViewModel>(
       builder: (context, viewModel, child) {
         if (viewModel.isLoading) {
-          return SliverToBoxAdapter(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 100.h,
-                ),
-                Center(
-                  child: CircularProgressIndicator(
-                      color: theme.colorScheme.primary),
-                ),
-              ],
-            ),
-          );
+          return buildLoadingWidget(theme);
         } else if (viewModel.hasError) {
-          return const SliverToBoxAdapter(
-            child: Text("Error fetching data"),
-          );
+          return buildErrorWidget(theme);
         } else {
           return SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -39,8 +26,12 @@ class FavoritesBody extends StatelessWidget {
                 ? SliverGrid(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return FavoritesItemCard(
-                            organ: viewModel.myFavorites[index]);
+                        return FadeInUp(
+                          animate: true,
+                          delay: const Duration(milliseconds: 50),
+                          child: FavoritesItemCard(
+                              organ: viewModel.myFavorites[index]),
+                        );
                       },
                       childCount: viewModel.myFavorites.length,
                     ),
@@ -74,24 +65,37 @@ class FavoritesBody extends StatelessWidget {
       },
     );
   }
-}
 
-/*
-{
-      if (viewModel.isLoading) {
-        return Expanded(
-          child: Center(
+  SliverToBoxAdapter buildErrorWidget(ThemeData theme) {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 100.h,
+          ),
+          Center(
+            child: Text(
+              "Error fetching data",
+              style: theme.textTheme.titleLarge,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SliverToBoxAdapter buildLoadingWidget(ThemeData theme) {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 100.h,
+          ),
+          Center(
             child: CircularProgressIndicator(color: theme.colorScheme.primary),
           ),
-        );
-      }
-      else if (viewModel.hasError) {
-        return const Expanded(
-          child: Center(
-
-          ),
-        );
-      }
-    }
+        ],
+      ),
+    );
   }
- */
+}

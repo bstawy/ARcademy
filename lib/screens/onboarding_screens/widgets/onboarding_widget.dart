@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,24 +20,36 @@ class OnboardingWidget extends StatelessWidget {
         SizedBox(
           width: 335.w,
           height: 335.h,
-          child: SvgPicture.asset(model.imagePath),
+          child: FadeInUp(
+            animate: true,
+            delay: const Duration(milliseconds: 50),
+            child: SvgPicture.asset(model.imagePath),
+          ),
         ),
         SizedBox(height: 24.h),
-        Text(
-          model.title,
-          textAlign: TextAlign.center,
-          style: theme.textTheme.displaySmall!
-              .copyWith(fontSize: 30.sp, fontWeight: FontWeight.w700),
+        FadeInLeft(
+          animate: true,
+          delay: const Duration(milliseconds: 100),
+          child: Text(
+            model.title,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.displaySmall!
+                .copyWith(fontSize: 30.sp, fontWeight: FontWeight.w700),
+          ),
         ),
         SizedBox(height: 16.h),
         ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: 300.w,
           ),
-          child: Text(
-            model.description,
-            textAlign: TextAlign.center,
-            style: theme.textTheme.labelMedium,
+          child: FadeInRight(
+            animate: true,
+            delay: const Duration(milliseconds: 150),
+            child: Text(
+              model.description,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.labelMedium,
+            ),
           ),
         ),
       ],

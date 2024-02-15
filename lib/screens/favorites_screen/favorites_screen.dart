@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -43,29 +44,32 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         children: [
           Flexible(
             fit: FlexFit.loose,
-            child: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                CustomSliverAppBarWidget(
-                  title: "Favorites",
-                  leadingOnClicked: () {
-                    Provider.of<LayoutViewModel>(context, listen: false)
-                        .changeCurrentScreen(context, 0);
-                  },
-                  isAppBarPinned: _isAppBarPinned,
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 75.h,
+            child: FadeInDown(
+              animate: true,
+              child: CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  CustomSliverAppBarWidget(
+                    title: "Favorites",
+                    leadingOnClicked: () {
+                      Provider.of<LayoutViewModel>(context, listen: false)
+                          .changeCurrentScreen(context, 0);
+                    },
+                    isAppBarPinned: _isAppBarPinned,
                   ),
-                ),
-                const FavoritesBody(),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 45.h,
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 75.h,
+                    ),
                   ),
-                ),
-              ],
+                  const FavoritesBody(),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 45.h,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

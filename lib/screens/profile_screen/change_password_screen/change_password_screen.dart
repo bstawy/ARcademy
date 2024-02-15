@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,47 +43,54 @@ class _ChangePasswordScreen extends State<ChangePasswordScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          CustomSliverAppBarWidget(
-            title: "Change Password",
-            leadingOnClicked: () {
-              Navigator.pop(context);
-            },
-            isAppBarPinned: _isAppBarPinned,
-          ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 75.h,
+      body: FadeInDown(
+        animate: true,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            CustomSliverAppBarWidget(
+              title: "Change Password",
+              leadingOnClicked: () {
+                Navigator.pop(context);
+              },
+              isAppBarPinned: _isAppBarPinned,
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const ChangePasswordFormWidget(),
-                  SizedBox(height: 24.h),
-                  CustomMaterialButton(
-                    title: "Forgot Your Password ?",
-                    backgroundColor: theme.colorScheme.onBackground,
-                    titleStyle: theme.textTheme.titleMedium!.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    onClicked: () {
-                      Navigator.pushNamed(
-                          context, ForgetPasswordScreen.routeName);
-                    },
-                  ),
-                  SizedBox(height: 75.h),
-                ],
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 75.h,
               ),
             ),
-          ),
-        ],
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const ChangePasswordFormWidget(),
+                    SizedBox(height: 24.h),
+                    FadeInUp(
+                      animate: true,
+                      delay: const Duration(milliseconds: 250),
+                      child: CustomMaterialButton(
+                        title: "Forgot Your Password ?",
+                        backgroundColor: theme.colorScheme.onBackground,
+                        titleStyle: theme.textTheme.titleMedium!.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        onClicked: () {
+                          Navigator.pushNamed(
+                              context, ForgetPasswordScreen.routeName);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 75.h),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -111,7 +111,9 @@ class _ItemCardState extends State<ItemCard> {
                 ArViewButton(
                   iconWidth: 24.w,
                   iconHeight: 24.h,
-                  onClicked: () {},
+                  onClicked: () {
+                    // TODO: Navigate to AR View scene
+                  },
                 ),
               ],
             ),

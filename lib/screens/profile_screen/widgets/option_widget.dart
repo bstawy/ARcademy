@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: must_be_immutable
 class OptionWidget extends StatelessWidget {
   final String title;
   final String iconPath;
-  TextStyle? titleStyle;
-  Color? selectedColor;
+  final TextStyle? titleStyle;
+  final Color? selectedColor;
   final Function onTap;
 
-  OptionWidget({
+  const OptionWidget({
     super.key,
     required this.title,
     required this.iconPath,

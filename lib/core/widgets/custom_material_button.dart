@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// ignore: must_be_immutable
 class CustomMaterialButton extends StatelessWidget {
   final String title;
+  final double? height;
+  final double? padding;
+  final double? borderRadius;
   final Color backgroundColor;
-  TextStyle? titleStyle;
-  BorderSide? borderSide;
+  final TextStyle? titleStyle;
+  final BorderSide? borderSide;
   final Function onClicked;
 
-  CustomMaterialButton({
+  const CustomMaterialButton({
     super.key,
     required this.title,
+    this.height,
+    this.padding,
+    this.borderRadius,
     required this.backgroundColor,
     this.titleStyle,
     this.borderSide,
@@ -26,14 +31,14 @@ class CustomMaterialButton extends StatelessWidget {
       onPressed: () {
         onClicked();
       },
-      height: 56.h,
+      height: height ?? 56.h,
+      elevation: 0,
+      padding: EdgeInsets.all(padding ?? 16.h),
+      color: backgroundColor,
       shape: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15.r),
+        borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
         borderSide: borderSide ?? BorderSide.none,
       ),
-      elevation: 0,
-      padding: EdgeInsets.all(16.h),
-      color: backgroundColor,
       child: Text(
         title,
         style: titleStyle ??

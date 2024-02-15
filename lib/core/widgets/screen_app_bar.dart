@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/widgets/custom_back_button.dart';
+import 'custom_action_button.dart';
 
-class ProfileAppBar extends StatelessWidget {
+class ScreenAppBar extends StatelessWidget {
   final String title;
   final Function onClicked;
 
-  const ProfileAppBar({
+  const ScreenAppBar({
     super.key,
     required this.title,
     required this.onClicked,
@@ -15,12 +16,18 @@ class ProfileAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final double width = (title.length > 7) ? 70 : 90;
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CustomBackButton(onClicked: () {
-          onClicked();
-        }),
+        CustomActionButton(
+          iconPath: "assets/icons/back_icon.svg",
+          onClicked: () {
+            onClicked();
+          },
+        ),
+        SizedBox(width: width.w),
         Text(
           title,
           style: theme.textTheme.titleMedium!.copyWith(

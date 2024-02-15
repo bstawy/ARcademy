@@ -18,7 +18,7 @@ class Layout extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => LayoutViewModel(),
+          create: (context) => LayoutViewModel()..getData(context),
         ),
         ChangeNotifierProvider(
           create: (context) => HomeViewModel(),
@@ -31,45 +31,45 @@ class Layout extends StatelessWidget {
         ),
       ],
       child: Consumer<LayoutViewModel>(
-        builder: (context, viewModel, child) {
+        builder: (context, vm, child) {
           return Scaffold(
             body: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  viewModel.screen[viewModel.selectedScreenIndex],
+                  vm.screen[vm.selectedScreenIndex],
                 ],
               ),
             ),
             bottomNavigationBar: CustomBottomNavBar(
-              currentIndex: viewModel.selectedScreenIndex,
+              currentIndex: vm.selectedScreenIndex,
               items: [
                 CustomBottomNavBarItem(
                   iconPath: "assets/icons/nav_home_icon.svg",
-                  isSelected: (viewModel.selectedScreenIndex == 0),
+                  isSelected: (vm.selectedScreenIndex == 0),
                   onClicked: () {
-                    viewModel.changeCurrentScreen(context, 0);
+                    vm.changeCurrentScreen(context, 0);
                   },
                 ),
                 CustomBottomNavBarItem(
                   iconPath: "assets/icons/nav_category_icon.svg",
-                  isSelected: (viewModel.selectedScreenIndex == 1),
+                  isSelected: (vm.selectedScreenIndex == 1),
                   onClicked: () {
-                    viewModel.changeCurrentScreen(context, 1);
+                    vm.changeCurrentScreen(context, 1);
                   },
                 ),
                 CustomBottomNavBarItem(
                   iconPath: "assets/icons/nav_favorite_icon.svg",
-                  isSelected: (viewModel.selectedScreenIndex == 2),
+                  isSelected: (vm.selectedScreenIndex == 2),
                   onClicked: () {
-                    viewModel.changeCurrentScreen(context, 2);
+                    vm.changeCurrentScreen(context, 2);
                   },
                 ),
                 CustomBottomNavBarItem(
                   iconPath: "assets/icons/nav_profile_icon.svg",
-                  isSelected: (viewModel.selectedScreenIndex == 3),
+                  isSelected: (vm.selectedScreenIndex == 3),
                   onClicked: () {
-                    viewModel.changeCurrentScreen(context, 3);
+                    vm.changeCurrentScreen(context, 3);
                   },
                 ),
               ],

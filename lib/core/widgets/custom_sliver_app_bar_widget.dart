@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'custom_back_button.dart';
+import 'custom_action_button.dart';
 
 class CustomSliverAppBarWidget extends StatelessWidget {
   final String title;
@@ -30,8 +30,9 @@ class CustomSliverAppBarWidget extends StatelessWidget {
       scrolledUnderElevation: 0,
       leadingWidth: 72.w,
       leading: Padding(
-        padding: EdgeInsets.only(top: 18.h, left: 24.w, bottom: 8.h),
-        child: CustomBackButton(
+        padding: EdgeInsets.only(top: 16.h, left: 24.w, bottom: 9.h),
+        child: CustomActionButton(
+          iconPath: "assets/icons/back_icon.svg",
           onClicked: () {
             leadingOnClicked();
           },

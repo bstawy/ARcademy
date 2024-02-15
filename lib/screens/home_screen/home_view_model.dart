@@ -1,44 +1,40 @@
+import 'package:ar_cademy/core/widgets/item_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/data.dart';
-import '../../screens/home_screen/widgets/item_card.dart';
+import '../../models/organ_model.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final List<List<Widget>> _items = [
-    SystemsData.systemsOrgans["Cardiovascular System"]!
-        .map((organ) => ItemCard(organ: organ))
-        .toList(),
-    SystemsData.systemsOrgans["Digestive System"]!
-        .map((organ) => ItemCard(organ: organ))
-        .toList(),
-    SystemsData.systemsOrgans["Nervous System"]!
-        .map((organ) => ItemCard(organ: organ))
-        .toList(),
-    SystemsData.systemsOrgans["Respiratory System"]!
-        .map((organ) => ItemCard(organ: organ))
-        .toList(),
-    SystemsData.systemsOrgans["Skeleton System"]!
-        .map((organ) => ItemCard(organ: organ))
-        .toList(),
-  ];
-  int _selectedSystemIndex = 0;
-  int _currentItemIndex = 0;
+  late List<Widget> _items;
 
-  int get selectedSystemIndex => _selectedSystemIndex;
+  HomeViewModel() {
+    _items = _organs
+        .map((organ) => ItemCard(
+              organ: organ!,
+            ))
+        .toList();
+  }
+
+  final List<OrganModel?> _organs = [
+    SystemsData.systemsOrgans["Cardiovascular System"]?[0],
+    SystemsData.systemsOrgans["Cardiovascular System"]?[1],
+    SystemsData.systemsOrgans["Digestive System"]?[0],
+    SystemsData.systemsOrgans["Digestive System"]?[2],
+    SystemsData.systemsOrgans["Digestive System"]?[4],
+    SystemsData.systemsOrgans["Nervous System"]?[1],
+    SystemsData.systemsOrgans["Respiratory System"]?[1],
+    SystemsData.systemsOrgans["Skeleton System"]?[1],
+    SystemsData.systemsOrgans["Skeleton System"]?[2],
+    SystemsData.systemsOrgans["Skeleton System"]?[5],
+    SystemsData.systemsOrgans["Skeleton System"]?[10],
+    SystemsData.systemsOrgans["Skeleton System"]?[8],
+  ];
+
+  int _currentItemIndex = 0;
 
   int get currentItemIndex => _currentItemIndex;
 
-  List<List<Widget>> get items => _items;
-
-  changeSelectedSystemIndex() {
-    if (_selectedSystemIndex < 4) {
-      _selectedSystemIndex++;
-    } else {
-      _selectedSystemIndex = 0;
-    }
-    _currentItemIndex = 0;
-    notifyListeners();
-  }
+  List<Widget> get items => _items;
 
   changeCurrentIemIndex(int index) {
     _currentItemIndex = index;

@@ -27,6 +27,7 @@ dependencies:
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   cloud_firestore: ^4.15.4
+  animate_do: ^3.3.3
 
 dev_dependencies:
   flutter_test:

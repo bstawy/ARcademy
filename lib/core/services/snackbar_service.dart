@@ -39,15 +39,13 @@ class SnackBarService {
   ) {
     final theme = Theme.of(context);
 
-    Color filterColor = (state == "success")
+    Color msgColor = (state == "success")
         ? theme.colorScheme.primary
         : theme.colorScheme.error;
 
-    return Scaffold(
-      backgroundColor: theme.colorScheme.primary.withOpacity(0.5),
-      body: Container(
+    return IntrinsicHeight(
+      child: Container(
         width: double.maxFinite,
-        height: 80.h,
         margin: EdgeInsets.only(top: 52.h, left: 24.w, right: 24.w),
         padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 16.h),
         decoration: BoxDecoration(
@@ -59,16 +57,16 @@ class SnackBarService {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SvgPicture.asset("assets/icons/notifications_icon.svg",
-                colorFilter: ColorFilter.mode(filterColor, BlendMode.srcIn)),
+                colorFilter: ColorFilter.mode(msgColor, BlendMode.srcIn)),
             SizedBox(width: 16.w),
             Expanded(
               child: Text(
                 msg,
-                textAlign: TextAlign.center,
-                maxLines: 2,
+                textAlign: TextAlign.start,
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.titleSmall!.copyWith(
-                  color: filterColor,
+                  color: msgColor,
                   fontWeight: FontWeight.w400,
                 ),
               ),

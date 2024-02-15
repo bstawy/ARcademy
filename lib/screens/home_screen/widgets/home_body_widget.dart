@@ -5,29 +5,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../categories_view_model.dart';
+import '../home_view_model.dart';
 
-class TabBarBody extends StatelessWidget {
-  final List<Widget> items;
-
-  const TabBarBody({
-    super.key,
-    required this.items,
-  });
+class HomeBodyWidget extends StatelessWidget {
+  const HomeBodyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Consumer<CategoriesViewModel>(
+
+    return Consumer<HomeViewModel>(
       builder: (context, vm, child) {
         return Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            FadeInLeft(
+            FadeInRight(
               animate: true,
-              delay: const Duration(milliseconds: 200),
+              delay: const Duration(milliseconds: 100),
               child: CarouselSlider(
-                items: items,
+                items: vm.items,
                 options: CarouselOptions(
                   height: 390.h,
                   initialPage: 0,
@@ -38,19 +33,19 @@ class TabBarBody extends StatelessWidget {
                   viewportFraction: 0.71,
                   enlargeStrategy: CenterPageEnlargeStrategy.zoom,
                   onPageChanged: (index, reason) {
-                    vm.changeCurrentItemIndex(index);
+                    vm.changeCurrentIemIndex(index);
                   },
                 ),
               ),
             ),
             SizedBox(height: 16.h),
             Center(
-              child: FadeInRight(
+              child: FadeInLeft(
                 animate: true,
-                delay: const Duration(milliseconds: 200),
+                delay: const Duration(milliseconds: 100),
                 child: AnimatedSmoothIndicator(
-                  activeIndex: vm.selectedItemIndex,
-                  count: items.length,
+                  activeIndex: vm.currentItemIndex,
+                  count: vm.items.length,
                   axisDirection: Axis.horizontal,
                   effect: ScrollingDotsEffect(
                     activeDotColor: theme.colorScheme.primary,

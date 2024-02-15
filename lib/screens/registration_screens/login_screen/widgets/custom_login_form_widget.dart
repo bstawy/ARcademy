@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,101 +23,130 @@ class CustomLoginFormWidget extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Consumer<LoginViewModel>(
-      builder: (context, viewModel, child) {
+      builder: (context, vm, child) {
         return Form(
-          key: viewModel.loginFormKey,
+          key: vm.loginFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CustomTextFormField(
-                textEditingController: viewModel.emailController,
-                labelText: "Email",
-                title: "Enter Your Email",
-                validator: (value) {
-                  return validateEmail(value);
-                },
+              FadeInLeft(
+                animate: true,
+                delay: const Duration(milliseconds: 100),
+                child: CustomTextFormField(
+                  textEditingController: vm.emailController,
+                  labelText: "Email",
+                  hintText: "Enter Your Email",
+                  validator: (value) {
+                    return validateEmail(value);
+                  },
+                ),
               ),
               SizedBox(height: 16.h),
-              CustomTextFormField(
-                textEditingController: viewModel.passwordController,
-                labelText: "Password",
-                title: "Enter password",
-                obscureText: !viewModel.isPasswordVisible,
-                suffixIcon: InkWell(
-                  onTap: () {
-                    viewModel.showPassword();
+              FadeInRight(
+                animate: true,
+                delay: const Duration(milliseconds: 150),
+                child: CustomTextFormField(
+                  textEditingController: vm.passwordController,
+                  labelText: "Password",
+                  hintText: "Enter password",
+                  obscureText: !vm.isPasswordVisible,
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      vm.showPassword();
+                    },
+                    borderRadius: BorderRadius.circular(15.r),
+                    child: (vm.isPasswordVisible)
+                        ? const Icon(Icons.visibility_off_outlined)
+                        : const Icon(Icons.visibility_outlined),
+                  ),
+                  validator: (value) {
+                    return validatePassword(value);
                   },
-                  borderRadius: BorderRadius.circular(15.r),
-                  child: (viewModel.isPasswordVisible)
-                      ? const Icon(Icons.visibility_off_outlined)
-                      : const Icon(Icons.visibility_outlined),
                 ),
-                validator: (value) {
-                  return validatePassword(value);
-                },
               ),
               Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, ResetPasswordScreen.routeName);
-                  },
-                  child: Text(
-                    "Forgot Password?",
-                    style: theme.textTheme.labelMedium,
+                child: FadeInRight(
+                  animate: true,
+                  delay: const Duration(milliseconds: 200),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, ResetPasswordScreen.routeName);
+                    },
+                    child: Text(
+                      "Forgot Password?",
+                      style: theme.textTheme.labelMedium,
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 16.h),
-              CustomMaterialButton(
-                title: "Login",
-                backgroundColor: theme.colorScheme.primary,
-                onClicked: () async {
-                  loginWithEmail(context, viewModel);
-                },
+              FadeInUp(
+                animate: true,
+                delay: const Duration(milliseconds: 250),
+                child: CustomMaterialButton(
+                  title: "Login",
+                  backgroundColor: theme.colorScheme.primary,
+                  onClicked: () async {
+                    loginWithEmail(context, vm);
+                  },
+                ),
               ),
               SizedBox(height: 24.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SocialMediaAuthButton(
-                    label: "Google",
-                    iconPath: "assets/icons/google_icon.svg",
-                    onClicked: () {
-                      loginWithGoogle(context, viewModel);
-                    },
+                  FadeInLeft(
+                    animate: true,
+                    delay: const Duration(milliseconds: 300),
+                    child: SocialMediaAuthButton(
+                      label: "Google",
+                      iconPath: "assets/icons/google_icon.svg",
+                      onClicked: () {
+                        loginWithGoogle(context, vm);
+                      },
+                    ),
                   ),
                   SizedBox(width: 8.w),
-                  SocialMediaAuthButton(
-                      label: "Apple",
-                      iconPath: "assets/icons/apple_icon.svg",
-                      onClicked: () {
-                        SnackBarService.showSuccessMessage(
-                            context, "Coming Soon...");
-                      }),
+                  FadeInRight(
+                    animate: true,
+                    delay: const Duration(milliseconds: 300),
+                    child: SocialMediaAuthButton(
+                        label: "Apple",
+                        iconPath: "assets/icons/apple_icon.svg",
+                        onClicked: () {
+                          SnackBarService.showSuccessMessage(
+                              context, "Coming Soon...");
+                        }),
+                  ),
                 ],
               ),
               SizedBox(height: 16.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account?",
-                    style: theme.textTheme.labelLarge!.copyWith(
-                      color: theme.colorScheme.secondary,
-                      fontWeight: FontWeight.w400,
+              FadeInUp(
+                animate: true,
+                delay: const Duration(milliseconds: 350),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: theme.textTheme.labelLarge!.copyWith(
+                        color: theme.colorScheme.secondary,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, SignUpScreen.routeName);
-                    },
-                    child: Text(
-                      "Sign Up for free",
-                      style: theme.textTheme.labelLarge,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, SignUpScreen.routeName);
+                      },
+                      child: Text(
+                        "Sign Up for free",
+                        style: theme.textTheme.labelLarge,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 30.h),
             ],
@@ -128,14 +158,14 @@ class CustomLoginFormWidget extends StatelessWidget {
 
   Future<void> loginWithEmail(
     BuildContext context,
-    LoginViewModel viewModel,
+    LoginViewModel vm,
   ) async {
-    if (viewModel.loginFormKey!.currentState!.validate()) {
+    if (vm.loginFormKey!.currentState!.validate()) {
       configureEasyLoading(context);
       EasyLoading.show();
 
-      await viewModel.loginWithEmailAndPassword(context);
-      String? msg = viewModel.loginStatus;
+      await vm.loginWithEmailAndPassword(context);
+      String? msg = vm.loginStatus;
 
       EasyLoading.dismiss();
 
@@ -154,13 +184,13 @@ class CustomLoginFormWidget extends StatelessWidget {
 
   loginWithGoogle(
     BuildContext context,
-    LoginViewModel viewModel,
+    LoginViewModel vm,
   ) async {
     configureEasyLoading(context);
     EasyLoading.show();
 
-    await viewModel.loginWithGoogle(context);
-    String? msg = viewModel.loginStatus;
+    await vm.loginWithGoogle(context);
+    String? msg = vm.loginStatus;
 
     EasyLoading.dismiss();
 

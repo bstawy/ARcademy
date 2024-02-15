@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/web_services/firebase_utils.dart';
+import '../../../core/widgets/favorite_button.dart';
 import '../../../models/organ_model.dart';
 import '../../details_screen/details_screen.dart';
-import 'favorites_favorite_button.dart';
 
 class FavoritesItemCard extends StatelessWidget {
   final OrganModel organ;
@@ -21,7 +21,8 @@ class FavoritesItemCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, DetailsScreen.routeName, arguments: organ);
+        Navigator.pushNamed(context, DetailsScreen.routeName,
+            arguments: [context, organ]);
       },
       borderRadius: BorderRadius.circular(25.r),
       splashColor: theme.colorScheme.secondary,
@@ -32,7 +33,7 @@ class FavoritesItemCard extends StatelessWidget {
         padding: EdgeInsets.all(10.r),
         decoration: BoxDecoration(
           color: theme.colorScheme.onBackground,
-          borderRadius: BorderRadius.circular(15.r),
+          borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.02),
@@ -45,11 +46,14 @@ class FavoritesItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.asset(
-                organ.imagePath,
-                width: 130.w,
-                height: 130.h,
-                fit: BoxFit.contain,
+              child: Hero(
+                tag: organ.id,
+                child: Image.asset(
+                  organ.imagePath,
+                  width: 130.w,
+                  height: 130.h,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             ConstrainedBox(
@@ -85,7 +89,13 @@ class FavoritesItemCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                FavoritesFavoriteButton(
+                FavoriteButton(
+                  height: 25.h,
+                  minWidth: 25.w,
+                  padding: 5.r,
+                  borderRadius: 10.r,
+                  iconWidth: 15.r,
+                  iconHeight: 15.r,
                   isFavorite: organ.isFavorite,
                   onClicked: () {
                     FirebaseUtils.deleteFromFavorites(itemId: organ.id);

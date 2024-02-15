@@ -2,31 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: must_be_immutable
 class FavoriteButton extends StatefulWidget {
-  TextStyle? textStyle;
-  double? height;
-  double? minWidth;
-  double? padding;
-  double? borderRadius;
+  final TextStyle? textStyle;
+  final double? height;
+  final double? minWidth;
+  final double? padding;
+  final double? borderRadius;
+  final Color? backgroundColor;
+  final Color? highlightColor;
   final double iconHeight;
   final double iconWidth;
-  Color? backgroundColor;
-  Color? highlightColor;
+  final Color? iconColor;
   final bool isFavorite;
   final Function onClicked;
 
-  FavoriteButton({
+  const FavoriteButton({
     super.key,
     this.textStyle,
     this.height,
     this.minWidth,
     this.padding,
     this.borderRadius,
-    required this.iconWidth,
-    required this.iconHeight,
     this.backgroundColor,
     this.highlightColor,
+    required this.iconWidth,
+    required this.iconHeight,
+    this.iconColor,
     required this.isFavorite,
     required this.onClicked,
   });
@@ -53,22 +54,26 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       color: widget.backgroundColor ?? theme.colorScheme.background,
       enableFeedback: true,
       animationDuration: const Duration(milliseconds: 50),
+      // remove margins around button
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(widget.borderRadius ?? 15.r),
       ),
       child: (widget.isFavorite)
           ? SvgPicture.asset(
               "assets/icons/favorite_filled_icon.svg",
-              colorFilter:
-                  ColorFilter.mode(theme.colorScheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  widget.iconColor ?? theme.colorScheme.primary,
+                  BlendMode.srcIn),
               width: widget.iconWidth,
               height: widget.iconHeight,
               fit: BoxFit.contain,
             )
           : SvgPicture.asset(
         "assets/icons/favorite_icon.svg",
-              colorFilter:
-                  ColorFilter.mode(theme.colorScheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  widget.iconColor ?? theme.colorScheme.primary,
+                  BlendMode.srcIn),
               width: widget.iconWidth,
               height: widget.iconHeight,
               fit: BoxFit.contain,

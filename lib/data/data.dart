@@ -1,16 +1,11 @@
+import 'package:flutter/material.dart';
+
+import '../core/web_services/firebase_utils.dart';
 import '../models/organ_model.dart';
 
 // TODO: search for spinal cord and neuron in the nervous system
 
 class SystemsData {
-  static Map<String, List<OrganModel>> systemsOrgans = {
-    "Cardiovascular System": _cardiovascularOrgans,
-    "Digestive System": _digestiveOrgans,
-    "Nervous System": _nervousOrgans,
-    "Respiratory System": _respiratoryOrgans,
-    "Skeleton System": _skeletonOrgan,
-  };
-
   static final List<OrganModel> _cardiovascularOrgans = [
     OrganModel(
       id: 00,
@@ -232,4 +227,54 @@ class SystemsData {
       imagePath: "assets/images/skeleton_system/patella.png",
     ),
   ];
+
+  static Map<String, List<OrganModel>> systemsOrgans = {
+    "Cardiovascular System": _cardiovascularOrgans,
+    "Digestive System": _digestiveOrgans,
+    "Nervous System": _nervousOrgans,
+    "Respiratory System": _respiratoryOrgans,
+    "Skeleton System": _skeletonOrgan,
+  };
+
+  static final List<OrganModel> _myFavorites = [];
+
+  static Future<void> getData(BuildContext context) async {
+    final snapshot = await FirebaseUtils.getUserData("favorites");
+
+    snapshot.listen((querySnapshot) {
+      try {
+        Map<String, dynamic> data =
+            querySnapshot.data()! as Map<String, dynamic>;
+        List<dynamic> favoriteItemIds = data["favoriteItemIds"];
+
+        _myFavorites.clear();
+        _getFavoriteOrgans(favoriteItemIds);
+        _updateOrgans();
+      } catch (e) {
+        debugPrint("$e");
+      }
+    });
+  }
+
+  static void _updateOrgans() {
+    for (var systemOrgans in systemsOrgans.values) {
+      for (var organ in systemOrgans) {
+        organ.isFavorite =
+            _myFavorites.any((favorite) => favorite.id == organ.id);
+      }
+    }
+  }
+
+  static void _getFavoriteOrgans(List<dynamic> favoriteItemIds) {
+    for (final itemId in favoriteItemIds) {
+      for (final systemOrgans in SystemsData.systemsOrgans.values) {
+        for (final organ in systemOrgans) {
+          if (organ.id == itemId) {
+            _myFavorites.add(organ..isFavorite = true);
+            break;
+          }
+        }
+      }
+    }
+  }
 }

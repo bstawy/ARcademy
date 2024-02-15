@@ -5,6 +5,20 @@ class ApplicationTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xffF3F3F3),
 
+    // Configure app bar
+    appBarTheme: AppBarTheme(
+      backgroundColor: const Color(0xffF3F3F3),
+      toolbarHeight: 80.h,
+      elevation: 0,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        color: const Color(0xff151D31),
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Jakarta',
+      ),
+    ),
+
     // Configure colors for light mode
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xff151D31),
@@ -109,6 +123,20 @@ class ApplicationTheme {
 
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xff333C4B),
+
+    // Configure app bar
+    appBarTheme: AppBarTheme(
+      backgroundColor: const Color(0xff333C4B),
+      toolbarHeight: 80.h,
+      elevation: 0,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        color: const Color(0xffFFFFFF),
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Jakarta',
+      ),
+    ),
 
     // Configure colors for dark mode
     colorScheme: ColorScheme.fromSeed(

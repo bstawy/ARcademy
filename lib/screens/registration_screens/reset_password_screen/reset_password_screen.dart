@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,98 +53,125 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          CustomSliverAppBarWidget(
-            title: "Reset Password",
-            leadingOnClicked: () {
-              Navigator.pop(context);
-            },
-            isAppBarPinned: _isAppBarPinned,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Please Enter Your Email",
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  SizedBox(height: 64.h),
-                  Form(
-                    key: _resetPasswordFormKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        CustomTextFormField(
-                          textEditingController: _emailController,
-                          labelText: "Email",
-                          title: "Enter Your Email",
-                          validator: (value) => validateEmail(value),
-                        ),
-                        SizedBox(height: 24.h),
-                        CustomMaterialButton(
-                          title: "Reset",
-                          backgroundColor: theme.colorScheme.primary,
-                          onClicked: () {
-                            resetPassword();
-                          },
-                        ),
-                        SizedBox(height: 48.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SocialMediaAuthButton(
-                                label: "Google",
-                                iconPath: "assets/icons/google_icon.svg",
-                                onClicked: () {
-                                  loginWithGoogle();
-                                }),
-                            SizedBox(width: 8.w),
-                            SocialMediaAuthButton(
-                                label: "Apple",
-                                iconPath: "assets/icons/apple_icon.svg",
-                                onClicked: () {
-                                  SnackBarService.showSuccessMessage(
-                                      context, "Coming Soon...");
-                                }),
-                          ],
-                        ),
-                        SizedBox(height: 16.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Don't have an account?",
-                              style: theme.textTheme.labelLarge!.copyWith(
-                                color: theme.colorScheme.secondary,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, SignUpScreen.routeName);
-                              },
-                              child: Text(
-                                "Sign Up for free",
-                                style: theme.textTheme.labelLarge,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+      body: FadeInDown(
+        animate: true,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            CustomSliverAppBarWidget(
+              title: "Reset Password",
+              leadingOnClicked: () {
+                Navigator.pop(context);
+              },
+              isAppBarPinned: _isAppBarPinned,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FadeInUp(
+                      animate: true,
+                      delay: const Duration(milliseconds: 50),
+                      child: Text(
+                        "Please Enter Your Email",
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.titleMedium,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 64.h),
+                    Form(
+                      key: _resetPasswordFormKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          FadeInLeft(
+                            animate: true,
+                            delay: const Duration(milliseconds: 100),
+                            child: CustomTextFormField(
+                              textEditingController: _emailController,
+                              labelText: "Email",
+                              hintText: "Enter Your Email",
+                              validator: (value) => validateEmail(value),
+                            ),
+                          ),
+                          SizedBox(height: 24.h),
+                          FadeInRight(
+                            animate: true,
+                            delay: const Duration(milliseconds: 150),
+                            child: CustomMaterialButton(
+                              title: "Reset",
+                              backgroundColor: theme.colorScheme.primary,
+                              onClicked: () {
+                                resetPassword();
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 48.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FadeInLeft(
+                                animate: true,
+                                delay: const Duration(milliseconds: 200),
+                                child: SocialMediaAuthButton(
+                                    label: "Google",
+                                    iconPath: "assets/icons/google_icon.svg",
+                                    onClicked: () {
+                                      loginWithGoogle();
+                                    }),
+                              ),
+                              SizedBox(width: 8.w),
+                              FadeInRight(
+                                animate: true,
+                                delay: const Duration(milliseconds: 250),
+                                child: SocialMediaAuthButton(
+                                    label: "Apple",
+                                    iconPath: "assets/icons/apple_icon.svg",
+                                    onClicked: () {
+                                      SnackBarService.showSuccessMessage(
+                                          context, "Coming Soon...");
+                                    }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16.h),
+                          FadeInUp(
+                            animate: true,
+                            delay: const Duration(milliseconds: 300),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Don't have an account?",
+                                  style: theme.textTheme.labelLarge!.copyWith(
+                                    color: theme.colorScheme.secondary,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, SignUpScreen.routeName);
+                                  },
+                                  child: Text(
+                                    "Sign Up for free",
+                                    style: theme.textTheme.labelLarge,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -154,7 +182,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       EasyLoading.show();
 
       var response =
-          await FirebaseUtils.resetPassword(email: _emailController.text);
+      await FirebaseUtils.resetPassword(email: _emailController.text);
 
       EasyLoading.dismiss();
 

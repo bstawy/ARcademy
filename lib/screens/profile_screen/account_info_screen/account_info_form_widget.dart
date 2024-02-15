@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,30 +46,42 @@ class _AccountInfoFormWidgetState extends State<AccountInfoFormWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CustomTextFormField(
-            textEditingController: fullNameController,
-            labelText: "Full Name",
-            title: "Enter Your Name",
-            validator: (value) {
-              return null;
-            },
+          FadeInLeft(
+            animate: true,
+            delay: const Duration(milliseconds: 50),
+            child: CustomTextFormField(
+              textEditingController: fullNameController,
+              labelText: "Full Name",
+              hintText: "Enter Your Name",
+              validator: (value) {
+                return null;
+              },
+            ),
           ),
           SizedBox(height: 16.h),
-          CustomTextFormField(
-            textEditingController: emailController,
-            labelText: "Email",
-            title: "Enter Your Email",
-            validator: (value) {
-              return validateEmail(value);
-            },
+          FadeInRight(
+            animate: true,
+            delay: const Duration(milliseconds: 100),
+            child: CustomTextFormField(
+              textEditingController: emailController,
+              labelText: "Email",
+              hintText: "Enter Your Email",
+              validator: (value) {
+                return validateEmail(value);
+              },
+            ),
           ),
           SizedBox(height: 24.h),
-          CustomMaterialButton(
-            title: "Update Info",
-            backgroundColor: theme.colorScheme.primary,
-            onClicked: () {
-              changePassword(context);
-            },
+          FadeInUp(
+            animate: true,
+            delay: const Duration(milliseconds: 150),
+            child: CustomMaterialButton(
+              title: "Update Info",
+              backgroundColor: theme.colorScheme.primary,
+              onClicked: () {
+                changePassword(context);
+              },
+            ),
           ),
         ],
       ),

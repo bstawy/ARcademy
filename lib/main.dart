@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
                 ResetPasswordScreen.routeName: (context) =>
                     const ResetPasswordScreen(),
                 Layout.routeName: (context) => const Layout(),
-                DetailsScreen.routeName: (context) => DetailsScreen(),
+                DetailsScreen.routeName: (context) => const DetailsScreen(),
                 AccountInfoScreen.routeName: (context) =>
                     const AccountInfoScreen(),
                 ChangePasswordScreen.routeName: (context) =>

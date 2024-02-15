@@ -1,12 +1,11 @@
-import 'package:ar_cademy/data/data.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/web_services/firebase_utils.dart';
+import '../../data/data.dart';
 import '../../models/organ_model.dart';
 
 class FavoritesViewModel extends ChangeNotifier {
-  // ignore: prefer_final_fields
-  List<OrganModel> _myFavorites = [];
+  final List<OrganModel> _myFavorites = [];
   bool _isLoading = true;
   bool _hasError = false;
 
@@ -16,7 +15,7 @@ class FavoritesViewModel extends ChangeNotifier {
 
   bool get hasError => _hasError;
 
-  getFavorites() async {
+  Future<void> getFavorites() async {
     _isLoading = true;
     _hasError = false;
     notifyListeners();
@@ -29,7 +28,7 @@ class FavoritesViewModel extends ChangeNotifier {
         List<dynamic> favoriteItemIds = data["favoriteItemIds"];
 
         _myFavorites.clear();
-        addToMyFavorites(favoriteItemIds);
+        _addToMyFavorites(favoriteItemIds);
 
         _isLoading = false;
         notifyListeners();
@@ -42,7 +41,7 @@ class FavoritesViewModel extends ChangeNotifier {
     });
   }
 
-  void addToMyFavorites(List<dynamic> favoriteItemIds) {
+  void _addToMyFavorites(List<dynamic> favoriteItemIds) {
     for (final itemId in favoriteItemIds) {
       for (final systemOrgans in SystemsData.systemsOrgans.values) {
         for (final organ in systemOrgans) {
@@ -53,5 +52,15 @@ class FavoritesViewModel extends ChangeNotifier {
         }
       }
     }
+  }
+
+  void addToFavorites(OrganModel organ) {
+    FirebaseUtils.addToFavorites(itemId: organ.id);
+    notifyListeners();
+  }
+
+  void deleteFromFavorites(OrganModel organ) {
+    FirebaseUtils.deleteFromFavorites(itemId: organ.id);
+    notifyListeners();
   }
 }

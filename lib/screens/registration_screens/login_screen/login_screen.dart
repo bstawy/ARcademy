@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -40,34 +41,41 @@ class _LoginScreenState extends State<LoginScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          CustomSliverAppBarWidget(
-            title: "Welcome Back",
-            leadingOnClicked: () {
-              Navigator.pop(context);
-            },
-            isAppBarPinned: _isAppBarPinned,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Welcome Back! Please Enter Your Details",
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  SizedBox(height: 32.h),
-                  const CustomLoginFormWidget(),
-                ],
+      body: FadeInDown(
+        animate: true,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            CustomSliverAppBarWidget(
+              title: "Welcome Back",
+              leadingOnClicked: () {
+                Navigator.pop(context);
+              },
+              isAppBarPinned: _isAppBarPinned,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FadeInRight(
+                      animate: true,
+                      delay: const Duration(milliseconds: 50),
+                      child: Text(
+                        "Welcome Back! Please Enter Your Details",
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                    SizedBox(height: 32.h),
+                    const CustomLoginFormWidget(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

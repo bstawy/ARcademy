@@ -1,11 +1,11 @@
-import 'package:ar_cademy/screens/details_screen/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/web_services/firebase_utils.dart';
-import '../../../core/widgets/ar_view_button.dart';
-import '../../../core/widgets/favorite_button.dart';
-import '../../../models/organ_model.dart';
+import '../../models/organ_model.dart';
+import '../../screens/details_screen/details_screen.dart';
+import '../web_services/firebase_utils.dart';
+import 'ar_view_button.dart';
+import 'favorite_button.dart';
 
 class ItemCard extends StatefulWidget {
   final OrganModel organ;
@@ -29,7 +29,7 @@ class _ItemCardState extends State<ItemCard> {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, DetailsScreen.routeName,
-            arguments: widget.organ);
+            arguments: [context, widget.organ]);
       },
       borderRadius: BorderRadius.circular(25.r),
       splashColor: theme.colorScheme.secondary,
@@ -53,11 +53,14 @@ class _ItemCardState extends State<ItemCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.asset(
-                widget.organ.imagePath,
-                width: 187.w,
-                height: 187.h,
-                fit: BoxFit.contain,
+              child: Hero(
+                tag: widget.organ.id,
+                child: Image.asset(
+                  widget.organ.imagePath,
+                  width: 187.w,
+                  height: 187.h,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             ConstrainedBox(
@@ -94,12 +97,12 @@ class _ItemCardState extends State<ItemCard> {
                   iconHeight: 24.h,
                   isFavorite: widget.organ.isFavorite,
                   onClicked: () {
-                    FirebaseUtils.addToFavorites(itemId: widget.organ.id);
-                    /*if (widget.organ.isFavorite) {
-                        FirebaseUtils.deleteFromFavorites(widget.organ.id);
-                      } else {
-                        FirebaseUtils.addToFavorites(widget.organ.id);
-                      }*/
+                    if (widget.organ.isFavorite) {
+                      FirebaseUtils.deleteFromFavorites(
+                          itemId: widget.organ.id);
+                    } else {
+                      FirebaseUtils.addToFavorites(itemId: widget.organ.id);
+                    }
                     widget.organ.isFavorite = !widget.organ.isFavorite;
                     setState(() {});
                   },

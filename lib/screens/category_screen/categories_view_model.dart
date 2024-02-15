@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/item_card.dart';
 import '../../data/data.dart';
-import '../home_screen/widgets/item_card.dart';
 
 class CategoriesViewModel extends ChangeNotifier {
   final List<List<Widget>> _items = [

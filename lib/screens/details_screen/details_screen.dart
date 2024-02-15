@@ -1,48 +1,57 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/widgets/ar_view_button.dart';
-import '../../core/widgets/custom_back_button.dart';
+import '../../core/widgets/custom_action_button.dart';
 import '../../core/widgets/favorite_button.dart';
+import '../../layout/layout_view_model.dart';
 import '../../models/organ_model.dart';
+import '../favorites_screen/favorites_view_model.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   static const String routeName = 'details';
 
-  DetailsScreen({super.key});
+  const DetailsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final organ = ModalRoute.of(context)?.settings.arguments as OrganModel;
-    final theme = Theme.of(context);
-    int indexOfSpace = organ.title.indexOf(" ");
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
 
+class _DetailsScreenState extends State<DetailsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments as List;
+    final BuildContext parentContext = args[0];
+    final OrganModel organ = args[1];
+    final theme = Theme.of(context);
+
+    int indexOfSpace = organ.title.indexOf(" ");
     double maxWidth =
         (organ.title.substring(0, indexOfSpace).length < 7) ? 200.w : 310.w;
+
     return Scaffold(
       backgroundColor: theme.colorScheme.background,
       appBar: AppBar(
-        backgroundColor: theme.colorScheme.background,
-        elevation: 0,
         forceMaterialTransparency: true,
-        leadingWidth: 100.w,
-        toolbarHeight: 80.h,
-        centerTitle: true,
+        leadingWidth: 95.w,
         leading: Padding(
           padding:
               EdgeInsets.only(left: 24.w, top: 16.h, right: 24.h, bottom: 16.h),
-          child: CustomBackButton(
-            onClicked: () {
-              Navigator.pop(context);
-            },
+          child: FadeInLeft(
+            animate: true,
+            child: CustomActionButton(
+              iconPath: "assets/icons/back_icon.svg",
+              onClicked: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
         ),
-        title: Text(
-          organ.system,
-          style: theme.textTheme.titleMedium!.copyWith(
-            color: theme.colorScheme.primary,
-            fontWeight: FontWeight.w600,
-          ),
+        title: FadeInRight(
+          animate: true,
+          child: Text(organ.system),
         ),
       ),
       body: SingleChildScrollView(
@@ -56,28 +65,41 @@ class DetailsScreen extends StatelessWidget {
                 constraints: BoxConstraints(
                   maxWidth: maxWidth,
                 ),
-                child: Text(
-                  organ.title,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.displayLarge,
+                child: FadeInLeft(
+                  animate: true,
+                  delay: const Duration(milliseconds: 50),
+                  child: Text(
+                    organ.title,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.displayLarge!.copyWith(
+                      fontSize: 38.sp,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 24.h),
-              Image.asset(
-                organ.imagePath,
-                width: 204.w,
-                height: 313.h,
-                fit: BoxFit.contain,
+              Hero(
+                tag: organ.id,
+                child: Image.asset(
+                  organ.imagePath,
+                  width: 204.w,
+                  height: 313.h,
+                  fit: BoxFit.contain,
+                ),
               ),
-              Text(
-                """
+              FadeInUp(
+                animate: true,
+                delay: const Duration(milliseconds: 100),
+                child: Text(
+                  """
 The thoracic cage, also known as the rib cage, is a bony and cartilaginous structure that surrounds and protects the thoracic cavity. 
 
 It consists of 12 pairs of ribs, which can be classified into true ribs, false ribs, and floating ribs. The ribs connect to the thoracic vertebrae in the spine and play a vital role in providing structural support and protecting the organs within the chest.
 """,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.labelMedium!.copyWith(
-                  color: theme.colorScheme.secondary,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.labelMedium!.copyWith(
+                    color: theme.colorScheme.secondary,
+                  ),
                 ),
               ),
             ],
@@ -86,38 +108,58 @@ It consists of 12 pairs of ribs, which can be classified into true ribs, false r
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(16.r),
-        child: Row(
-          children: [
-            FavoriteButton(
-              height: 56.h,
-              minWidth: 56.w,
-              padding: 16.r,
-              borderRadius: 15.r,
-              backgroundColor: theme.colorScheme.onBackground,
-              iconHeight: 24.h,
-              iconWidth: 24.w,
-              isFavorite: organ.isFavorite,
-              onClicked: () {},
-            ),
-            SizedBox(width: 8.w),
-            Expanded(
-              child: ArViewButton(
-                minWidth: 263.w,
+        child: FadeInRight(
+          animate: true,
+          delay: const Duration(milliseconds: 150),
+          child: Row(
+            children: [
+              FavoriteButton(
                 height: 56.h,
-                borderRadius: 15.r,
+                minWidth: 56.w,
                 padding: 16.r,
-                textStyle: theme.textTheme.titleMedium!.copyWith(
-                  color: theme.colorScheme.background,
-                  fontWeight: FontWeight.w600,
-                ),
-                iconWidth: 24.w,
+                borderRadius: 15.r,
+                backgroundColor: theme.colorScheme.onBackground,
                 iconHeight: 24.h,
-                onClicked: () {},
+                iconWidth: 24.w,
+                isFavorite: organ.isFavorite,
+                onClicked: () {
+                  clickOnFavoriteButton(parentContext, organ);
+                  setState(() {});
+                },
               ),
-            ),
-          ],
+              SizedBox(width: 8.w),
+              Expanded(
+                child: ArViewButton(
+                  minWidth: 263.w,
+                  height: 56.h,
+                  borderRadius: 15.r,
+                  padding: 16.r,
+                  textStyle: theme.textTheme.titleMedium!.copyWith(
+                    color: theme.colorScheme.background,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  iconWidth: 24.w,
+                  iconHeight: 24.h,
+                  onClicked: () {},
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void clickOnFavoriteButton(BuildContext parentContext, OrganModel organ) {
+    final provider =
+        Provider.of<FavoritesViewModel>(parentContext, listen: false);
+    if (organ.isFavorite) {
+      provider.deleteFromFavorites(organ);
+    } else {
+      provider.addToFavorites(organ);
+    }
+    organ.isFavorite = !organ.isFavorite;
+    Provider.of<LayoutViewModel>(parentContext, listen: false)
+        .getData(parentContext);
   }
 }

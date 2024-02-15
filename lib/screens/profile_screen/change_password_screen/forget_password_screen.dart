@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,55 +50,70 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          CustomSliverAppBarWidget(
-            title: "Forgot Password",
-            leadingOnClicked: () {
-              Navigator.pop(context);
-            },
-            isAppBarPinned: _isAppBarPinned,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Please Enter Your Email",
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  SizedBox(height: 64.h),
-                  Form(
-                    key: _resetPasswordFormKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        CustomTextFormField(
-                          textEditingController: _emailController,
-                          labelText: "Email",
-                          title: "Enter Your Email",
-                          validator: (value) => validateEmail(value),
-                        ),
-                        SizedBox(height: 24.h),
-                        CustomMaterialButton(
-                          title: "Reset",
-                          backgroundColor: theme.colorScheme.primary,
-                          onClicked: () {
-                            resetPassword();
-                          },
-                        ),
-                      ],
+      body: FadeInDown(
+        animate: true,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            CustomSliverAppBarWidget(
+              title: "Forgot Password",
+              leadingOnClicked: () {
+                Navigator.pop(context);
+              },
+              isAppBarPinned: _isAppBarPinned,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FadeInUp(
+                      animate: true,
+                      delay: const Duration(milliseconds: 50),
+                      child: Text(
+                        "Please Enter Your Email",
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.titleMedium,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 64.h),
+                    Form(
+                      key: _resetPasswordFormKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          FadeInLeft(
+                            animate: true,
+                            delay: const Duration(milliseconds: 100),
+                            child: CustomTextFormField(
+                              textEditingController: _emailController,
+                              labelText: "Email",
+                              hintText: "Enter Your Email",
+                              validator: (value) => validateEmail(value),
+                            ),
+                          ),
+                          SizedBox(height: 24.h),
+                          FadeInRight(
+                            animate: true,
+                            delay: const Duration(milliseconds: 100),
+                            child: CustomMaterialButton(
+                              title: "Reset",
+                              backgroundColor: theme.colorScheme.primary,
+                              onClicked: () {
+                                resetPassword();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -108,7 +124,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       EasyLoading.show();
 
       var response =
-          await FirebaseUtils.resetPassword(email: _emailController.text);
+      await FirebaseUtils.resetPassword(email: _emailController.text);
 
       EasyLoading.dismiss();
 

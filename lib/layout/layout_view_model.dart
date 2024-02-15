@@ -1,3 +1,4 @@
+import 'package:ar_cademy/data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,23 +16,24 @@ class LayoutViewModel extends ChangeNotifier {
     FavoritesScreen(),
     ProfileScreen(),
   ];
-  bool _isFavoritesLoaded = false;
 
   int get selectedScreenIndex => _selectedScreenIndex;
-
-  bool get isFavoritesLoaded => _isFavoritesLoaded;
 
   List<Widget> get screen => _screens;
 
   void changeCurrentScreen(BuildContext context, int index) {
     if (_selectedScreenIndex != index) {
       _selectedScreenIndex = index;
-      _isFavoritesLoaded = false;
 
       if (index == 0 || index == 2) {
         Provider.of<FavoritesViewModel>(context, listen: false).getFavorites();
       }
       notifyListeners();
     }
+  }
+
+  getData(context) async {
+    await SystemsData.getData(context);
+    notifyListeners();
   }
 }

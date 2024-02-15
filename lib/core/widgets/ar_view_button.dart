@@ -2,30 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: must_be_immutable
 class ArViewButton extends StatelessWidget {
-  TextStyle? textStyle;
-  double? height;
-  double? minWidth;
-  double? padding;
-  double? borderRadius;
-  final double iconHeight;
+  final TextStyle? textStyle;
+  final double? height;
+  final double? minWidth;
+  final double? padding;
+  final double? borderRadius;
+  final Color? backgroundColor;
+  final Color? highlightColor;
   final double iconWidth;
-  Color? backgroundColor;
-  Color? highlightColor;
+  final double iconHeight;
+  final Color? iconColor;
   final Function onClicked;
 
-  ArViewButton({
+  const ArViewButton({
     super.key,
     this.textStyle,
     this.height,
     this.minWidth,
     this.padding,
     this.borderRadius,
-    required this.iconWidth,
-    required this.iconHeight,
     this.backgroundColor,
     this.highlightColor,
+    required this.iconWidth,
+    required this.iconHeight,
+    this.iconColor,
     required this.onClicked,
   });
 

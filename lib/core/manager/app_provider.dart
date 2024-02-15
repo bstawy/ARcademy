@@ -14,32 +14,37 @@ class AppProvider extends ChangeNotifier {
 
   AppProvider(this.prefs) {
     userId = prefs.getString("userId") ?? "null";
-    currentTheme = isDark() ? ThemeMode.dark : ThemeMode.light;
+    currentTheme = selectedThemeIsDark() ? ThemeMode.dark : ThemeMode.light;
     user = (userId == "null") ? null : getCurrentUser();
   }
 
   // Check if dark mode is selected
-  bool isDark() => prefs.getBool("isDark") ?? false;
+  bool selectedThemeIsDark() => prefs.getBool("isDark") ?? false;
 
-  changeTheme(ThemeMode newTheme) {
+  void changeTheme(ThemeMode newTheme) {
     if (currentTheme != newTheme) {
       currentTheme = newTheme;
-      addThemeValueToSF(currentTheme == ThemeMode.dark);
+      addThemeValueToSF(currentTheme);
       notifyListeners();
     }
   }
 
-  addThemeValueToSF(bool isDark) async {
-    isDark ? prefs.setBool('isDark', true) : prefs.setBool('isDark', false);
+  void addThemeValueToSF(ThemeMode? theme) async {
+    final themeIsDark = theme == ThemeMode.dark;
+    if (themeIsDark) {
+      prefs.setBool("isDark", true);
+    } else {
+      prefs.setBool("isDark", false);
+    }
   }
 
-  storeUserIdInSharedPrefs(User currentUser) async {
-    userId = currentUser.uid;
+  void storeUserIdInSharedPrefs(User currentUser) async {
     user = currentUser;
+    userId = currentUser.uid;
     prefs.setString("userId", currentUser.uid);
   }
 
-  static isLoggedIn() {
+  static String isLoggedIn() {
     if (userId == "null") {
       return OnboardingScreens.routeName;
     } else {
@@ -57,8 +62,9 @@ class AppProvider extends ChangeNotifier {
     return currentUser;
   }
 
-  logout() async {
-    userId = 'null';
+  void logout() async {
+    userId = "null";
+    user = null;
     prefs.setString("userId", "null");
     await FirebaseUtils.logOut();
     notifyListeners();

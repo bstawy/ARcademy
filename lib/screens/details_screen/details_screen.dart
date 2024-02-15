@@ -87,19 +87,29 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   fit: BoxFit.contain,
                 ),
               ),
+              SizedBox(height: 8.h),
               FadeInUp(
                 animate: true,
                 delay: const Duration(milliseconds: 100),
-                child: Text(
-                  """
-The thoracic cage, also known as the rib cage, is a bony and cartilaginous structure that surrounds and protects the thoracic cavity. 
-
-It consists of 12 pairs of ribs, which can be classified into true ribs, false ribs, and floating ribs. The ribs connect to the thoracic vertebrae in the spine and play a vital role in providing structural support and protecting the organs within the chest.
-""",
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.labelMedium!.copyWith(
-                    color: theme.colorScheme.secondary,
-                  ),
+                child: Column(
+                  children: [
+                    Text(
+                      organ.description
+                          .substring(0, organ.description.indexOf("\n")),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.labelMedium!.copyWith(
+                        color: theme.colorScheme.secondary,
+                      ),
+                    ),
+                    Text(
+                      organ.description
+                          .substring(organ.description.indexOf("\n")),
+                      textAlign: TextAlign.start,
+                      style: theme.textTheme.labelMedium!.copyWith(
+                        color: theme.colorScheme.secondary,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -140,7 +150,9 @@ It consists of 12 pairs of ribs, which can be classified into true ribs, false r
                   ),
                   iconWidth: 24.w,
                   iconHeight: 24.h,
-                  onClicked: () {},
+                  onClicked: () {
+                    // TODO: Navigate to AR View scene
+                  },
                 ),
               ),
             ],

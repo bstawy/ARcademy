@@ -50,6 +50,7 @@ flutter:
     - assets/images/nervous_system/
     - assets/images/respiratory_system/
     - assets/images/skeleton_system/
+    - shorebird.yaml
 
   # To add custom fonts to your application, add a fonts section here
   fonts:

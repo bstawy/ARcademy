@@ -45,9 +45,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; Shows some information about ARcademy features
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Onboarding.gif" width="300" />
+
 &nbsp;
 
 
@@ -58,9 +58,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; User can sign up using email & password or Google sign in
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Login_and_sign_up.gif" width="300" />
+
 &nbsp;
 
 
@@ -71,9 +71,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; Explore new added systems and organs
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Home.gif" width="300" />
+
 &nbsp;
 
 
@@ -84,9 +84,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; Preview organ image and details
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Details.gif" width="300" />
+
 &nbsp;
 
 
@@ -97,9 +97,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; Explore all available Human Systems and their organs
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Categories.gif" width="300" />
+
 &nbsp;
 
 
@@ -110,9 +110,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; User explore his favorite organs
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Favorites.gif" width="300" />
+
 &nbsp;
 
 
@@ -123,9 +123,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; User shows his profile settings and update his information
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Profile.gif" width="300" />
+
 &nbsp;
 
 
@@ -136,9 +136,9 @@ ARcademy supports Light and Dark modes.
 &nbsp; &nbsp; &nbsp; Dark mode is supported
 
 &nbsp;
-<!--
-<img src="https://github.com/bstawy/Islami/blob/master/screenshots/QuranTab.gif" width="300" />
--->
+
+<img src="https://github.com/bstawy/ARcademy/blob/master/screenshots/Dark_mode.gif" width="300" />
+
 &nbsp;
 
 

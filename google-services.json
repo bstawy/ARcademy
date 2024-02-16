@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1058209441220",
+    "project_id": "arcademy-2024",
+    "storage_bucket": "arcademy-2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058209441220:android:606aebfdda06cf878db091",
+        "android_client_info": {
+          "package_name": "com.arcademy.ar_cademy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Eyoel6dlp65KceAWyAs0dzv0W38YcIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

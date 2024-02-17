@@ -69,7 +69,6 @@ class CategoryScreen extends StatelessWidget {
                       tabs: vm.tabs,
                       tabAlignment: TabAlignment.center,
                       padding: EdgeInsets.only(bottom: 24.h),
-                      dividerHeight: 0,
                       indicatorColor: theme.colorScheme.primary,
                       indicatorSize: TabBarIndicatorSize.label,
                       indicatorPadding: EdgeInsets.symmetric(horizontal: 5.w),

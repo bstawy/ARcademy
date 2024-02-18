@@ -20,6 +20,7 @@ import 'screens/registration_screens/login_screen/login_view_model.dart';
 import 'screens/registration_screens/reset_password_screen/reset_password_screen.dart';
 import 'screens/registration_screens/sign_up_screen/sign_up_screen.dart';
 import 'screens/registration_screens/sign_up_screen/sign_up_view_model.dart';
+import 'screens/search_screen/search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
                 ResetPasswordScreen.routeName: (context) =>
                     const ResetPasswordScreen(),
                 Layout.routeName: (context) => const Layout(),
+                SearchScreen.routeName: (context) => const SearchScreen(),
                 DetailsScreen.routeName: (context) => const DetailsScreen(),
                 AccountInfoScreen.routeName: (context) =>
                     const AccountInfoScreen(),

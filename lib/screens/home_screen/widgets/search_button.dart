@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../search_screen/search_screen.dart';
+
 class SearchButton extends StatelessWidget {
   const SearchButton({super.key});
 
@@ -23,7 +25,7 @@ class SearchButton extends StatelessWidget {
       ),
       child: MaterialButton(
         onPressed: () {
-          // TODO: Navigate to search screen
+          Navigator.pushNamed(context, SearchScreen.routeName);
         },
         height: 40.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),

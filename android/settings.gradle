@@ -27,3 +27,7 @@ plugins {
 }
 
 include ":app"
+
+include ":unityLibrary:xrmanifest.androidlib"
+include ":unityLibrary"
+project(":unityLibrary").projectDir = file("./unityLibrary")

@@ -10,6 +10,7 @@ import 'core/manager/app_provider.dart';
 import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
 import 'layout/layout.dart';
+import 'screens/ar_view_screen/ar_view_screen.dart';
 import 'screens/details_screen/details_screen.dart';
 import 'screens/onboarding_screens/onboarding_screens.dart';
 import 'screens/profile_screen/account_info_screen/account_info_screen.dart';
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
                     const ChangePasswordScreen(),
                 ForgetPasswordScreen.routeName: (context) =>
                     const ForgetPasswordScreen(),
+                ArViewScreen.routeName: (context) => const ArViewScreen(),
               },
               builder: EasyLoading.init(
                 builder: BotToastInit(),

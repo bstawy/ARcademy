@@ -28,6 +28,7 @@ dependencies:
   shared_preferences: ^2.2.2
   cloud_firestore: ^4.15.4
   animate_do: ^3.3.3
+  flutter_unity_widget: ^2022.2.1
 
 dev_dependencies:
   flutter_test:

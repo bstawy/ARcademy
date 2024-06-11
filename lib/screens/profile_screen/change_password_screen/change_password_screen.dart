@@ -73,7 +73,7 @@ class _ChangePasswordScreen extends State<ChangePasswordScreen> {
                       delay: const Duration(milliseconds: 250),
                       child: CustomMaterialButton(
                         title: "Forgot Your Password ?",
-                        backgroundColor: theme.colorScheme.onBackground,
+                        backgroundColor: theme.colorScheme.onSurface,
                         titleStyle: theme.textTheme.titleMedium!.copyWith(
                           color: theme.colorScheme.primary,
                           fontWeight: FontWeight.w600,

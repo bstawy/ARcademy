@@ -32,7 +32,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         (organ.title.substring(0, indexOfSpace).length < 7) ? 200.w : 310.w;
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         forceMaterialTransparency: true,
         leadingWidth: 95.w,
@@ -128,7 +128,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 minWidth: 56.w,
                 padding: 16.r,
                 borderRadius: 15.r,
-                backgroundColor: theme.colorScheme.onBackground,
+                backgroundColor: theme.colorScheme.onSurface,
                 iconHeight: 24.h,
                 iconWidth: 24.w,
                 isFavorite: organ.isFavorite,
@@ -145,7 +145,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   borderRadius: 15.r,
                   padding: 16.r,
                   textStyle: theme.textTheme.titleMedium!.copyWith(
-                    color: theme.colorScheme.background,
+                    color: theme.colorScheme.surface,
                     fontWeight: FontWeight.w600,
                   ),
                   iconWidth: 24.w,

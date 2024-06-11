@@ -34,7 +34,7 @@ class DeleteAccountAlertDialog extends StatelessWidget {
                   padding: EdgeInsets.all(16.r),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.background,
+                    color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: Column(

@@ -38,7 +38,7 @@ class OptionWidget extends StatelessWidget {
                   height: 44.h,
                   padding: EdgeInsets.all(10.r),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.onBackground,
+                    color: theme.colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(13.r),
                   ),
                   child: SvgPicture.asset(

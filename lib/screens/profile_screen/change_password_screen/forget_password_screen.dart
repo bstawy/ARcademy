@@ -124,7 +124,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       EasyLoading.show();
 
       var response =
-      await FirebaseUtils.resetPassword(email: _emailController.text);
+          await FirebaseUtils.resetPassword(email: _emailController.text);
 
       EasyLoading.dismiss();
 

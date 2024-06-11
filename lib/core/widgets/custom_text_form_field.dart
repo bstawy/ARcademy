@@ -59,7 +59,7 @@ class CustomTextFormField extends StatelessWidget {
           cursorColor: theme.colorScheme.primary,
           decoration: InputDecoration(
             filled: true,
-            fillColor: theme.colorScheme.onBackground,
+            fillColor: theme.colorScheme.onSurface,
             constraints: BoxConstraints(
               minHeight: minHeight ?? 56.h,
               maxHeight: maxHeight ?? 70.h,

@@ -59,8 +59,8 @@ class ArViewButton extends StatelessWidget {
           SvgPicture.asset(
             "assets/icons/ar_icon.svg",
             semanticsLabel: "AR icon",
-            colorFilter: ColorFilter.mode(
-                theme.colorScheme.onBackground, BlendMode.srcIn),
+            colorFilter:
+                ColorFilter.mode(theme.colorScheme.onSurface, BlendMode.srcIn),
             width: iconWidth,
             height: iconHeight,
             fit: BoxFit.contain,
@@ -70,7 +70,7 @@ class ArViewButton extends StatelessWidget {
             "AR View",
             style: textStyle ??
                 theme.textTheme.labelLarge!.copyWith(
-                  color: theme.colorScheme.onBackground,
+                  color: theme.colorScheme.onSurface,
                   fontWeight: FontWeight.w400,
                 ),
           ),

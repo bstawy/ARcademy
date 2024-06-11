@@ -18,7 +18,7 @@ class CustomBottomNavBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     Color filterColor =
-        isSelected ? theme.colorScheme.background : theme.colorScheme.primary;
+        isSelected ? theme.colorScheme.surface : theme.colorScheme.primary;
 
     return GestureDetector(
       onTap: onClicked,
@@ -29,7 +29,7 @@ class CustomBottomNavBarItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? theme.colorScheme.primary
-              : theme.colorScheme.onBackground,
+              : theme.colorScheme.onSurface,
           borderRadius: BorderRadius.circular(15.r),
           boxShadow: isSelected
               ? [

@@ -43,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.h),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: theme.colorScheme.onBackground,
+          color: theme.colorScheme.onSurface,
           borderRadius: BorderRadius.circular(18.r),
         ),
         child: Row(
@@ -138,7 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   margin: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.onBackground,
+                    color: theme.colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: SingleChildScrollView(

@@ -39,7 +39,7 @@ class _ItemCardState extends State<ItemCard> {
         width: 248.w,
         padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
-          color: theme.colorScheme.onBackground,
+          color: theme.colorScheme.onSurface,
           borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(

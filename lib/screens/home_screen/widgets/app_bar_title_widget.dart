@@ -32,7 +32,7 @@ class AppBarTitleWidget extends StatelessWidget {
                   padding: EdgeInsets.all(10.r),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.r),
-                    color: theme.colorScheme.background,
+                    color: theme.colorScheme.surface,
                     boxShadow: [
                       BoxShadow(
                         offset: const Offset(0, 10),

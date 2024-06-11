@@ -19,7 +19,7 @@ class ProfileHeader extends StatelessWidget {
           padding: EdgeInsets.all(18.r),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50.r),
-            color: theme.colorScheme.background,
+            color: theme.colorScheme.surface,
             boxShadow: [
               BoxShadow(
                 offset: const Offset(0, 10),

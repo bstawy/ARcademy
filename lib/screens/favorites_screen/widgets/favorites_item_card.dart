@@ -32,7 +32,7 @@ class FavoritesItemCard extends StatelessWidget {
         width: 155.w,
         padding: EdgeInsets.all(10.r),
         decoration: BoxDecoration(
-          color: theme.colorScheme.onBackground,
+          color: theme.colorScheme.onSurface,
           borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(

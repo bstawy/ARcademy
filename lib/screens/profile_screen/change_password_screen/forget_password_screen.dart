@@ -128,12 +128,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
       EasyLoading.dismiss();
 
-      if (context.mounted) {
-        if (response == "success") {
+      if (response == "success") {
+        if (mounted) {
           SnackBarService.showSuccessMessage(
               context, 'A password reset link has been sent to your email');
           Navigator.pop(context);
-        } else {
+        }
+      } else {
+        if (mounted) {
           SnackBarService.showErrorMessage(context, response);
         }
       }

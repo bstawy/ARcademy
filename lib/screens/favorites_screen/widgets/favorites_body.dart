@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/manager/app_provider.dart';
+import '../../../core/widgets/custom_material_button.dart';
+import '../../registration_screens/login_screen/login_screen.dart';
 import '../favorites_view_model.dart';
 import 'favorites_item_card.dart';
 
@@ -53,7 +56,16 @@ class FavoritesBody extends StatelessWidget {
                         SizedBox(
                           height: 170.h,
                         ),
-                        Text(
+                        (AppProvider.user == null)
+                            ? CustomMaterialButton(
+                          title: "\t\t\t\tLogin\t\t\t\t",
+                          backgroundColor: theme.colorScheme.primary,
+                          onClicked: () {
+                            Navigator.pushNamed(
+                                context, LoginScreen.routeName);
+                          },
+                        )
+                            : Text(
                           "No Favorites",
                           style: theme.textTheme.titleLarge,
                         ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../core/services/snackbar_service.dart';
+import '../../screens/ar_view_screen/ar_view_screen.dart';
 
 class ArViewButton extends StatelessWidget {
   final TextStyle? textStyle;
@@ -38,8 +38,7 @@ class ArViewButton extends StatelessWidget {
 
     return MaterialButton(
       onPressed: () {
-        //onClicked();
-        SnackBarService.showSuccessMessage(context, "Coming Soon...");
+        Navigator.of(context).pushNamed(ArViewScreen.routeName);
       },
       height: height ?? 40.h,
       minWidth: minWidth ?? 161.w,
@@ -60,8 +59,8 @@ class ArViewButton extends StatelessWidget {
           SvgPicture.asset(
             "assets/icons/ar_icon.svg",
             semanticsLabel: "AR icon",
-            colorFilter: ColorFilter.mode(
-                theme.colorScheme.onBackground, BlendMode.srcIn),
+            colorFilter:
+                ColorFilter.mode(theme.colorScheme.onSurface, BlendMode.srcIn),
             width: iconWidth,
             height: iconHeight,
             fit: BoxFit.contain,
@@ -71,7 +70,7 @@ class ArViewButton extends StatelessWidget {
             "AR View",
             style: textStyle ??
                 theme.textTheme.labelLarge!.copyWith(
-                  color: theme.colorScheme.onBackground,
+                  color: theme.colorScheme.onSurface,
                   fontWeight: FontWeight.w400,
                 ),
           ),

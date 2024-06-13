@@ -10,6 +10,7 @@ import 'core/manager/app_provider.dart';
 import 'core/theme/application_theme.dart';
 import 'firebase_options.dart';
 import 'layout/layout.dart';
+import 'screens/ar_view_screen/ar_view_screen.dart';
 import 'screens/details_screen/details_screen.dart';
 import 'screens/onboarding_screens/onboarding_screens.dart';
 import 'screens/profile_screen/account_info_screen/account_info_screen.dart';
@@ -20,6 +21,7 @@ import 'screens/registration_screens/login_screen/login_view_model.dart';
 import 'screens/registration_screens/reset_password_screen/reset_password_screen.dart';
 import 'screens/registration_screens/sign_up_screen/sign_up_screen.dart';
 import 'screens/registration_screens/sign_up_screen/sign_up_view_model.dart';
+import 'screens/search_screen/search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,6 +79,7 @@ class MyApp extends StatelessWidget {
                 ResetPasswordScreen.routeName: (context) =>
                     const ResetPasswordScreen(),
                 Layout.routeName: (context) => const Layout(),
+                SearchScreen.routeName: (context) => const SearchScreen(),
                 DetailsScreen.routeName: (context) => const DetailsScreen(),
                 AccountInfoScreen.routeName: (context) =>
                     const AccountInfoScreen(),
@@ -84,6 +87,7 @@ class MyApp extends StatelessWidget {
                     const ChangePasswordScreen(),
                 ForgetPasswordScreen.routeName: (context) =>
                     const ForgetPasswordScreen(),
+                ArViewScreen.routeName: (context) => const ArViewScreen(),
               },
               builder: EasyLoading.init(
                 builder: BotToastInit(),

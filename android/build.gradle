@@ -16,8 +16,13 @@ plugins {
 
 }
 
+
 allprojects {
     repositories {
+        flatDir {
+            dirs "${project(':unityLibrary').projectDir}/libs"
+        }
+
         google()
         mavenCentral()
     }

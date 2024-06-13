@@ -1,3 +1,4 @@
+import 'package:ar_cademy/core/web_services/firebase_exceptions_handler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,33 +21,9 @@ class FirebaseUtils {
       await user.user!.updateDisplayName(name);
       return right(user);
     } on FirebaseAuthException catch (e) {
-      debugPrint(
-          "================== Firebase Auth Exceptions ==================");
-      debugPrint("${e.code} ====== ${e.message}");
-
-      switch (e.code) {
-        case "network-request-failed":
-          return left(
-              "There seems to be a network issue. Please check your internet connection and try again");
-
-        case "timeout":
-          return left("The request took too long. Please try again later");
-
-        case "email-already-in-use":
-          return left(
-              "This email address is already in use. Please try with a different email address or reset your password if you forgot it");
-
-        case "weak-password":
-          return left(
-              "The password you entered is too weak. Please use a stronger password");
-
-        default:
-          return left(e.code);
-      }
+      return left(FirebaseExceptionsHandler.handleAuthException(e));
     } catch (e) {
-      debugPrint("================== Catch e exception ==================");
-      debugPrint(e.toString());
-      return left(e.toString());
+      return left(handleException(e));
     }
   }
 
@@ -71,29 +48,9 @@ class FirebaseUtils {
 
       return right(user);
     } on FirebaseAuthException catch (e) {
-      debugPrint(
-          "================== Firebase Auth Exceptions ==================");
-      debugPrint("${e.code} ====== ${e.message}");
-
-      switch (e.code) {
-        case "network-request-failed":
-          return left(
-              "There seems to be a network issue. Please check your internet connection and try again");
-
-        case "timeout":
-          return left("The request took too long. Please try again later");
-
-        case "invalid-credential":
-          return left(
-              "The provided credential is invalid. Please check and try again");
-
-        default:
-          return left(e.code);
-      }
+      return left(FirebaseExceptionsHandler.handleAuthException(e));
     } catch (e) {
-      debugPrint("================== Catch e exception ==================");
-      debugPrint(e.toString());
-      return left(e.toString());
+      return left(handleException(e));
     }
   }
 
@@ -117,32 +74,9 @@ class FirebaseUtils {
             "Your email address hasn't been verified yet. Please check your inbox for a verification email");
       }
     } on FirebaseAuthException catch (e) {
-      debugPrint(
-          "================== Firebase Auth Exceptions ==================");
-      debugPrint("${e.code} ====== ${e.message}");
-
-      switch (e.code) {
-        case "network-request-failed":
-          return left(
-              "There seems to be a network issue. Please check your internet connection and try again");
-
-        case "timeout":
-          return left("The request took too long. Please try again later");
-
-        case "user-not-found":
-          return left(
-              "There is no account associated with this email address. Please sign up instead");
-
-        case "wrong-password":
-          return left("Incorrect password. Please try again.");
-
-        default:
-          return left(e.code);
-      }
+      return left(FirebaseExceptionsHandler.handleAuthException(e));
     } catch (e) {
-      debugPrint("================== Catch e exception ==================");
-      debugPrint(e.toString());
-      return left(e.toString());
+      return left(handleException(e));
     }
   }
 
@@ -151,27 +85,9 @@ class FirebaseUtils {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       return "success";
     } on FirebaseAuthException catch (e) {
-      debugPrint(
-          "================== Firebase Auth Exceptions ==================");
-      debugPrint("${e.code} ====== ${e.message}");
-
-      switch (e.code) {
-        case "network-request-failed":
-          return "There seems to be a network issue. Please check your internet connection and try again";
-
-        case "timeout":
-          return "The request took too long. Please try again later";
-
-        case "user-not-found":
-          return "This email address doesn't exist in our records. Please check the email you entered or consider signing up.";
-
-        default:
-          return (e.code);
-      }
+      return FirebaseExceptionsHandler.handleAuthException(e);
     } catch (e) {
-      debugPrint("================== Catch e exception ==================");
-      debugPrint(e.toString());
-      return (e.toString());
+      return handleException(e);
     }
   }
 
@@ -188,30 +104,9 @@ class FirebaseUtils {
           await user.updatePassword(newPassword);
           return ("success");
         } on FirebaseAuthException catch (e) {
-          debugPrint(
-              "================== Firebase Auth Exceptions ==================");
-          debugPrint("${e.code} ====== ${e.message}");
-
-          switch (e.code) {
-            case "network-request-failed":
-              return "There seems to be a network issue. Please check your internet connection and try again";
-
-            case "timeout":
-              return "The request took too long. Please try again later";
-
-            case "weak-password":
-              return "The password you entered is too weak. Please use a stronger password";
-
-            case "requires-recent-login":
-              return "This operation requires recent login. Please sign in again before trying again";
-
-            default:
-              return e.code;
-          }
+          return FirebaseExceptionsHandler.handleAuthException(e);
         } catch (e) {
-          debugPrint("================== Catch e exception ==================");
-          debugPrint(e.toString());
-          return (e.toString());
+          return handleException(e);
         }
       }
       return response;
@@ -226,39 +121,9 @@ class FirebaseUtils {
       await user.reauthenticateWithCredential(credential);
       return "success";
     } on FirebaseAuthException catch (e) {
-      debugPrint(
-          "================== Firebase Auth Exceptions ==================");
-      debugPrint("${e.code} ====== ${e.message}");
-
-      switch (e.code) {
-        case "network-request-failed":
-          return "There seems to be a network issue. Please check your internet connection and try again";
-
-        case "timeout":
-          return "The request took too long. Please try again later";
-
-        case "user-not-found":
-          return "There is no account associated with this email address";
-
-        case "wrong-password":
-          return "Incorrect password. Please try again";
-
-        case "invalid-credential":
-          return "The provided credential is invalid. Please check and try again";
-
-        case "credential-already-in-use":
-          return "This credential is already associated with another Firebase user";
-
-        case "requires-recent-login":
-          return "This operation requires recent login. Please sign in again before trying again";
-
-        default:
-          return e.code;
-      }
+      return FirebaseExceptionsHandler.handleAuthException(e);
     } catch (e) {
-      debugPrint("================== Catch e exception ==================");
-      debugPrint(e.toString());
-      return (e.toString());
+      return handleException(e);
     }
   }
 
@@ -279,24 +144,9 @@ class FirebaseUtils {
       await FirebaseAuth.instance.signOut();
       return "success";
     } on FirebaseAuthException catch (e) {
-      debugPrint(
-          "================== Firebase Auth Exceptions ==================");
-      debugPrint("${e.code} ====== ${e.message}");
-
-      switch (e.code) {
-        case "network-request-failed":
-          return "There seems to be a network issue. Please check your internet connection and try again";
-
-        case "timeout":
-          return "The request took too long. Please try again later";
-
-        default:
-          return e.code;
-      }
+      return FirebaseExceptionsHandler.handleAuthException(e);
     } catch (e) {
-      debugPrint("================== Catch e exception ==================");
-      debugPrint(e.toString());
-      return (e.toString());
+      return handleException(e);
     }
   }
 
@@ -316,30 +166,9 @@ class FirebaseUtils {
         user.delete();
         return "success";
       } on FirebaseAuthException catch (e) {
-        debugPrint(
-            "================== Firebase Auth Exceptions ==================");
-        debugPrint("${e.code} ====== ${e.message}");
-
-        switch (e.code) {
-          case "network-request-failed":
-            return "There seems to be a network issue. Please check your internet connection and try again";
-
-          case "timeout":
-            return "The request took too long. Please try again later";
-
-          case "user-not-found":
-            return "There is no account associated with this email address";
-
-          case "requires-recent-login":
-            return "This operation requires recent login. Please sign in again before trying again";
-
-          default:
-            return (e.code);
-        }
+        return FirebaseExceptionsHandler.handleAuthException(e);
       } catch (e) {
-        debugPrint("================== Catch e exception ==================");
-        debugPrint(e.toString());
-        return (e.toString());
+        return handleException(e);
       }
     }
     return ("No user signed in");
@@ -359,9 +188,7 @@ class FirebaseUtils {
 
         rethrow;
       } catch (e) {
-        debugPrint("================== Catch e exception ==================");
-        debugPrint(e.toString());
-        return (e.toString());
+        return handleException(e);
       }
     }
     return ("No user signed in");
@@ -395,28 +222,18 @@ class FirebaseUtils {
       try {
         await user.updateDisplayName(fullName);
       } on FirebaseAuthException catch (e) {
-        debugPrint(
-            "================== Firebase Auth Exceptions ==================");
-        debugPrint("${e.code} ====== ${e.message}");
-        return e.code;
+        return FirebaseExceptionsHandler.handleAuthException(e);
       } catch (e) {
-        debugPrint("================== Catch e exception ==================");
-        debugPrint(e.toString());
-        return (e.toString());
+        return handleException(e);
       }
     }
     if (email != null) {
       try {
         await user.verifyBeforeUpdateEmail(email);
       } on FirebaseAuthException catch (e) {
-        debugPrint(
-            "================== Firebase Auth Exceptions ==================");
-        debugPrint("${e.code} ====== ${e.message}");
-        return e.code;
+        return FirebaseExceptionsHandler.handleAuthException(e);
       } catch (e) {
-        debugPrint("================== Catch e exception ==================");
-        debugPrint(e.toString());
-        return (e.toString());
+        return handleException(e);
       }
     }
     return "success";
@@ -474,5 +291,12 @@ class FirebaseUtils {
     } catch (e) {
       rethrow;
     }
+  }
+
+  static String handleException(Object e) {
+    debugPrint("================== Catch e exception ==================");
+    debugPrint(e.toString());
+    debugPrint("=======================================================");
+    return e.toString();
   }
 }

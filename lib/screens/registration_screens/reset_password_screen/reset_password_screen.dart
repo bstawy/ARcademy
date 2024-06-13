@@ -182,11 +182,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       EasyLoading.show();
 
       var response =
-      await FirebaseUtils.resetPassword(email: _emailController.text);
+          await FirebaseUtils.resetPassword(email: _emailController.text);
 
       EasyLoading.dismiss();
 
-      if (context.mounted) {
+      if (mounted) {
         if (response == "success") {
           SnackBarService.showSuccessMessage(
               context, 'A password reset link has been sent to your email');

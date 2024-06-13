@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../core/manager/app_provider.dart';
 import '../../core/widgets/custom_material_button.dart';
+import '../../layout/layout.dart';
 import '../../models/onboarding_model.dart';
 import '../registration_screens/login_screen/login_screen.dart';
 import 'widgets/onboarding_widget.dart';
@@ -84,7 +86,8 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                         FadeInRight(
                           animate: true,
                           child: SkipButton(onClicked: () {
-                            Navigator.pushNamed(context, LoginScreen.routeName);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, Layout.routeName, (route) => false);
                           }),
                         ),
                       ],
@@ -134,8 +137,10 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                       _currentIndex++;
                       nextOnboardingScreen();
                     } else {
-                      Navigator.pushNamed(context, LoginScreen.routeName);
-                      _currentIndex = 0;
+                      (AppProvider.user == null) ?
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Layout.routeName, (route) => false) :
+                      Navigator.pushNamed(context,   LoginScreen.routeName);
                     }
                   },
                 ),

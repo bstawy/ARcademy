@@ -22,7 +22,7 @@ class CustomBottomNavBar extends StatelessWidget {
       margin: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
       padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 11.h),
       decoration: BoxDecoration(
-        color: theme.colorScheme.onBackground,
+        color: theme.colorScheme.onSurface,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Row(

@@ -23,7 +23,7 @@ class CustomSliverAppBarWidget extends StatelessWidget {
       pinned: true,
       floating: true,
       automaticallyImplyLeading: false,
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       toolbarHeight: 73.h,
       expandedHeight: 145.h,
       elevation: 0,

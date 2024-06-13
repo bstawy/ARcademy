@@ -11,7 +11,7 @@ void configureEasyLoading(BuildContext context) {
     ..radius = 25.0.r
     ..contentPadding = EdgeInsets.all(25.r)
     ..loadingStyle = EasyLoadingStyle.custom
-    ..backgroundColor = theme.colorScheme.onBackground
+    ..backgroundColor = theme.colorScheme.onSurface
     ..indicatorColor = theme.colorScheme.primary
     ..textColor = Colors.white
     ..maskType = EasyLoadingMaskType.custom

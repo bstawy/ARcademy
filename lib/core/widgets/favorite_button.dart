@@ -51,7 +51,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       elevation: 0,
       highlightElevation: 0,
       highlightColor: widget.highlightColor ?? theme.colorScheme.secondary,
-      color: widget.backgroundColor ?? theme.colorScheme.background,
+      color: widget.backgroundColor ?? theme.colorScheme.surface,
       enableFeedback: true,
       animationDuration: const Duration(milliseconds: 50),
       // remove margins around button
@@ -70,7 +70,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               fit: BoxFit.contain,
             )
           : SvgPicture.asset(
-        "assets/icons/favorite_icon.svg",
+              "assets/icons/favorite_icon.svg",
               colorFilter: ColorFilter.mode(
                   widget.iconColor ?? theme.colorScheme.primary,
                   BlendMode.srcIn),

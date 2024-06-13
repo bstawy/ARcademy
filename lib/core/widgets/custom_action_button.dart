@@ -44,7 +44,7 @@ class CustomActionButton extends StatelessWidget {
       elevation: 0,
       highlightElevation: 0,
       highlightColor: highlightColor ?? theme.colorScheme.secondary,
-      color: backgroundColor ?? theme.colorScheme.onBackground,
+      color: backgroundColor ?? theme.colorScheme.onSurface,
       enableFeedback: true,
       animationDuration: const Duration(milliseconds: 50),
       shape: RoundedRectangleBorder(

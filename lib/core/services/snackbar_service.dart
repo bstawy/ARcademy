@@ -49,7 +49,7 @@ class SnackBarService {
         margin: EdgeInsets.only(top: 52.h, left: 24.w, right: 24.w),
         padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 16.h),
         decoration: BoxDecoration(
-          color: theme.colorScheme.onBackground,
+          color: theme.colorScheme.onSurface,
           borderRadius: BorderRadius.circular(25.r),
         ),
         alignment: Alignment.center,

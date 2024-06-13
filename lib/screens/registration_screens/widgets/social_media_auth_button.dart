@@ -28,7 +28,7 @@ class SocialMediaAuthButton extends StatelessWidget {
       elevation: 0,
       highlightElevation: 0,
       highlightColor: theme.colorScheme.secondary,
-      color: theme.colorScheme.onBackground,
+      color: theme.colorScheme.onSurface,
       enableFeedback: true,
       animationDuration: const Duration(milliseconds: 50),
       shape: RoundedRectangleBorder(

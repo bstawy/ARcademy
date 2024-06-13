@@ -43,7 +43,7 @@ class CustomMaterialButton extends StatelessWidget {
         title,
         style: titleStyle ??
             theme.textTheme.titleMedium!.copyWith(
-              color: theme.colorScheme.onBackground,
+              color: theme.colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
       ),

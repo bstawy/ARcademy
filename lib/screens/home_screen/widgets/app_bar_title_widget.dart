@@ -54,13 +54,13 @@ class AppBarTitleWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppProvider.user!.displayName!,
+                      AppProvider.user?.displayName ?? "Hello",
                       style: theme.textTheme.labelLarge!.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
-                      AppProvider.user!.email!,
+                      AppProvider.user?.email ?? "mail@mail.com",
                       style: theme.textTheme.labelSmall,
                     ),
                   ],

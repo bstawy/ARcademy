@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../core/web_services/firebase_utils.dart';
 import '../models/organ_model.dart';
 
-// TODO: search for spinal cord and neuron in the nervous system
-
 class SystemsData {
   static final List<OrganModel> _cardiovascularOrgans = [
     OrganModel(

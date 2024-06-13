@@ -115,6 +115,8 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -141,18 +143,13 @@ class _SearchScreenState extends State<SearchScreen> {
                     color: theme.colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(25.r),
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.sizeOf(context).height - 200,
-                          child: ListView.builder(
-                            itemCount: searchedOrgans.length,
-                            itemBuilder: (context, index) =>
-                                searchedItemWidget(searchedOrgans[index]),
-                          ),
-                        ),
-                      ],
+                  child: SizedBox(
+                    height: 37.h * searchedOrgans.length,
+                    child: ListView.builder(
+                      padding: EdgeInsets.only(top: 16.h),
+                      itemCount: searchedOrgans.length,
+                      itemBuilder: (context, index) =>
+                          searchedItemWidget(searchedOrgans[index]),
                     ),
                   ),
                 ),

@@ -6,7 +6,7 @@ import '../models/organ_model.dart';
 class SystemsData {
   static final List<OrganModel> _cardiovascularOrgans = [
     OrganModel(
-      id: 00,
+      id: 0,
       title: "Cardiovascular System",
       system: "Cardiovascular System",
       description:
@@ -20,7 +20,7 @@ Capillaries: Facilitate the exchange of substances between blood and tissues."""
           "assets/images/cardiovascular_system/cardiovascular_system.png",
     ),
     OrganModel(
-      id: 01,
+      id: 1,
       title: "Heart Anatomy",
       system: "Cardiovascular System",
       description:
@@ -32,7 +32,7 @@ Coronary Arteries: Supply oxygenated blood to the heart muscle.""",
       imagePath: "assets/images/cardiovascular_system/heart.png",
     ),
     OrganModel(
-      id: 02,
+      id: 2,
       title: "Arteries and Veins Anatomy",
       system: "Cardiovascular System",
       description:

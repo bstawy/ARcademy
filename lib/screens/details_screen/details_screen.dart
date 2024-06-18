@@ -140,6 +140,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               SizedBox(width: 8.w),
               Expanded(
                 child: ArViewButton(
+                  organId: organ.id,
                   minWidth: 263.w,
                   height: 56.h,
                   borderRadius: 15.r,
@@ -150,9 +151,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                   iconWidth: 24.w,
                   iconHeight: 24.h,
-                  onClicked: () {
-                    // TODO: Navigate to AR View scene
-                  },
                 ),
               ),
             ],

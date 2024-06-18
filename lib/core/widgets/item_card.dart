@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../models/organ_model.dart';
+import '../../screens/ar_view_screen/ar_view_screen.dart';
 import '../../screens/details_screen/details_screen.dart';
 import '../web_services/firebase_utils.dart';
 import 'ar_view_button.dart';
@@ -109,10 +110,12 @@ class _ItemCardState extends State<ItemCard> {
                 ),
                 SizedBox(width: 8.w),
                 ArViewButton(
+                  organId: widget.organ.id,
                   iconWidth: 24.w,
                   iconHeight: 24.h,
                   onClicked: () {
-                    // TODO: Navigate to AR View scene
+                    Navigator.pushNamed(context, ArViewScreen.routeName,
+                        arguments: widget.organ.id);
                   },
                 ),
               ],

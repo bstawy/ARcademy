@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../screens/ar_view_screen/ar_view_screen.dart';
 
 class ArViewButton extends StatelessWidget {
+  final int? organId;
   final TextStyle? textStyle;
   final double? height;
   final double? minWidth;
@@ -15,10 +16,11 @@ class ArViewButton extends StatelessWidget {
   final double iconWidth;
   final double iconHeight;
   final Color? iconColor;
-  final Function onClicked;
+  final Function? onClicked;
 
   const ArViewButton({
     super.key,
+    this.organId,
     this.textStyle,
     this.height,
     this.minWidth,
@@ -29,7 +31,7 @@ class ArViewButton extends StatelessWidget {
     required this.iconWidth,
     required this.iconHeight,
     this.iconColor,
-    required this.onClicked,
+    this.onClicked,
   });
 
   @override
@@ -38,7 +40,7 @@ class ArViewButton extends StatelessWidget {
 
     return MaterialButton(
       onPressed: () {
-        Navigator.of(context).pushNamed(ArViewScreen.routeName);
+        Navigator.of(context).pushNamed(ArViewScreen.routeName, arguments: organId as int);
       },
       height: height ?? 40.h,
       minWidth: minWidth ?? 161.w,

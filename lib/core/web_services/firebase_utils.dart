@@ -1,4 +1,3 @@
-import 'package:ar_cademy/core/web_services/firebase_exceptions_handler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../manager/app_provider.dart';
+import 'firebase_exceptions_handler.dart';
 
 class FirebaseUtils {
   // ================================ Sign Up =================================
@@ -140,7 +140,9 @@ class FirebaseUtils {
   static Future<String> logOut() async {
     try {
       GoogleSignIn googleSignIn = GoogleSignIn();
-      await googleSignIn.signOut();
+       if (googleSignIn.currentUser != null) {
+        await googleSignIn.signOut();
+      }
       await FirebaseAuth.instance.signOut();
       return "success";
     } on FirebaseAuthException catch (e) {

@@ -59,36 +59,7 @@ class MyApp extends StatelessWidget {
               theme: ApplicationTheme.lightTheme,
               darkTheme: ApplicationTheme.darkTheme,
               initialRoute: AppProvider.isLoggedIn(),
-              routes: {
-                OnboardingScreens.routeName: (context) =>
-                    const OnboardingScreens(),
-                LoginScreen.routeName: (context) =>
-                    ChangeNotifierProvider<LoginViewModel>(
-                      create: (context) => LoginViewModel(),
-                      builder: (context, child) {
-                        return const LoginScreen();
-                      },
-                    ),
-                SignUpScreen.routeName: (context) =>
-                    ChangeNotifierProvider<SignUpViewModel>(
-                      create: (context) => SignUpViewModel(),
-                      builder: (context, child) {
-                        return const SignUpScreen();
-                      },
-                    ),
-                ResetPasswordScreen.routeName: (context) =>
-                    const ResetPasswordScreen(),
-                Layout.routeName: (context) => const Layout(),
-                SearchScreen.routeName: (context) => const SearchScreen(),
-                DetailsScreen.routeName: (context) => const DetailsScreen(),
-                AccountInfoScreen.routeName: (context) =>
-                    const AccountInfoScreen(),
-                ChangePasswordScreen.routeName: (context) =>
-                    const ChangePasswordScreen(),
-                ForgetPasswordScreen.routeName: (context) =>
-                    const ForgetPasswordScreen(),
-                ArViewScreen.routeName: (context) => const ArViewScreen(),
-              },
+              routes: _buildRoutes(),
               builder: EasyLoading.init(
                 builder: BotToastInit(),
               ),
@@ -97,5 +68,33 @@ class MyApp extends StatelessWidget {
         );
       },
     );
+  }
+
+  Map<String, Widget Function(BuildContext)> _buildRoutes() {
+    return {
+      OnboardingScreens.routeName: (context) => const OnboardingScreens(),
+      LoginScreen.routeName: (context) =>
+          ChangeNotifierProvider<LoginViewModel>(
+            create: (context) => LoginViewModel(),
+            builder: (context, child) {
+              return const LoginScreen();
+            },
+          ),
+      SignUpScreen.routeName: (context) =>
+          ChangeNotifierProvider<SignUpViewModel>(
+            create: (context) => SignUpViewModel(),
+            builder: (context, child) {
+              return const SignUpScreen();
+            },
+          ),
+      ResetPasswordScreen.routeName: (context) => const ResetPasswordScreen(),
+      Layout.routeName: (context) => const Layout(),
+      SearchScreen.routeName: (context) => const SearchScreen(),
+      DetailsScreen.routeName: (context) => const DetailsScreen(),
+      AccountInfoScreen.routeName: (context) => const AccountInfoScreen(),
+      ChangePasswordScreen.routeName: (context) => const ChangePasswordScreen(),
+      ForgetPasswordScreen.routeName: (context) => const ForgetPasswordScreen(),
+      ArViewScreen.routeName: (context) => const ArViewScreen(),
+    };
   }
 }

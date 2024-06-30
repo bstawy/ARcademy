@@ -144,7 +144,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: SizedBox(
-                    height: 37.h * searchedOrgans.length,
+                    height: 50.h * searchedOrgans.length,
                     child: ListView.builder(
                       padding: EdgeInsets.only(top: 16.h),
                       itemCount: searchedOrgans.length,

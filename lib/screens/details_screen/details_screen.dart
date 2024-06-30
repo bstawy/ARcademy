@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/manager/app_provider.dart';
+import '../../core/services/snackbar_service.dart';
 import '../../core/widgets/ar_view_button.dart';
 import '../../core/widgets/custom_action_button.dart';
 import '../../core/widgets/favorite_button.dart';
@@ -133,6 +135,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 iconWidth: 24.w,
                 isFavorite: organ.isFavorite,
                 onClicked: () {
+
                   clickOnFavoriteButton(parentContext, organ);
                   setState(() {});
                 },
@@ -161,15 +164,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   void clickOnFavoriteButton(BuildContext parentContext, OrganModel organ) {
-    final provider =
-        Provider.of<FavoritesViewModel>(parentContext, listen: false);
-    if (organ.isFavorite) {
-      provider.deleteFromFavorites(organ);
+    if (AppProvider.user != null) {
+      final provider =
+      Provider.of<FavoritesViewModel>(parentContext, listen: false);
+      if (organ.isFavorite) {
+        provider.deleteFromFavorites(organ);
+      } else {
+        provider.addToFavorites(organ);
+      }
+      organ.isFavorite = !organ.isFavorite;
+      Provider.of<LayoutViewModel>(parentContext, listen: false)
+          .getData(parentContext);
+      setState(() {});
+
     } else {
-      provider.addToFavorites(organ);
+      SnackBarService.showErrorMessage(
+          context, "Please login first");
+
     }
-    organ.isFavorite = !organ.isFavorite;
-    Provider.of<LayoutViewModel>(parentContext, listen: false)
-        .getData(parentContext);
+
   }
 }

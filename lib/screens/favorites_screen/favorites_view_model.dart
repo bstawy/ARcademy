@@ -17,7 +17,7 @@ class FavoritesViewModel extends ChangeNotifier {
   bool get hasError => _hasError;
 
   Future<void> getFavorites() async {
-    if (AppProvider.user == null && AppProvider.userId == "null") {
+    if (AppProvider.user != null && AppProvider.userId != "null") {
       _isLoading = true;
       _hasError = false;
       notifyListeners();
@@ -46,7 +46,7 @@ class FavoritesViewModel extends ChangeNotifier {
   }
 
   void _addToMyFavorites(List<dynamic> favoriteItemIds) {
-    if (AppProvider.user == null && AppProvider.userId == "null") {
+    if (AppProvider.user != null && AppProvider.userId != "null") {
       for (final itemId in favoriteItemIds) {
         for (final systemOrgans in SystemsData.systemsOrgans.values) {
           for (final organ in systemOrgans) {
@@ -61,14 +61,14 @@ class FavoritesViewModel extends ChangeNotifier {
   }
 
   void addToFavorites(OrganModel organ) {
-    if (AppProvider.user == null && AppProvider.userId == "null") {
+    if (AppProvider.user != null && AppProvider.userId != "null") {
       FirebaseUtils.addToFavorites(itemId: organ.id);
       notifyListeners();
     }
   }
 
   void deleteFromFavorites(OrganModel organ) {
-    if (AppProvider.user == null && AppProvider.userId == "null") {
+    if (AppProvider.user != null && AppProvider.userId != "null") {
       FirebaseUtils.deleteFromFavorites(itemId: organ.id);
       notifyListeners();
     }

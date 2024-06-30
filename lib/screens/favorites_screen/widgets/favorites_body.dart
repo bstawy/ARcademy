@@ -16,66 +16,81 @@ class FavoritesBody extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    return Consumer<FavoritesViewModel>(
-      builder: (context, viewModel, child) {
-        if (viewModel.isLoading) {
-          return buildLoadingWidget(theme);
-        } else if (viewModel.hasError) {
-          return buildErrorWidget(theme);
-        } else {
-          return SliverPadding(
+    return (AppProvider.user == null)
+        ? SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
-            sliver: (viewModel.myFavorites.isNotEmpty)
-                ? SliverGrid(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return FadeInUp(
-                          animate: true,
-                          delay: const Duration(milliseconds: 50),
-                          child: FavoritesItemCard(
-                              organ: viewModel.myFavorites[index]),
-                        );
-                      },
-                      childCount: viewModel.myFavorites.length,
-                    ),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16.w,
-                      mainAxisSpacing: 16.h,
-                      childAspectRatio: ((MediaQuery.of(context).size.width -
-                                  (24.w + 24.w + 16.w)) /
-                              2) /
-                          220.h,
-                    ),
-                  )
-                : SliverToBoxAdapter(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 170.h,
-                        ),
-                        (AppProvider.user == null)
-                            ? CustomMaterialButton(
-                          title: "\t\t\t\tLogin\t\t\t\t",
-                          backgroundColor: theme.colorScheme.primary,
-                          onClicked: () {
-                            Navigator.pushNamed(
-                                context, LoginScreen.routeName);
-                          },
-                        )
-                            : Text(
-                          "No Favorites",
-                          style: theme.textTheme.titleLarge,
-                        ),
-                      ],
-                    ),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 170.h,
                   ),
+                  CustomMaterialButton(
+                    title: "\t\t\t\tLogin\t\t\t\t",
+                    backgroundColor: theme.colorScheme.primary,
+                    onClicked: () {
+                      Navigator.pushNamed(context, LoginScreen.routeName);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          )
+        : Consumer<FavoritesViewModel>(
+            builder: (context, viewModel, child) {
+              if (viewModel.isLoading) {
+                return buildLoadingWidget(theme);
+              } else if (viewModel.hasError) {
+                return buildErrorWidget(theme);
+              } else {
+                return SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  sliver: (viewModel.myFavorites.isNotEmpty)
+                      ? SliverGrid(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return FadeInUp(
+                                animate: true,
+                                delay: const Duration(milliseconds: 50),
+                                child: FavoritesItemCard(
+                                    organ: viewModel.myFavorites[index]),
+                              );
+                            },
+                            childCount: viewModel.myFavorites.length,
+                          ),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16.w,
+                            mainAxisSpacing: 16.h,
+                            childAspectRatio:
+                                ((MediaQuery.of(context).size.width -
+                                            (24.w + 24.w + 16.w)) /
+                                        2) /
+                                    220.h,
+                          ),
+                        )
+                      : SliverToBoxAdapter(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 170.h,
+                              ),
+                              Text(
+                                "No Favorites",
+                                style: theme.textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                );
+              }
+            },
           );
-        }
-      },
-    );
   }
 
   SliverToBoxAdapter buildErrorWidget(ThemeData theme) {

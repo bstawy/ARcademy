@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../models/organ_model.dart';
 import '../../screens/ar_view_screen/ar_view_screen.dart';
 import '../../screens/details_screen/details_screen.dart';
+import '../manager/app_provider.dart';
+import '../services/snackbar_service.dart';
 import '../web_services/firebase_utils.dart';
 import 'ar_view_button.dart';
 import 'favorite_button.dart';
@@ -98,14 +100,19 @@ class _ItemCardState extends State<ItemCard> {
                   iconHeight: 24.h,
                   isFavorite: widget.organ.isFavorite,
                   onClicked: () {
-                    if (widget.organ.isFavorite) {
-                      FirebaseUtils.deleteFromFavorites(
-                          itemId: widget.organ.id);
+                    if (AppProvider.user != null) {
+                      if (widget.organ.isFavorite) {
+                        FirebaseUtils.deleteFromFavorites(
+                            itemId: widget.organ.id);
+                      } else {
+                        FirebaseUtils.addToFavorites(itemId: widget.organ.id);
+                      }
+                      widget.organ.isFavorite = !widget.organ.isFavorite;
+                      setState(() {});
                     } else {
-                      FirebaseUtils.addToFavorites(itemId: widget.organ.id);
+                      SnackBarService.showErrorMessage(
+                          context, "Please login first");
                     }
-                    widget.organ.isFavorite = !widget.organ.isFavorite;
-                    setState(() {});
                   },
                 ),
                 SizedBox(width: 8.w),
